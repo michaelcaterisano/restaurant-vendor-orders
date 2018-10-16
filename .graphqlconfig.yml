@@ -1,0 +1,16 @@
+projects:
+  tampopoapi:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        graphQLApiId: rkaorpm2ovh6vbr2a4odmhegii
+      endpoints:
+        prod: >-
+          https://2acmfsg4svguxoovj6it65tko4.appsync-api.us-east-1.amazonaws.com/graphql

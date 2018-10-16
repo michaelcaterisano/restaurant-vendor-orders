@@ -195,7 +195,7 @@ See the section about [deployment](#deployment) for more information.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Product: this is a one-way operation. Once you `eject`, you can’t go back!**
 
 If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
@@ -224,7 +224,7 @@ Learn more about [different proposal stages](https://babeljs.io/docs/plugins/#pr
 
 While we recommend using experimental proposals with some caution, Facebook heavily uses these features in the product code, so we intend to provide [codemods](https://medium.com/@cpojer/effective-javascript-codemods-5a6686bb46fb) if any of these proposals change in the future.
 
-Note that **this project includes no [polyfills](https://github.com/facebook/create-react-app/blob/master/packages/react-app-polyfill/README.md)** by default.
+Product that **this project includes no [polyfills](https://github.com/facebook/create-react-app/blob/master/packages/react-app-polyfill/README.md)** by default.
 
 If you use any other ES6+ features that need **runtime support** (such as `Array.from()` or `Symbol`), make sure you are [including the appropriate polyfills manually](https://github.com/facebook/create-react-app/blob/master/packages/react-app-polyfill/README.md), or that the browsers you are targeting already support them.
 
@@ -234,7 +234,7 @@ To configure the syntax highlighting in your favorite text editor, head to the [
 
 ## Displaying Lint Output in the Editor
 
-> Note: this feature is available with `react-scripts@0.2.0` and higher.<br>
+> Product: this feature is available with `react-scripts@0.2.0` and higher.<br>
 > It also only works with npm 3 or higher.
 
 Some editors, including Sublime Text, Atom, and Visual Studio Code, provide plugins for ESLint.
@@ -251,7 +251,7 @@ You would need to install an ESLint plugin for your editor first. Then, add a fi
 
 Now your editor should report the linting warnings.
 
-Note that even if you edit your `.eslintrc` file further, these changes will **only affect the editor integration**. They won’t affect the terminal and in-browser lint output. This is because Create React App intentionally provides a minimal set of rules that find common mistakes.
+Product that even if you edit your `.eslintrc` file further, these changes will **only affect the editor integration**. They won’t affect the terminal and in-browser lint output. This is because Create React App intentionally provides a minimal set of rules that find common mistakes.
 
 If you want to enforce a coding style for your project, consider using [Prettier](https://github.com/jlongster/prettier) instead of ESLint style rules.
 
@@ -285,7 +285,7 @@ Then add the block below to your `launch.json` file and put it inside the `.vsco
 }
 ```
 
-> Note: the URL may be different if you've made adjustments via the [HOST or PORT environment variables](#advanced-configuration).
+> Product: the URL may be different if you've made adjustments via the [HOST or PORT environment variables](#advanced-configuration).
 
 Start your app by running `npm start`, and start debugging in VS Code by pressing `F5` or by clicking the green debug icon. You can now write code, set breakpoints, make changes to the code, and debug your newly modified code—all from your editor.
 
@@ -297,7 +297,7 @@ You would need to have [WebStorm](https://www.jetbrains.com/webstorm/) and [JetB
 
 In the WebStorm menu `Run` select `Edit Configurations...`. Then click `+` and select `JavaScript Debug`. Paste `http://localhost:3000` into the URL field and save the configuration.
 
-> Note: the URL may be different if you've made adjustments via the [HOST or PORT environment variables](#advanced-configuration).
+> Product: the URL may be different if you've made adjustments via the [HOST or PORT environment variables](#advanced-configuration).
 
 Start your app by running `npm start`, then press `^D` on macOS or `F9` on Windows and Linux or click the green debug icon to start debugging in WebStorm.
 
@@ -358,7 +358,7 @@ Next you might want to integrate Prettier in your favorite editor. Read the sect
 
 You can find the source HTML file in the `public` folder of the generated project. You may edit the `<title>` tag in it to change the title from “React App” to anything else.
 
-Note that normally you wouldn’t edit files in the `public` folder very often. For example, [adding a stylesheet](#adding-a-stylesheet) is done without touching the HTML.
+Product that normally you wouldn’t edit files in the `public` folder very often. For example, [adding a stylesheet](#adding-a-stylesheet) is done without touching the HTML.
 
 If you need to dynamically update the page title based on the content, you can use the browser [`document.title`](https://developer.mozilla.org/en-US/docs/Web/API/Document/title) API. For more complex scenarios when you want to change the title from React components, you can use [React Helmet](https://github.com/nfl/react-helmet), a third party library.
 
@@ -516,7 +516,7 @@ If you are concerned about using Webpack-specific semantics, you can put all you
 
 ## Adding a CSS Modules Stylesheet
 
-> Note: this feature is available with `react-scripts@2.0.0` and higher.
+> Product: this feature is available with `react-scripts@2.0.0` and higher.
 
 This project supports [CSS Modules](https://github.com/css-modules/css-modules) alongside regular stylesheets using the `[name].module.css` file naming convention. CSS Modules allows the scoping of CSS by automatically creating a unique classname of the format `[filename]\_[classname]\_\_[hash]`.
 
@@ -568,7 +568,7 @@ No clashes from other `.error` class names
 
 ## Adding a Sass Stylesheet
 
-> Note: this feature is available with `react-scripts@2.0.0` and higher.
+> Product: this feature is available with `react-scripts@2.0.0` and higher.
 
 Generally, we recommend that you don’t reuse the same CSS classes across different components. For example, instead of using a `.Button` CSS class in `<AcceptButton>` and `<RejectButton>` components, we recommend creating a `<Button>` component with its own `.Button` styles, that both `<AcceptButton>` and `<RejectButton>` can render (but [not inherit](https://facebook.github.io/react/docs/composition-vs-inheritance.html)).
 
@@ -596,9 +596,9 @@ This will allow you to do imports like
 
 > **Tip:** You can opt into using this feature with [CSS modules](#adding-a-css-modules-stylesheet) too!
 
-> **Note:** You must prefix imports from `node_modules` with `~` as displayed above.
+> **Product:** You must prefix imports from `node_modules` with `~` as displayed above.
 
-> **Note:** If you're using Flow, add the following to your `.flowconfig` so it'll recognize the `.sass` or `.scss` imports.
+> **Product:** If you're using Flow, add the following to your `.flowconfig` so it'll recognize the `.sass` or `.scss` imports.
 
 ```
 [options]
@@ -690,7 +690,7 @@ An alternative way of handling static assets is described in the next section.
 
 ### Adding SVGs
 
-> Note: this feature is available with `react-scripts@2.0.0` and higher.
+> Product: this feature is available with `react-scripts@2.0.0` and higher.
 
 One way to add SVG files was described in the section above. You can also import SVGs directly as React components. You can use either of the two approaches. In your code it would look like this:
 
@@ -708,7 +708,7 @@ This is handy if you don't want to load SVG as a separate file. Don't forget the
 
 ## Using the `public` Folder
 
-> Note: this feature is available with `react-scripts@0.5.0` and higher.
+> Product: this feature is available with `react-scripts@0.5.0` and higher.
 
 ### Changing the HTML
 
@@ -719,7 +719,7 @@ The `<script>` tag with the compiled code will be added to it automatically duri
 
 You can also add other assets to the `public` folder.
 
-Note that we normally encourage you to `import` assets in JavaScript files instead.
+Product that we normally encourage you to `import` assets in JavaScript files instead.
 For example, see the sections on [adding a stylesheet](#adding-a-stylesheet) and [adding images and fonts](#adding-images-fonts-and-files).
 This mechanism provides a number of benefits:
 
@@ -745,7 +745,7 @@ In JavaScript code, you can use `process.env.PUBLIC_URL` for similar purposes:
 
 ```js
 render() {
-  // Note: this is an escape hatch and should be used sparingly!
+  // Product: this is an escape hatch and should be used sparingly!
   // Normally we recommend using `import` for getting asset URLs
   // as described in “Adding Images and Fonts” above this section.
   return <img src={process.env.PUBLIC_URL + '/img/logo.png'} />;
@@ -768,7 +768,7 @@ The `public` folder is useful as a workaround for a number of less common cases:
 - You want to include a small script like [`pace.js`](http://github.hubspot.com/pace/docs/welcome/) outside of the bundled code.
 - Some library may be incompatible with Webpack and you have no other option but to include it as a `<script>` tag.
 
-Note that if you add a `<script>` that declares global variables, you also need to read the next section on using them.
+Product that if you add a `<script>` that declares global variables, you also need to read the next section on using them.
 
 ## Using Global Variables
 
@@ -818,7 +818,7 @@ Now you are ready to use the imported reactstrap components within your componen
 
 ### Using a Custom Theme
 
-> Note: this feature is available with `react-scripts@2.0.0` and higher.
+> Product: this feature is available with `react-scripts@2.0.0` and higher.
 
 Sometimes you might need to tweak the visual styles of Bootstrap (or equivalent package).<br>
 As of `react-scripts@2.0.0` you can import `.scss` files. This makes it possible to use a package's built-in Sass variables for global style preferences.
@@ -833,7 +833,7 @@ $body-bg: #000;
 @import '~bootstrap/scss/bootstrap.scss';
 ```
 
-> **Note:** You must prefix imports from `node_modules` with `~` as displayed above.
+> **Product:** You must prefix imports from `node_modules` with `~` as displayed above.
 
 Finally, import the newly created `.scss` file instead of the default Bootstrap `.css` in the beginning of your `src/index.js` file, for example:
 
@@ -912,11 +912,11 @@ yarn add react-router-dom
 
 To try it, delete all the code in `src/App.js` and replace it with any of the examples on its website. The [Basic Example](https://reacttraining.com/react-router/web/example/basic) is a good place to get started.
 
-Note that [you may need to configure your production server to support client-side routing](#serving-apps-with-client-side-routing) before deploying your app.
+Product that [you may need to configure your production server to support client-side routing](#serving-apps-with-client-side-routing) before deploying your app.
 
 ## Adding Custom Environment Variables
 
-> Note: this feature is available with `react-scripts@0.2.3` and higher.
+> Product: this feature is available with `react-scripts@0.2.3` and higher.
 
 Your project can consume variables declared in your environment as if they were declared locally in your JS files. By
 default you will have `NODE_ENV` defined for you, and any other environment variables starting with
@@ -924,7 +924,7 @@ default you will have `NODE_ENV` defined for you, and any other environment vari
 
 **The environment variables are embedded during the build time**. Since Create React App produces a static HTML/CSS/JS bundle, it can’t possibly read them at runtime. To read them at runtime, you would need to load HTML into memory on the server and replace placeholders in runtime, just like [described here](#injecting-data-from-the-server-into-the-page). Alternatively you can rebuild the app on the server anytime you change them.
 
-> Note: You must create custom environment variables beginning with `REACT_APP_`. Any other variables except `NODE_ENV` will be ignored to avoid accidentally [exposing a private key on the machine that could have the same name](https://github.com/facebook/create-react-app/issues/865#issuecomment-252199527). Changing any environment variables will require you to restart the development server if it is running.
+> Product: You must create custom environment variables beginning with `REACT_APP_`. Any other variables except `NODE_ENV` will be ignored to avoid accidentally [exposing a private key on the machine that could have the same name](https://github.com/facebook/create-react-app/issues/865#issuecomment-252199527). Changing any environment variables will require you to restart the development server if it is running.
 
 These environment variables will be defined for you on `process.env`. For example, having an environment
 variable named `REACT_APP_SECRET_CODE` will be exposed in your JS as `process.env.REACT_APP_SECRET_CODE`.
@@ -979,7 +979,7 @@ When you compile the app with `npm run build`, the minification step will strip 
 
 ### Referencing Environment Variables in the HTML
 
-> Note: this feature is available with `react-scripts@0.9.0` and higher.
+> Product: this feature is available with `react-scripts@0.9.0` and higher.
 
 You can also access the environment variables starting with `REACT_APP_` in the `public/index.html`. For example:
 
@@ -987,7 +987,7 @@ You can also access the environment variables starting with `REACT_APP_` in the 
 <title>%REACT_APP_WEBSITE_NAME%</title>
 ```
 
-Note that the caveats from the above section apply:
+Product that the caveats from the above section apply:
 
 - Apart from a few built-in variables (`NODE_ENV` and `PUBLIC_URL`), variable names must start with `REACT_APP_` to work.
 - The environment variables are injected at build time. If you need to inject them at runtime, [follow this approach instead](#generating-dynamic-meta-tags-on-the-server).
@@ -1003,7 +1003,7 @@ life of the shell session.
 set "REACT_APP_SECRET_CODE=abcdef" && npm start
 ```
 
-(Note: Quotes around the variable assignment are required to avoid a trailing whitespace.)
+(Product: Quotes around the variable assignment are required to avoid a trailing whitespace.)
 
 #### Windows (Powershell)
 
@@ -1019,7 +1019,7 @@ REACT_APP_SECRET_CODE=abcdef npm start
 
 ### Adding Development Environment Variables In `.env`
 
-> Note: this feature is available with `react-scripts@0.5.0` and higher.
+> Product: this feature is available with `react-scripts@0.5.0` and higher.
 
 To define permanent environment variables, create a file called `.env` in the root of your project:
 
@@ -1027,13 +1027,13 @@ To define permanent environment variables, create a file called `.env` in the ro
 REACT_APP_SECRET_CODE=abcdef
 ```
 
-> Note: You must create custom environment variables beginning with `REACT_APP_`. Any other variables except `NODE_ENV` will be ignored to avoid [accidentally exposing a private key on the machine that could have the same name](https://github.com/facebook/create-react-app/issues/865#issuecomment-252199527). Changing any environment variables will require you to restart the development server if it is running.
+> Product: You must create custom environment variables beginning with `REACT_APP_`. Any other variables except `NODE_ENV` will be ignored to avoid [accidentally exposing a private key on the machine that could have the same name](https://github.com/facebook/create-react-app/issues/865#issuecomment-252199527). Changing any environment variables will require you to restart the development server if it is running.
 
 `.env` files **should be** checked into source control (with the exclusion of `.env*.local`).
 
 #### What other `.env` files can be used?
 
-> Note: this feature is **available with `react-scripts@1.0.0` and higher**.
+> Product: this feature is **available with `react-scripts@1.0.0` and higher**.
 
 - `.env`: Default.
 - `.env.local`: Local overrides. **This file is loaded for all environments except test.**
@@ -1044,17 +1044,17 @@ Files on the left have more priority than files on the right:
 
 - `npm start`: `.env.development.local`, `.env.development`, `.env.local`, `.env`
 - `npm run build`: `.env.production.local`, `.env.production`, `.env.local`, `.env`
-- `npm test`: `.env.test.local`, `.env.test`, `.env` (note `.env.local` is missing)
+- `npm test`: `.env.test.local`, `.env.test`, `.env` (product `.env.local` is missing)
 
 These variables will act as the defaults if the machine does not explicitly set them.<br>
 Please refer to the [dotenv documentation](https://github.com/motdotla/dotenv) for more details.
 
-> Note: If you are defining environment variables for development, your CI and/or hosting platform will most likely need
+> Product: If you are defining environment variables for development, your CI and/or hosting platform will most likely need
 > these defined as well. Consult their documentation how to do this. For example, see the documentation for [Travis CI](https://docs.travis-ci.com/user/environment-variables/) or [Heroku](https://devcenter.heroku.com/articles/config-vars).
 
 #### Expanding Environment Variables In `.env`
 
-> Note: this feature is available with `react-scripts@1.1.0` and higher.
+> Product: this feature is available with `react-scripts@1.1.0` and higher.
 
 Expand variables already on your machine for use in your `.env` file (using [dotenv-expand](https://github.com/motdotla/dotenv-expand)).
 
@@ -1127,7 +1127,7 @@ Check out [this tutorial](https://api-platform.com/docs/distribution).
 
 ## Proxying API Requests in Development
 
-> Note: this feature is available with `react-scripts@0.2.3` and higher.
+> Product: this feature is available with `react-scripts@0.2.3` and higher.
 
 People often serve the front-end React app from the same host and port as their backend implementation.<br>
 For example, a production setup might look like this after the app is deployed:
@@ -1179,7 +1179,7 @@ HOST=mypublicdevhost.com
 
 If you restart the development server now and load the app from the specified host, it should work.
 
-If you are still having issues or if you’re using a more exotic environment like a cloud editor, you can bypass the host check completely by adding a line to `.env.development.local`. **Note that this is dangerous and exposes your machine to remote code execution from malicious websites:**
+If you are still having issues or if you’re using a more exotic environment like a cloud editor, you can bypass the host check completely by adding a line to `.env.development.local`. **Product that this is dangerous and exposes your machine to remote code execution from malicious websites:**
 
 ```
 # NOTE: THIS IS DANGEROUS!
@@ -1191,7 +1191,7 @@ We don’t recommend this approach.
 
 ### Configuring the Proxy Manually
 
-> Note: this feature is available with `react-scripts@2.0.0` and higher.
+> Product: this feature is available with `react-scripts@2.0.0` and higher.
 
 If the `proxy` option is **not** flexible enough for you, you can get direct access to the Express app instance and hook up your own proxy middleware.
 
@@ -1225,15 +1225,15 @@ module.exports = function(app) {
 };
 ```
 
-> **Note:** You do not need to import this file anywhere. It is automatically registered when you start the development server.
+> **Product:** You do not need to import this file anywhere. It is automatically registered when you start the development server.
 
-> **Note:** This file only supports Node's JavaScript syntax. Be sure to only use supported language features (i.e. no support for Flow, ES Modules, etc).
+> **Product:** This file only supports Node's JavaScript syntax. Be sure to only use supported language features (i.e. no support for Flow, ES Modules, etc).
 
-> **Note:** Passing the path to the proxy function allows you to use globbing and/or pattern matching on the path, which is more flexible than the express route matching.
+> **Product:** Passing the path to the proxy function allows you to use globbing and/or pattern matching on the path, which is more flexible than the express route matching.
 
 ## Using HTTPS in Development
 
-> Note: this feature is available with `react-scripts@0.4.0` and higher.
+> Product: this feature is available with `react-scripts@0.4.0` and higher.
 
 You may require the dev server to serve pages over HTTPS. One particular case where this could be useful is when using [the "proxy" feature](#proxying-api-requests-in-development) to proxy requests to an API server when that API server is itself serving HTTPS.
 
@@ -1245,7 +1245,7 @@ To do this, set the `HTTPS` environment variable to `true`, then start the dev s
 set HTTPS=true&&npm start
 ```
 
-(Note: the lack of whitespace is intentional.)
+(Product: the lack of whitespace is intentional.)
 
 #### Windows (Powershell)
 
@@ -1259,7 +1259,7 @@ set HTTPS=true&&npm start
 HTTPS=true npm start
 ```
 
-Note that the server will use a self-signed certificate, so your web browser will almost definitely display a warning upon accessing the page.
+Product that the server will use a self-signed certificate, so your web browser will almost definitely display a warning upon accessing the page.
 
 ## Generating Dynamic `<meta>` Tags on the Server
 
@@ -1304,7 +1304,7 @@ Then, on the server, you can replace `__SERVER_DATA__` with a JSON of real data 
 
 ## Running Tests
 
-> Note: this feature is available with `react-scripts@0.3.0` and higher.<br>
+> Product: this feature is available with `react-scripts@0.3.0` and higher.<br>
 
 > [Read the migration guide to learn how to enable it in older projects!](https://github.com/facebook/create-react-app/blob/master/CHANGELOG.md#migrating-from-023-to-030)
 
@@ -1332,7 +1332,7 @@ We recommend to put the test files (or `__tests__` folders) next to the code the
 
 When you run `npm test`, Jest will launch in the watch mode. Every time you save a file, it will re-run the tests, just like `npm start` recompiles the code.
 
-The watcher includes an interactive command-line interface with the ability to run all tests, or focus on a search pattern. It is designed this way so that you can keep it open and enjoy fast re-runs. You can learn the commands from the “Watch Usage” note that the watcher prints after every run:
+The watcher includes an interactive command-line interface with the ability to run all tests, or focus on a search pattern. It is designed this way so that you can keep it open and enjoy fast re-runs. You can learn the commands from the “Watch Usage” product that the watcher prints after every run:
 
 ![Jest watch mode](http://facebook.github.io/jest/img/blog/15-watch.gif)
 
@@ -1408,7 +1408,7 @@ import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 ```
 
-> Note: Keep in mind that if you decide to "eject" before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it. [Read here](#initializing-test-environment) to learn how to add this after ejecting.
+> Product: Keep in mind that if you decide to "eject" before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it. [Read here](#initializing-test-environment) to learn how to add this after ejecting.
 
 Now you can write a smoke test with it:
 
@@ -1525,7 +1525,7 @@ and then use them in your tests like you normally do.
 
 ### Initializing Test Environment
 
-> Note: this feature is available with `react-scripts@0.4.0` and higher.
+> Product: this feature is available with `react-scripts@0.4.0` and higher.
 
 If your app uses a browser API that you need to mock in your tests or if you just need a global setup before running your tests, add a `src/setupTests.js` to your project. It will be automatically executed before running your tests.
 
@@ -1542,7 +1542,7 @@ const localStorageMock = {
 global.localStorage = localStorageMock;
 ```
 
-> Note: Keep in mind that if you decide to "eject" before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it, so you should manually create the property `setupTestFrameworkScriptFile` in the configuration for Jest, something like the following:
+> Product: Keep in mind that if you decide to "eject" before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it, so you should manually create the property `setupTestFrameworkScriptFile` in the configuration for Jest, something like the following:
 
 > ```js
 > "jest": {
@@ -1559,11 +1559,11 @@ Similarly, `fit()` lets you focus on a specific test without running any other t
 ### Coverage Reporting
 
 Jest has an integrated coverage reporter that works well with ES6 and requires no configuration.<br>
-Run `npm test -- --coverage` (note extra `--` in the middle) to include a coverage report like this:
+Run `npm test -- --coverage` (product extra `--` in the middle) to include a coverage report like this:
 
 ![coverage report](http://i.imgur.com/5bFhnTS.png)
 
-Note that tests run much slower with coverage so it is recommended to run it separately from your normal workflow.
+Product that tests run much slower with coverage so it is recommended to run it separately from your normal workflow.
 
 #### Configuration
 
@@ -1647,7 +1647,7 @@ set CI=true&&npm test
 set CI=true&&npm run build
 ```
 
-(Note: the lack of whitespace is intentional.)
+(Product: the lack of whitespace is intentional.)
 
 ##### Windows (Powershell)
 
@@ -1715,7 +1715,7 @@ If you use [Visual Studio Code](https://code.visualstudio.com), there is a [Jest
 
 There are various ways to setup a debugger for your Jest tests. We cover debugging in Chrome and [Visual Studio Code](https://code.visualstudio.com/).
 
-> Note: debugging tests requires Node 8 or higher.
+> Product: debugging tests requires Node 8 or higher.
 
 ### Debugging Tests in Chrome
 
@@ -1743,7 +1743,7 @@ about:inspect
 
 After opening that link, the Chrome Developer Tools will be displayed. Select `inspect` on your process and a breakpoint will be set at the first line of the react script (this is done simply to give you time to open the developer tools and to prevent Jest from executing before you have time to do so). Click the button that looks like a "play" button in the upper right hand side of the screen to continue execution. When Jest executes the test that contains the debugger statement, execution will pause and you can examine the current scope and call stack.
 
-> Note: the --runInBand cli option makes sure Jest runs test in the same process rather than spawning processes for individual tests. Normally Jest parallelizes test runs across processes but it is hard to debug many processes at the same time.
+> Product: the --runInBand cli option makes sure Jest runs test in the same process rather than spawning processes for individual tests. Normally Jest parallelizes test runs across processes but it is hard to debug many processes at the same time.
 
 ### Debugging Tests in Visual Studio Code
 
@@ -1871,7 +1871,7 @@ following in their [`src/index.js`](src/index.js) file:
 
 ```js
 // If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
+// unregister() to register() below. Product this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
 ```
@@ -2104,7 +2104,7 @@ To override this, specify the `homepage` in your `package.json`, for example:
 
 This will let Create React App correctly infer the root path to use in the generated HTML file.
 
-**Note**: If you are using `react-router@^4`, you can root `<Link>`s using the `basename` prop on any `<Router>`.<br>
+**Product**: If you are using `react-router@^4`, you can root `<Link>`s using the `basename` prop on any `<Router>`.<br>
 More information [here](https://reacttraining.com/react-router/web/api/BrowserRouter/basename-string).<br>
 <br>
 For example:
@@ -2116,7 +2116,7 @@ For example:
 
 #### Serving the Same Build from Different Paths
 
-> Note: this feature is available with `react-scripts@0.9.0` and higher.
+> Product: this feature is available with `react-scripts@0.9.0` and higher.
 
 If you are not using the HTML5 `pushState` history API or not using client-side routing at all, it is unnecessary to specify the URL from which your app will be served. Instead, you can put this in your `package.json`:
 
@@ -2235,7 +2235,7 @@ For more information see [Add Firebase to your JavaScript Project](https://fireb
 
 ### [GitHub Pages](https://pages.github.com/)
 
-> Note: this feature is available with `react-scripts@0.2.0` and higher.
+> Product: this feature is available with `react-scripts@0.2.0` and higher.
 
 #### Step 1: Add `homepage` to `package.json`
 
@@ -2327,7 +2327,7 @@ Your CNAME file should look like this:
 mywebsite.com
 ```
 
-#### Notes on client-side routing
+#### Products on client-side routing
 
 GitHub Pages doesn’t support routers that use the HTML5 `pushState` history API under the hood (for example, React Router using `browserHistory`). This is because when there is a fresh page load for a url like `http://user.github.io/todomvc/todos/42`, where `/todos/42` is a frontend route, the GitHub Pages server returns 404 because it knows nothing of `/todos/42`. If you want to add a router to a project hosted on GitHub Pages, here are a couple of solutions:
 
@@ -2453,7 +2453,7 @@ When asked about the project path, make sure to specify the `build` folder, for 
        project path: /path/to/project/build
 ```
 
-Note that in order to support routers that use HTML5 `pushState` API, you may want to rename the `index.html` in your build folder to `200.html` before deploying to Surge. This [ensures that every URL falls back to that file](https://surge.sh/help/adding-a-200-page-for-client-side-routing).
+Product that in order to support routers that use HTML5 `pushState` API, you may want to rename the `index.html` in your build folder to `200.html` before deploying to Surge. This [ensures that every URL falls back to that file](https://surge.sh/help/adding-a-200-page-for-client-side-routing).
 
 ## Advanced Configuration
 
