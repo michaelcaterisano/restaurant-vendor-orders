@@ -8,6 +8,16 @@ import aws_exports from './aws-exports'; // specify the location of aws-exports.
 Amplify.configure(aws_exports);
 
 
+/*
+TODO: 
+1) update product model to include Supplier and units
+2) create product card component
+3) create order model
+
+
+*/
+
+
 // works with appsync
 const createProduct = `mutation createProduct($name: String!, $price: Int!){
   createProduct(input:{
@@ -107,7 +117,7 @@ class App extends Component {
     this.listProducts();
   }
 
-  
+  // works
   async handleUpdate(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -117,22 +127,19 @@ class App extends Component {
     this.setState({ displayAdd:true, displayUpdate: false, value: "" });
   }
 
+  // works
   selectProduct(product){
     this.setState({id:product.id, value: product.product, displayAdd:false,displayUpdate:true});
   }
 
+  // works
   async listProducts(){
     const products = await API.graphql(graphqlOperation(readProduct));
     console.log(products)
     this.setState({products: products.data.listProducts.items});
   }
-  
-  logItem(item) {
-    console.log(item)
-  }
 
   render() {
-    console.log(this.state.products)
     const data = [].concat(this.state.products)
       .map((item,i)=> 
       <div className="alert alert-primary alert-dismissible show" role="alert">
