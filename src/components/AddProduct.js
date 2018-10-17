@@ -148,7 +148,7 @@ class AddProduct extends Component {
       <Product id={item.id} key={item.id} name={item.name} price={item.price} listProducts={this.listProducts.bind(this)} />
       )
     return (
-      <div className="App">
+      <div>
         {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Products App</h1>
