@@ -1,14 +1,14 @@
 {
     "providers": {
         "awscloudformation": {
-            "AuthRoleName": "tampoporeactamplify-20181016155617-authRole",
-            "UnauthRoleArn": "arn:aws:iam::175773093744:role/tampoporeactamplify-20181016155617-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::175773093744:role/tampoporeactamplify-20181016155617-authRole",
+            "AuthRoleName": "tampoporeactamplify-20181018104010-authRole",
+            "UnauthRoleArn": "arn:aws:iam::175773093744:role/tampoporeactamplify-20181018104010-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::175773093744:role/tampoporeactamplify-20181018104010-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "tampoporeactamplify-20181016155617-deployment",
-            "UnauthRoleName": "tampoporeactamplify-20181016155617-unauthRole",
-            "StackName": "tampoporeactamplify-20181016155617",
-            "StackId": "arn:aws:cloudformation:us-east-1:175773093744:stack/tampoporeactamplify-20181016155617/8c4fd740-d17d-11e8-887e-50fae98974c5"
+            "DeploymentBucketName": "tampoporeactamplify-20181018104010-deployment",
+            "UnauthRoleName": "tampoporeactamplify-20181018104010-unauthRole",
+            "StackName": "tampoporeactamplify-20181018104010",
+            "StackId": "arn:aws:cloudformation:us-east-1:175773093744:stack/tampoporeactamplify-20181018104010/b71fbdc0-d2e3-11e8-b43d-500c28b23699"
         }
     }
 }

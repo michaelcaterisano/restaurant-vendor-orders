@@ -5,9 +5,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import ProductEditor from './ProductEditor';
 import ListProducts from './ListProducts';
 import { listProducts } from '../graphql/queries.js';
+import Button from '@material-ui/core/Button';
 
-class AddProduct extends Component {
-  state = { products: [] }
+class Order extends Component {
+  state = { 
+      products: [],
+      order: []
+    }
 
   async componentDidMount() {
     const products = await API.graphql(graphqlOperation(listProducts));
@@ -24,10 +28,10 @@ class AddProduct extends Component {
     return (
       <React.Fragment>
         <CssBaseline />
-           <ProductEditor listProducts={this.listProducts.bind(this)}/>
-           <ListProducts products={products} listProducts={this.listProducts.bind(this)}/>
+          <Button> Order </Button>
+          <ListProducts products={products} listProducts={this.listProducts.bind(this)}/>
       </React.Fragment>
     );
   }
 }
-export default AddProduct;
+export default Order;

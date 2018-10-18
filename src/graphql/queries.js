@@ -6,6 +6,11 @@ export const getProduct = `query GetProduct($id: ID!) {
     id
     name
     price
+    vendor
+    category
+    units
+    defaultqty
+    maxqty
   }
 }
 `;
@@ -19,6 +24,52 @@ export const listProducts = `query ListProducts(
       id
       name
       price
+      vendor
+      category
+      units
+      defaultqty
+      maxqty
+    }
+    nextToken
+  }
+}
+`;
+export const getOrder = `query GetOrder($id: ID!) {
+  getOrder(id: $id) {
+    id
+    name
+    products {
+      id
+      name
+      price
+      vendor
+      category
+      units
+      defaultqty
+      maxqty
+    }
+  }
+}
+`;
+export const listOrders = `query ListOrders(
+  $filter: ModelOrderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      products {
+        id
+        name
+        price
+        vendor
+        category
+        units
+        defaultqty
+        maxqty
+      }
     }
     nextToken
   }

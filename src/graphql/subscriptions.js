@@ -6,6 +6,11 @@ export const onCreateProduct = `subscription OnCreateProduct {
     id
     name
     price
+    vendor
+    category
+    units
+    defaultqty
+    maxqty
   }
 }
 `;
@@ -14,6 +19,11 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
     id
     name
     price
+    vendor
+    category
+    units
+    defaultqty
+    maxqty
   }
 }
 `;
@@ -22,6 +32,62 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     id
     name
     price
+    vendor
+    category
+    units
+    defaultqty
+    maxqty
+  }
+}
+`;
+export const onCreateOrder = `subscription OnCreateOrder {
+  onCreateOrder {
+    id
+    name
+    products {
+      id
+      name
+      price
+      vendor
+      category
+      units
+      defaultqty
+      maxqty
+    }
+  }
+}
+`;
+export const onUpdateOrder = `subscription OnUpdateOrder {
+  onUpdateOrder {
+    id
+    name
+    products {
+      id
+      name
+      price
+      vendor
+      category
+      units
+      defaultqty
+      maxqty
+    }
+  }
+}
+`;
+export const onDeleteOrder = `subscription OnDeleteOrder {
+  onDeleteOrder {
+    id
+    name
+    products {
+      id
+      name
+      price
+      vendor
+      category
+      units
+      defaultqty
+      maxqty
+    }
   }
 }
 `;
