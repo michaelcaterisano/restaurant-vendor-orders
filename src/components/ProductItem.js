@@ -1,24 +1,108 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Product from './Product'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import Typography from "@material-ui/core/Typography";
 
-const ProductItem = ({ product, onAddToCartClicked, onRemoveFromCartClicked }) => (
-  <div style={{ marginBottom: 20 }}>
-    <Product
-      name={product.name}
-      price={product.price}
-      vendor={product.vendor}
-      quantity={product.inventory} />
-    <button
-      onClick={onAddToCartClicked}>
-      add
-    </button>
-    <button
-      onClick={onRemoveFromCartClicked}>
-      remove
-    </button>
-  </div>
-)
+const styles = {
+  card: {
+    minWidth: 200,
+    maxWidth: 345,
+    margin: 15
+  },
+  media: {
+    height: 100
+  },
+  cardActions: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  }
+};
+
+class ProductItem extends Component {
+  constructor() {
+    super();
+
+    this._incrementQT = this._incrementQT.bind(this);
+    this._decrementQT = this._decrementQT.bind(this);
+    this._itemQuantity = this._itemQuantity.bind(this);
+  }
+
+  _incrementQT() {
+    this.props.onAddToCartClicked();
+  }
+
+  _decrementQT() {
+    this.props.onRemoveFromCartClicked();
+  }
+
+  _itemQuantity() {
+    const { product, cart } = this.props;
+    const item = cart.find(obj => obj.id === product.id)
+    if (item) return item.quantity;
+  }
+
+  render() {
+    const {
+      product,
+      cart,
+      onAddToCartClicked,
+      onRemoveFromCartClicked,
+      classes
+    } = this.props;
+
+    return (
+      <Card className={classes.card}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image="https://placekitten.com/200/300"
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {product.name}
+            </Typography>
+            <Typography component="p">{product.price}</Typography>
+            <Typography component="p">{product.vendor}</Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions className={classes.cardActions}>
+          <Button
+            onClick={onRemoveFromCartClicked}
+            variant="fab"
+            mini
+            color="secondary"
+            aria-label="Remove"
+            className={classes.button}
+          >
+            <RemoveIcon />
+          </Button>
+          <Typography> {this._itemQuantity() || 0 } </Typography>
+          <Button
+            onClick={onAddToCartClicked}
+            variant="fab"
+            mini
+            color="secondary"
+            aria-label="Add"
+            className={classes.button}
+          >
+            <AddIcon />
+          </Button>
+        </CardActions>
+      </Card>
+    );
+  }
+}
 
 ProductItem.propTypes = {
   product: PropTypes.shape({
@@ -28,6 +112,6 @@ ProductItem.propTypes = {
   }).isRequired,
   onAddToCartClicked: PropTypes.func.isRequired,
   onRemoveFromCartClicked: PropTypes.func.isRequired
-}
+};
 
-export default ProductItem
+export default withStyles(styles)(ProductItem);

@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {API,graphqlOperation} from 'aws-amplify';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import ProductEditor from './ProductEditor';
-import ListProducts from './ListProducts';
+import ListProducts from './ProductList';
 import { listProducts } from '../graphql/queries.js';
 import Button from '@material-ui/core/Button';
 

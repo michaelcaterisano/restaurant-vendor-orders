@@ -1,12 +1,24 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 
-const ProductsList = ({ children }) => (
-  <div>{children}</div>
-)
+const styles = {
+  list: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  }
+};
+
+const ProductsList = ({ children, classes }) => (
+  <div className={classes.list}>
+    {children}
+  </div>
+);
 
 ProductsList.propTypes = {
-  children: PropTypes.node,
-}
+  children: PropTypes.node
+};
 
-export default ProductsList
+export default withStyles(styles)(ProductsList);
