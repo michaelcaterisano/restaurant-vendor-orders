@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {API,graphqlOperation} from 'aws-amplify';
+import { listProducts } from '../graphql/queries';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -15,9 +17,9 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import AddProduct from './AddProduct';
-import Order from './Order';
+import { mainListItems, secondaryListItems } from '../components/listItems';
+import AddProduct from '../components/AddProduct';
+import OrderContainer from './OrderContainer';
 
 const drawerWidth = 240;
 
@@ -100,10 +102,20 @@ const styles = theme => ({
   },
 });
 
+
+
+
 class Dashboard extends React.Component {
   state = {
+    products: [],
+    cart: [],
     open: true,
   };
+
+  async componentDidMount() {
+    const products = await API.graphql(graphqlOperation(listProducts));
+    this.setState({ products: products.data.listProducts.items });
+  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -113,7 +125,23 @@ class Dashboard extends React.Component {
     this.setState({ open: false });
   };
 
+  addToCart = (product) => {
+    this.setState( {cart: [...this.state.cart, product]})
+  }
+
+  removeFromCart = (product) => {
+    console.log('remove')
+    const id = product.id;
+    const cart = [...this.state.cart];
+    const index = cart.findIndex(item => item.id === id)
+    if (index !== -1 ) {
+      cart.splice(index, 1)
+      this.setState({ cart })
+    }
+  }
+
   render() {
+    console.log(this.state.cart)
     const { classes } = this.props;
 
     return (
@@ -174,7 +202,12 @@ class Dashboard extends React.Component {
                 <div className={classes.appBarSpacer} />
                 <div className={classes.tableContainer}>
                   <Route path="/add-product" component={AddProduct} />
-                  <Route path="/order" component={Order} />
+                  <Route path="/order" render={() => 
+                    <OrderContainer 
+                      products={this.state.products} 
+                      addToCart={this.addToCart.bind(this)} 
+                      removeFromCart={this.removeFromCart.bind(this)} />} />
+                {/* </div> */}
                 </div>
             </main>
             </div>

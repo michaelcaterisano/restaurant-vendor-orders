@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify from 'aws-amplify';
 import { withAuthenticator} from 'aws-amplify-react'; 
 import aws_exports from './aws-exports'; 
-import Dashboard from './components/Dashboard';
+import Dashboard from './containers/Dashboard';
 Amplify.configure(aws_exports);
 
 
