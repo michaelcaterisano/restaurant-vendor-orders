@@ -15,7 +15,7 @@ const ProductCart = ({ name, price, quantity }) => {
   console.log(quantity)
   return (
   <div>
-    <div>{name}, {quantity} @ {price}</div>
+    <div>{name}, {quantity} @ ${price}</div>
   </div>
   // <CardActions>
   //       <Button onClick={this.decrementQuantity} variant="fab" mini color="secondary" aria-label="Add" className={classes.button}>

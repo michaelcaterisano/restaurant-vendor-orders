@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
 import { createProduct } from "../graphql/mutations";
+import NewProductForm from './NewProductForm';
 
 const style = {
   textInput: {
@@ -37,11 +38,11 @@ class ProductEditor extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     event.stopPropagation();
-    const { listProducts } = this.props;
+    const { onProductSubmit } = this.props;
     const { name, price, vendor } = this.state;
     const product = { input: { name: name, price: price, vendor: vendor } };
     await API.graphql(graphqlOperation(createProduct, product));
-    this.props.onProductSubmit();
+    onProductSubmit();
     this.setState({ name: "", price: "", vendor: "" });
   }
 
@@ -51,7 +52,8 @@ class ProductEditor extends Component {
     return (
       <React.Fragment>
         <CssBaseline />
-        <form onSubmit={this.handleSubmit}>
+        <NewProductForm />
+        {/* <form onSubmit={this.handleSubmit}>
           <div className="input-group mb-3">
             <input
               type="text"
@@ -93,7 +95,7 @@ class ProductEditor extends Component {
               </button>
             </div>
           </div>
-        </form>
+        </form> */}
       </React.Fragment>
     );
   }

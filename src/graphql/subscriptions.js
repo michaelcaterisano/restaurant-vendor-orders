@@ -91,3 +91,24 @@ export const onDeleteOrder = `subscription OnDeleteOrder {
   }
 }
 `;
+export const onCreateVendor = `subscription OnCreateVendor {
+  onCreateVendor {
+    id
+    name
+  }
+}
+`;
+export const onUpdateVendor = `subscription OnUpdateVendor {
+  onUpdateVendor {
+    id
+    name
+  }
+}
+`;
+export const onDeleteVendor = `subscription OnDeleteVendor {
+  onDeleteVendor {
+    id
+    name
+  }
+}
+`;

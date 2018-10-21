@@ -75,3 +75,24 @@ export const listOrders = `query ListOrders(
   }
 }
 `;
+export const getVendor = `query GetVendor($id: ID!) {
+  getVendor(id: $id) {
+    id
+    name
+  }
+}
+`;
+export const listVendors = `query ListVendors(
+  $filter: ModelVendorFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVendors(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+    }
+    nextToken
+  }
+}
+`;

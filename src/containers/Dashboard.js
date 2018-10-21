@@ -19,7 +19,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { mainListItems, secondaryListItems } from "../components/listItems";
-import AddProduct from "../components/AddProduct";
+import AddProductContainer from "./AddProductContainer";
 import OrderContainer from "./OrderContainer";
 import CartContainer from "./CartContainer";
 import { countCartItems } from "../lib/helpers";
@@ -221,7 +221,7 @@ class Dashboard extends React.Component {
                 <Route
                   path="/add-product"
                   render={() => (
-                    <AddProduct
+                    <AddProductContainer
                       listProducts={this.listProducts.bind(this)}
                     />
                   )}

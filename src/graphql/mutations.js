@@ -91,3 +91,24 @@ export const deleteOrder = `mutation DeleteOrder($input: DeleteOrderInput!) {
   }
 }
 `;
+export const createVendor = `mutation CreateVendor($input: CreateVendorInput!) {
+  createVendor(input: $input) {
+    id
+    name
+  }
+}
+`;
+export const updateVendor = `mutation UpdateVendor($input: UpdateVendorInput!) {
+  updateVendor(input: $input) {
+    id
+    name
+  }
+}
+`;
+export const deleteVendor = `mutation DeleteVendor($input: DeleteVendorInput!) {
+  deleteVendor(input: $input) {
+    id
+    name
+  }
+}
+`;
