@@ -8,6 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { createProduct } from "../graphql/mutations";
 import NewProductForm from './NewProductForm';
 
+
 const style = {
   textInput: {
     width: "100px"
