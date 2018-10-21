@@ -68,12 +68,16 @@ class ProductItem extends Component {
             image="https://placekitten.com/200/300"
             title="Contemplative Reptile"
           />
+                     {/* use material ui grid here */}
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {product.name}
             </Typography>
             <Typography component="p">{product.price}</Typography>
             <Typography component="p">{product.vendor}</Typography>
+            <Typography component="p">{product.category}</Typography>
+            <Typography component="p">{product.units}</Typography>
+            <Typography component="p">{product.maxOrder}</Typography>
           </CardContent>
         </CardActionArea>
         <CardActions className={classes.cardActions}>

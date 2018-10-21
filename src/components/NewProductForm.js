@@ -58,6 +58,8 @@ class AddressForm extends Component {
     const { name, category, price, units, vendor } = this.state;
     const product = { input: { name: name, category: category, price: price, units: units, vendor: vendor } };
     await API.graphql(graphqlOperation(createProduct, product));
+    this.props.onProductSubmit();
+
   }
 
 
