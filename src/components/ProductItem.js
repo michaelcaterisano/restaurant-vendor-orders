@@ -47,7 +47,7 @@ class ProductItem extends Component {
 
   _itemQuantity() {
     const { product, cart } = this.props;
-    const item = cart.find(obj => obj.id === product.id)
+    const item = cart.find(obj => obj.id === product.id);
     if (item) return item.quantity;
   }
 
@@ -87,7 +87,7 @@ class ProductItem extends Component {
           >
             <RemoveIcon />
           </Button>
-          <Typography> {this._itemQuantity() || 0 } </Typography>
+          <Typography> {this._itemQuantity() || 0} </Typography>
           <Button
             onClick={onAddToCartClicked}
             variant="fab"

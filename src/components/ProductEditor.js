@@ -41,7 +41,7 @@ class ProductEditor extends Component {
     const { name, price, vendor } = this.state;
     const product = { input: { name: name, price: price, vendor: vendor } };
     await API.graphql(graphqlOperation(createProduct, product));
-    listProducts();
+    this.props.onProductSubmit();
     this.setState({ name: "", price: "", vendor: "" });
   }
 

@@ -117,6 +117,11 @@ class Dashboard extends React.Component {
     this.setState({ products: products.data.listProducts.items });
   }
 
+  async listProducts() {
+    const products = await API.graphql(graphqlOperation(listProducts));
+    this.setState({ products: products.data.listProducts.items });
+  }
+
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -213,7 +218,14 @@ class Dashboard extends React.Component {
             <main className={classes.content}>
               <div className={classes.appBarSpacer} />
               <div className={classes.tableContainer}>
-                <Route path="/add-product" component={AddProduct} />
+                <Route
+                  path="/add-product"
+                  render={() => (
+                    <AddProduct
+                      listProducts={this.listProducts.bind(this)}
+                    />
+                  )}
+                />
                 <Route
                   path="/order"
                   render={() => (
