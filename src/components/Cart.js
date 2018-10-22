@@ -9,7 +9,8 @@ const Cart = ({ products, total, onCheckoutClicked }) => {
       <ProductCart
         name={product.name}
         price={product.price}
-        quantity={product.quantity} />
+        quantity={product.quantity}
+        units={product.units} />
   )) : (<div> cart empty </div>)
 
   return (

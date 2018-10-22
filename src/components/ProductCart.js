@@ -9,13 +9,15 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import TextField from "@material-ui/core/TextField";
+import pluralize from 'pluralize';
 import { withStyles } from "@material-ui/core/styles";
 
-const ProductCart = ({ name, price, quantity }) => {
+const ProductCart = ({ name, price, quantity, units }) => {
   console.log(quantity)
+  const pluralizedQuantity = pluralize(units, quantity)
   return (
   <div>
-    <div>{name}, {quantity} @ ${price}</div>
+    <div>{name}, {quantity} {pluralizedQuantity} </div>
   </div>
   // <CardActions>
   //       <Button onClick={this.decrementQuantity} variant="fab" mini color="secondary" aria-label="Add" className={classes.button}>
