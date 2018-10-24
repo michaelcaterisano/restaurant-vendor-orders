@@ -18,15 +18,15 @@ const OrderContainer = ({ products, cart, addToCart, removeFromCart }) => (
   </ProductList>
 );
 
-OrderContainer.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired
-    })
-  ).isRequired,
-  addToCart: PropTypes.func.isRequired
-};
+// OrderContainer.propTypes = {
+//   products: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       name: PropTypes.string.isRequired,
+//       price: PropTypes.number.isRequired
+//     })
+//   ).isRequired,
+//   addToCart: PropTypes.func.isRequired
+// };
 
 export default OrderContainer;

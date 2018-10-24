@@ -68,13 +68,13 @@ class ProductItem extends Component {
             image="https://placekitten.com/200/300"
             title="Contemplative Reptile"
           />
-                     {/* use material ui grid here */}
+          {/* use material ui grid here */}
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {product.name}
             </Typography>
             <Typography component="p">{product.price}</Typography>
-            <Typography component="p">{product.vendor}</Typography>
+            <Typography component="p">{product.vendor.name}</Typography>
             <Typography component="p">{product.category}</Typography>
             <Typography component="p">{product.units}</Typography>
             <Typography component="p">{product.maxOrder}</Typography>
@@ -108,14 +108,14 @@ class ProductItem extends Component {
   }
 }
 
-ProductItem.propTypes = {
-  product: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    inventory: PropTypes.number.isRequired
-  }).isRequired,
-  onAddToCartClicked: PropTypes.func.isRequired,
-  onRemoveFromCartClicked: PropTypes.func.isRequired
-};
+// ProductItem.propTypes = {
+//   product: PropTypes.shape({
+//     title: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     inventory: PropTypes.number.isRequired
+//   }).isRequired,
+//   onAddToCartClicked: PropTypes.func.isRequired,
+//   onRemoveFromCartClicked: PropTypes.func.isRequired
+// };
 
 export default withStyles(styles)(ProductItem);

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { API, graphqlOperation } from "aws-amplify";
-import { listProducts, listVendors} from "../graphql/queries";
-import { createVendor} from "../graphql/mutations";
+import { listProducts, listVendors } from "../graphql/queries";
+import { createVendor } from "../graphql/mutations";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -118,9 +118,9 @@ class Dashboard extends React.Component {
   async componentDidMount() {
     const products = await API.graphql(graphqlOperation(listProducts));
     const vendors = await API.graphql(graphqlOperation(listVendors));
-    this.setState({ 
+    this.setState({
       products: products.data.listProducts.items,
-      vendors: vendors.data.listVendors.items    
+      vendors: vendors.data.listVendors.items
     });
   }
 
@@ -131,7 +131,7 @@ class Dashboard extends React.Component {
 
   async listVendors() {
     const vendors = await API.graphql(graphqlOperation(listVendors));
-    this.setState({ vendors: vendors.data.listVendors.items})
+    this.setState({ vendors: vendors.data.listVendors.items });
   }
 
   handleDrawerOpen = () => {
@@ -144,7 +144,7 @@ class Dashboard extends React.Component {
 
   addToCart(product) {
     this.setState({ cart: [...this.state.cart, product] });
-  };
+  }
 
   removeFromCart = product => {
     const cart = [...this.state.cart];
@@ -223,8 +223,6 @@ class Dashboard extends React.Component {
               </div>
               <Divider />
               <List>{mainListItems}</List>
-              {/* <Divider />
-              <List>{secondaryListItems}</List> */}
             </Drawer>
             <main className={classes.content}>
               <div className={classes.appBarSpacer} />

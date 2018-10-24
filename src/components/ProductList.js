@@ -17,8 +17,8 @@ const ProductsList = ({ children, classes }) => (
   </div>
 );
 
-ProductsList.propTypes = {
-  children: PropTypes.node
-};
+// ProductsList.propTypes = {
+//   children: PropTypes.node
+// };
 
 export default withStyles(styles)(ProductsList);
