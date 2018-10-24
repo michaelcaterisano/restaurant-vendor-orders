@@ -6,11 +6,20 @@ export const onCreateProduct = `subscription OnCreateProduct {
     id
     name
     price
-    vendor
     category
     units
-    defaultqty
     maxqty
+    defaultqty
+    vendor {
+      id
+      name
+    }
+    orders {
+      items {
+        id
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -19,11 +28,20 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
     id
     name
     price
-    vendor
     category
     units
-    defaultqty
     maxqty
+    defaultqty
+    vendor {
+      id
+      name
+    }
+    orders {
+      items {
+        id
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -32,11 +50,134 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     id
     name
     price
-    vendor
     category
     units
-    defaultqty
     maxqty
+    defaultqty
+    vendor {
+      id
+      name
+    }
+    orders {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onCreateVendor = `subscription OnCreateVendor {
+  onCreateVendor {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        category
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onUpdateVendor = `subscription OnUpdateVendor {
+  onUpdateVendor {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        category
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onDeleteVendor = `subscription OnDeleteVendor {
+  onDeleteVendor {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        category
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onCreateProductOrder = `subscription OnCreateProductOrder {
+  onCreateProductOrder {
+    id
+    product {
+      id
+      name
+      price
+      category
+      units
+      maxqty
+      defaultqty
+    }
+    order {
+      id
+      name
+    }
+  }
+}
+`;
+export const onUpdateProductOrder = `subscription OnUpdateProductOrder {
+  onUpdateProductOrder {
+    id
+    product {
+      id
+      name
+      price
+      category
+      units
+      maxqty
+      defaultqty
+    }
+    order {
+      id
+      name
+    }
+  }
+}
+`;
+export const onDeleteProductOrder = `subscription OnDeleteProductOrder {
+  onDeleteProductOrder {
+    id
+    product {
+      id
+      name
+      price
+      category
+      units
+      maxqty
+      defaultqty
+    }
+    order {
+      id
+      name
+    }
   }
 }
 `;
@@ -45,14 +186,10 @@ export const onCreateOrder = `subscription OnCreateOrder {
     id
     name
     products {
-      id
-      name
-      price
-      vendor
-      category
-      units
-      defaultqty
-      maxqty
+      items {
+        id
+      }
+      nextToken
     }
   }
 }
@@ -62,14 +199,10 @@ export const onUpdateOrder = `subscription OnUpdateOrder {
     id
     name
     products {
-      id
-      name
-      price
-      vendor
-      category
-      units
-      defaultqty
-      maxqty
+      items {
+        id
+      }
+      nextToken
     }
   }
 }
@@ -79,36 +212,11 @@ export const onDeleteOrder = `subscription OnDeleteOrder {
     id
     name
     products {
-      id
-      name
-      price
-      vendor
-      category
-      units
-      defaultqty
-      maxqty
+      items {
+        id
+      }
+      nextToken
     }
-  }
-}
-`;
-export const onCreateVendor = `subscription OnCreateVendor {
-  onCreateVendor {
-    id
-    name
-  }
-}
-`;
-export const onUpdateVendor = `subscription OnUpdateVendor {
-  onUpdateVendor {
-    id
-    name
-  }
-}
-`;
-export const onDeleteVendor = `subscription OnDeleteVendor {
-  onDeleteVendor {
-    id
-    name
   }
 }
 `;

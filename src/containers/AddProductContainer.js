@@ -6,11 +6,11 @@ import ProductEditor from "../components/ProductEditor";
 import NewProductForm from '../components/NewProductForm';
 import { listProducts } from "../graphql/queries.js";
 
-const AddProduct = ({ listProducts }) => (
+const AddProductContainer = ({ listProducts, vendors }) => (
   <React.Fragment>
     <CssBaseline />
-    <NewProductForm onProductSubmit={listProducts} />
+    <NewProductForm vendors={vendors} onProductSubmit={listProducts} />
   </React.Fragment>
 );
 
-export default AddProduct;
+export default AddProductContainer;

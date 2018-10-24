@@ -6,11 +6,20 @@ export const createProduct = `mutation CreateProduct($input: CreateProductInput!
     id
     name
     price
-    vendor
     category
     units
-    defaultqty
     maxqty
+    defaultqty
+    vendor {
+      id
+      name
+    }
+    orders {
+      items {
+        id
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -19,11 +28,20 @@ export const updateProduct = `mutation UpdateProduct($input: UpdateProductInput!
     id
     name
     price
-    vendor
     category
     units
-    defaultqty
     maxqty
+    defaultqty
+    vendor {
+      id
+      name
+    }
+    orders {
+      items {
+        id
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -32,11 +50,134 @@ export const deleteProduct = `mutation DeleteProduct($input: DeleteProductInput!
     id
     name
     price
-    vendor
     category
     units
-    defaultqty
     maxqty
+    defaultqty
+    vendor {
+      id
+      name
+    }
+    orders {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const createVendor = `mutation CreateVendor($input: CreateVendorInput!) {
+  createVendor(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        category
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const updateVendor = `mutation UpdateVendor($input: UpdateVendorInput!) {
+  updateVendor(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        category
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const deleteVendor = `mutation DeleteVendor($input: DeleteVendorInput!) {
+  deleteVendor(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        category
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const createProductOrder = `mutation CreateProductOrder($input: CreateProductOrderInput!) {
+  createProductOrder(input: $input) {
+    id
+    product {
+      id
+      name
+      price
+      category
+      units
+      maxqty
+      defaultqty
+    }
+    order {
+      id
+      name
+    }
+  }
+}
+`;
+export const updateProductOrder = `mutation UpdateProductOrder($input: UpdateProductOrderInput!) {
+  updateProductOrder(input: $input) {
+    id
+    product {
+      id
+      name
+      price
+      category
+      units
+      maxqty
+      defaultqty
+    }
+    order {
+      id
+      name
+    }
+  }
+}
+`;
+export const deleteProductOrder = `mutation DeleteProductOrder($input: DeleteProductOrderInput!) {
+  deleteProductOrder(input: $input) {
+    id
+    product {
+      id
+      name
+      price
+      category
+      units
+      maxqty
+      defaultqty
+    }
+    order {
+      id
+      name
+    }
   }
 }
 `;
@@ -45,14 +186,10 @@ export const createOrder = `mutation CreateOrder($input: CreateOrderInput!) {
     id
     name
     products {
-      id
-      name
-      price
-      vendor
-      category
-      units
-      defaultqty
-      maxqty
+      items {
+        id
+      }
+      nextToken
     }
   }
 }
@@ -62,14 +199,10 @@ export const updateOrder = `mutation UpdateOrder($input: UpdateOrderInput!) {
     id
     name
     products {
-      id
-      name
-      price
-      vendor
-      category
-      units
-      defaultqty
-      maxqty
+      items {
+        id
+      }
+      nextToken
     }
   }
 }
@@ -79,36 +212,11 @@ export const deleteOrder = `mutation DeleteOrder($input: DeleteOrderInput!) {
     id
     name
     products {
-      id
-      name
-      price
-      vendor
-      category
-      units
-      defaultqty
-      maxqty
+      items {
+        id
+      }
+      nextToken
     }
-  }
-}
-`;
-export const createVendor = `mutation CreateVendor($input: CreateVendorInput!) {
-  createVendor(input: $input) {
-    id
-    name
-  }
-}
-`;
-export const updateVendor = `mutation UpdateVendor($input: UpdateVendorInput!) {
-  updateVendor(input: $input) {
-    id
-    name
-  }
-}
-`;
-export const deleteVendor = `mutation DeleteVendor($input: DeleteVendorInput!) {
-  deleteVendor(input: $input) {
-    id
-    name
   }
 }
 `;

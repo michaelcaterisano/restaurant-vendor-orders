@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { API, graphqlOperation } from "aws-amplify";
-import { listProducts } from "../graphql/queries";
+import { listProducts, listVendors} from "../graphql/queries";
+import { createVendor} from "../graphql/mutations";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -20,6 +21,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { mainListItems, secondaryListItems } from "../components/listItems";
 import AddProductContainer from "./AddProductContainer";
+import EditVendorsContainer from "./EditVendorsContainer";
 import OrderContainer from "./OrderContainer";
 import CartContainer from "./CartContainer";
 import { countCartItems } from "../lib/helpers";
@@ -108,18 +110,28 @@ const styles = theme => ({
 class Dashboard extends React.Component {
   state = {
     products: [],
+    vendors: [],
     cart: [],
     open: true
   };
 
   async componentDidMount() {
     const products = await API.graphql(graphqlOperation(listProducts));
-    this.setState({ products: products.data.listProducts.items });
+    const vendors = await API.graphql(graphqlOperation(listVendors));
+    this.setState({ 
+      products: products.data.listProducts.items,
+      vendors: vendors.data.listVendors.items    
+    });
   }
 
   async listProducts() {
     const products = await API.graphql(graphqlOperation(listProducts));
     this.setState({ products: products.data.listProducts.items });
+  }
+
+  async listVendors() {
+    const vendors = await API.graphql(graphqlOperation(listVendors));
+    this.setState({ vendors: vendors.data.listVendors.items})
   }
 
   handleDrawerOpen = () => {
@@ -130,7 +142,7 @@ class Dashboard extends React.Component {
     this.setState({ open: false });
   };
 
-  addToCart = product => {
+  addToCart(product) {
     this.setState({ cart: [...this.state.cart, product] });
   };
 
@@ -148,7 +160,6 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(countCartItems(this.state.cart));
     const { classes } = this.props;
     return (
       <Router>
@@ -219,9 +230,19 @@ class Dashboard extends React.Component {
               <div className={classes.appBarSpacer} />
               <div className={classes.tableContainer}>
                 <Route
+                  path="/edit-vendor"
+                  render={() => (
+                    <EditVendorsContainer
+                      vendors={this.state.vendors}
+                      listVendors={this.listVendors.bind(this)}
+                    />
+                  )}
+                />
+                <Route
                   path="/add-product"
                   render={() => (
                     <AddProductContainer
+                      vendors={this.state.vendors}
                       listProducts={this.listProducts.bind(this)}
                     />
                   )}

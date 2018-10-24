@@ -6,11 +6,20 @@ export const getProduct = `query GetProduct($id: ID!) {
     id
     name
     price
-    vendor
     category
     units
-    defaultqty
     maxqty
+    defaultqty
+    vendor {
+      id
+      name
+    }
+    orders {
+      items {
+        id
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -24,11 +33,110 @@ export const listProducts = `query ListProducts(
       id
       name
       price
-      vendor
       category
       units
-      defaultqty
       maxqty
+      defaultqty
+      vendor {
+        id
+        name
+      }
+      orders {
+        items {
+          id
+        }
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getVendor = `query GetVendor($id: ID!) {
+  getVendor(id: $id) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        category
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const listVendors = `query ListVendors(
+  $filter: ModelVendorFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVendors(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      products {
+        items {
+          id
+          name
+          price
+          category
+          units
+          maxqty
+          defaultqty
+        }
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getProductOrder = `query GetProductOrder($id: ID!) {
+  getProductOrder(id: $id) {
+    id
+    product {
+      id
+      name
+      price
+      category
+      units
+      maxqty
+      defaultqty
+    }
+    order {
+      id
+      name
+    }
+  }
+}
+`;
+export const listProductOrders = `query ListProductOrders(
+  $filter: ModelProductOrderFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProductOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      product {
+        id
+        name
+        price
+        category
+        units
+        maxqty
+        defaultqty
+      }
+      order {
+        id
+        name
+      }
     }
     nextToken
   }
@@ -39,14 +147,10 @@ export const getOrder = `query GetOrder($id: ID!) {
     id
     name
     products {
-      id
-      name
-      price
-      vendor
-      category
-      units
-      defaultqty
-      maxqty
+      items {
+        id
+      }
+      nextToken
     }
   }
 }
@@ -61,36 +165,11 @@ export const listOrders = `query ListOrders(
       id
       name
       products {
-        id
-        name
-        price
-        vendor
-        category
-        units
-        defaultqty
-        maxqty
+        items {
+          id
+        }
+        nextToken
       }
-    }
-    nextToken
-  }
-}
-`;
-export const getVendor = `query GetVendor($id: ID!) {
-  getVendor(id: $id) {
-    id
-    name
-  }
-}
-`;
-export const listVendors = `query ListVendors(
-  $filter: ModelVendorFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listVendors(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
     }
     nextToken
   }

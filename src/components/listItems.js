@@ -15,6 +15,15 @@ import { Link } from "react-router-dom";
 
 export const mainListItems = (
   <div>
+      <Link to="/edit-vendor">
+      <ListItem button>
+        <ListItemIcon>
+          <CreateIcon />
+        </ListItemIcon>
+        <ListItemText primary="Add vendor" />
+      </ListItem>
+    </Link>
+
     <Link to="/add-product">
       <ListItem button>
         <ListItemIcon>

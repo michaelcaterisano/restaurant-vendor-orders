@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createProduct } from "../graphql/mutations";
+import { createVendor, deleteVendor } from "../graphql/mutations";
 
 //material-ui
 import Grid from "@material-ui/core/Grid";
@@ -24,7 +24,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
   - Cache vendor names
   - call getVendors after product submit
   
-*/ 
+*/
 
 const styles = theme => ({
   root: {
@@ -36,35 +36,32 @@ const styles = theme => ({
   },
   buttons: {
     display: "flex",
+    justifyContent: "flex-start"
+  },
+  vendor: {
+    display: "flex",
+    flexDirection: "row", 
+    alignItems: "center",
     justifyContent: "flex-start",
-  },
-  progress: {
-    margin: theme.spacing.unit * 2,
-  },
-  actions: {
-    display: "flex", 
-    flexDirection: "row"
+    margin: 10,
+    // border: "1px solid red"
+  }, 
+  loader: {
+    margin: 10
   }
 });
 
-class AddProductForm extends Component {
+class AddVendorForm extends Component {
   constructor() {
     super();
 
     this.state = {
-      name: "",
-      category: "",
-      price: "",
-      units: "",
-      vendor: "",
-      productVendorId: "", 
-      loading: false,
+      name: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleVendorChange = this.handleVendorChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this._formIsValid = this._formIsValid.bind(this);
   }
 
   handleChange(event) {
@@ -73,28 +70,20 @@ class AddProductForm extends Component {
     this.setState({ [field]: value });
   }
 
-  _formIsValid() {
-    const { name, category, price, units, vendor } = this.state;
-    if (!name || !category || !price || !units || !vendor) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   async handleSubmit(event) {
     event.preventDefault();
-    if (!this._formIsValid()) return; 
-    this.setState({ loading: true })
-    const { onProductSubmit } = this.props;
-    const { name, category, price, units, productVendorId } = this.state;
-    const product = {
-      input: { name, category, price, units, productVendorId }
+    const { name } = this.state;
+    const { onVendorSubmit } = this.props;
+    const vendor = {
+      input: { name }
     };
-    console.log(await API.graphql(graphqlOperation(createProduct, product)));
-    onProductSubmit();
-    this.setState( {loading: false, name: "", category: "", price: "", units: "", vendor: "", productVendorId: ""});
-
+    await API.graphql(graphqlOperation(createVendor, vendor));
+    onVendorSubmit();
+    // const product = {
+    //   input: { name, category, price, units, productVendorId }
+    // };
+    // await API.graphql(graphqlOperation(createProduct, product));
+    // onProductSubmit();
   }
 
   handleVendorChange(event) {
@@ -104,31 +93,36 @@ class AddProductForm extends Component {
     this.setState({ vendor: vendor.name, productVendorId: vendor.id });
   }
 
+  async handleDeleteVendor(id) {
+    const { onVendorSubmit } = this.props;
+    const vendor = { input: { id }}
+    await API.graphql(graphqlOperation(deleteVendor, vendor));
+    onVendorSubmit();
+  }
+
   render() {
     const { classes, vendors } = this.props;
     return (
       <React.Fragment>
-        <Typography variant="h6" gutterBottom>
+        {/* <Typography variant="h6" gutterBottom>
           Enter a new product
-        </Typography>
+        </Typography> */}
         <Grid container spacing={24}>
           <Grid item xs={12} sm={6}>
             <TextField
               required
               id="name"
               name="name"
-              label="Name"
-              value={this.state.name}
+              label="Vendor name"
               fullWidth
               onChange={this.handleChange}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <TextField
               id="category"
               name="category"
               label="Category"
-              value={this.state.category}
               fullWidth
               onChange={this.handleChange}
             />
@@ -139,7 +133,6 @@ class AddProductForm extends Component {
               id="price"
               name="price"
               label="Price"
-              value={this.state.price}
               fullWidth
               onChange={this.handleChange}
             />
@@ -149,7 +142,6 @@ class AddProductForm extends Component {
               id="units"
               name="units"
               label="Units"
-              value={this.state.units}
               fullWidth
               onChange={this.handleChange}
             />
@@ -169,7 +161,7 @@ class AddProductForm extends Component {
                 ))}
               </Select>
             </FormControl>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <div className={classes.buttons}>
               <Button
@@ -177,19 +169,29 @@ class AddProductForm extends Component {
                 color="primary"
                 onClick={this.handleSubmit}
               >
-                Create Product
+                Add Vendor
               </Button>
             </div>
-            <div>
-              {this.state.loading ? <CircularProgress className={classes.progress} /> : <div id='no-loader'></div> }
-            </div>
-
-            
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+        {
+          vendors.length ? 
+          <div>
+            {vendors.map(vendor => (
+              <div key={vendor.id} className={classes.vendor}>
+                <Typography >{vendor.name}</Typography>
+              </div>
+            ))}
+          </div> : 
+          <div className={classes.loader}>
+            <CircularProgress />
+          </div>
+        }
         </Grid>
       </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(AddProductForm);
+export default withStyles(styles)(AddVendorForm);

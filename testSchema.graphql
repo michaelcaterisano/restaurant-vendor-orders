@@ -1,0 +1,24 @@
+type Product @model {
+  id: ID!
+  name: String!
+  vendor: Vendor @connection(name: "VendorProducts")
+  orders: [ProductOrder] @connection(name: "ProductOrders")
+}
+
+type Vendor {
+  id: ID!
+  name: String!
+  products: [Product] @connection(name: "VendorProducts")
+}
+
+type ProductOrder {
+  id: ID!
+  product: Product! @connection(name: "ProductOrders")
+  order: Order! @connection(name: "OrderProducts")
+}
+
+type Order {
+  id: ID!
+  name: String
+  products: [ProductOrder] @connection(name: "OrderProducts")
+}
