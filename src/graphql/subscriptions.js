@@ -6,11 +6,14 @@ export const onCreateProduct = `subscription OnCreateProduct {
     id
     name
     price
-    category
     units
     maxqty
     defaultqty
     vendor {
+      id
+      name
+    }
+    category {
       id
       name
     }
@@ -28,11 +31,14 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
     id
     name
     price
-    category
     units
     maxqty
     defaultqty
     vendor {
+      id
+      name
+    }
+    category {
       id
       name
     }
@@ -50,11 +56,14 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     id
     name
     price
-    category
     units
     maxqty
     defaultqty
     vendor {
+      id
+      name
+    }
+    category {
       id
       name
     }
@@ -76,7 +85,6 @@ export const onCreateVendor = `subscription OnCreateVendor {
         id
         name
         price
-        category
         units
         maxqty
         defaultqty
@@ -95,7 +103,6 @@ export const onUpdateVendor = `subscription OnUpdateVendor {
         id
         name
         price
-        category
         units
         maxqty
         defaultqty
@@ -114,7 +121,60 @@ export const onDeleteVendor = `subscription OnDeleteVendor {
         id
         name
         price
-        category
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onCreateCategory = `subscription OnCreateCategory {
+  onCreateCategory {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onUpdateCategory = `subscription OnUpdateCategory {
+  onUpdateCategory {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onDeleteCategory = `subscription OnDeleteCategory {
+  onDeleteCategory {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
         units
         maxqty
         defaultqty
@@ -131,7 +191,6 @@ export const onCreateProductOrder = `subscription OnCreateProductOrder {
       id
       name
       price
-      category
       units
       maxqty
       defaultqty
@@ -150,7 +209,6 @@ export const onUpdateProductOrder = `subscription OnUpdateProductOrder {
       id
       name
       price
-      category
       units
       maxqty
       defaultqty
@@ -169,7 +227,6 @@ export const onDeleteProductOrder = `subscription OnDeleteProductOrder {
       id
       name
       price
-      category
       units
       maxqty
       defaultqty

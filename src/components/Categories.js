@@ -1,30 +1,22 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createVendor, deleteVendor } from "../graphql/mutations";
+import { createCategory, deleteCategory } from "../graphql/mutations";
 
 //material-ui
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
+// import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import Checkbox from "@material-ui/core/Checkbox";
+// import Select from "@material-ui/core/Select";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import FormControl from "@material-ui/core/FormControl";
+// import FormHelperText from "@material-ui/core/FormHelperText";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-
-
-/* 
-  TODO: 
-  - Cache vendor names
-  - call getVendors after product submit
-  
-*/
 
 const styles = theme => ({
   root: {
@@ -38,7 +30,7 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "flex-start"
   },
-  vendor: {
+  category: {
     display: "flex",
     flexDirection: "row", 
     alignItems: "center",
@@ -51,7 +43,7 @@ const styles = theme => ({
   }
 });
 
-class AddVendorForm extends Component {
+class Categories extends Component {
   constructor() {
     super();
 
@@ -60,7 +52,7 @@ class AddVendorForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleVendorChange = this.handleVendorChange.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -73,35 +65,30 @@ class AddVendorForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const { name } = this.state;
-    const { onVendorSubmit } = this.props;
-    const vendor = {
+    const { onCategorySubmit } = this.props;
+    const category = {
       input: { name }
     };
-    await API.graphql(graphqlOperation(createVendor, vendor));
-    onVendorSubmit();
-    // const product = {
-    //   input: { name, category, price, units, productVendorId }
-    // };
-    // await API.graphql(graphqlOperation(createProduct, product));
-    // onProductSubmit();
+    await API.graphql(graphqlOperation(createCategory, category));
+    onCategorySubmit();
   }
 
-  handleVendorChange(event) {
-    const { vendors } = this.props;
-    const selectedVendorName = event.target.value;
-    const vendor = vendors.find(vendor => vendor.name === selectedVendorName);
-    this.setState({ vendor: vendor.name, productVendorId: vendor.id });
+  handleCategoryChange(event) {
+    const { categories } = this.props;
+    const selectedCategoryName = event.target.value;
+    const category = categories.find(category => category.name === selectedCategoryName);
+    this.setState({ category: category.name, productCategoryId: category.id });
   }
 
-  async handleDeleteVendor(id) {
-    const { onVendorSubmit } = this.props;
-    const vendor = { input: { id }}
-    await API.graphql(graphqlOperation(deleteVendor, vendor));
-    onVendorSubmit();
+  async handleDeleteCategory(id) {
+    const { onCategorySubmit } = this.props;
+    const category = { input: { id }}
+    await API.graphql(graphqlOperation(deleteCategory, category));
+    onCategorySubmit();
   }
 
   render() {
-    const { classes, vendors } = this.props;
+    const { classes, categories } = this.props;
     return (
       <React.Fragment>
         <Grid container spacing={24}>
@@ -110,7 +97,7 @@ class AddVendorForm extends Component {
               required
               id="name"
               name="name"
-              label="Vendor name"
+              label="Category name"
               fullWidth
               onChange={this.handleChange}
             />
@@ -122,18 +109,18 @@ class AddVendorForm extends Component {
                 color="primary"
                 onClick={this.handleSubmit}
               >
-                Add Vendor
+                Add Category
               </Button>
             </div>
           </Grid>
         </Grid>
         <Grid item xs={12}>
         {
-          vendors.length ? 
+          categories.length ? 
           <div>
-            {vendors.map(vendor => (
-              <div key={vendor.id} className={classes.vendor}>
-                <Typography >{vendor.name}</Typography>
+            {categories.map(category => (
+              <div key={category.id} className={classes.category}>
+                <Typography >{category.name}</Typography>
               </div>
             ))}
           </div> : 
@@ -147,4 +134,4 @@ class AddVendorForm extends Component {
   }
 }
 
-export default withStyles(styles)(AddVendorForm);
+export default withStyles(styles)(Categories);

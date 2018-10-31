@@ -6,10 +6,10 @@ import ProductEditor from "../components/ProductEditor";
 import NewProductForm from '../components/NewProductForm';
 import { listProducts } from "../graphql/queries.js";
 
-const AddProductContainer = ({ listProducts, vendors }) => (
+const AddProductContainer = ({ listProducts, vendors, categories }) => (
   <React.Fragment>
     <CssBaseline />
-    <NewProductForm vendors={vendors} onProductSubmit={listProducts} />
+    <NewProductForm categories={categories} vendors={vendors} onProductSubmit={listProducts} />
   </React.Fragment>
 );
 

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { API, graphqlOperation } from "aws-amplify";
-import { listProducts, listVendors } from "../graphql/queries";
+import { listProducts, listVendors, listCategorys } from "../graphql/queries";
 import { createVendor } from "../graphql/mutations";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
@@ -22,6 +22,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { mainListItems, secondaryListItems } from "../components/listItems";
 import AddProductContainer from "./AddProductContainer";
 import EditVendorsContainer from "./EditVendorsContainer";
+import CategoriesContainer from './CategoriesContainer';
 import OrderContainer from "./OrderContainer";
 import CartContainer from "./CartContainer";
 import { countCartItems } from "../lib/helpers";
@@ -111,6 +112,7 @@ class Dashboard extends React.Component {
   state = {
     products: [],
     vendors: [],
+    categories: [],
     cart: [],
     open: true
   };
@@ -118,9 +120,11 @@ class Dashboard extends React.Component {
   async componentDidMount() {
     const products = await API.graphql(graphqlOperation(listProducts));
     const vendors = await API.graphql(graphqlOperation(listVendors));
+    const categories = await API.graphql(graphqlOperation(listCategorys));
     this.setState({
       products: products.data.listProducts.items,
-      vendors: vendors.data.listVendors.items
+      vendors: vendors.data.listVendors.items,
+      categories: categories.data.listCategorys.items,
     });
   }
 
@@ -132,6 +136,11 @@ class Dashboard extends React.Component {
   async listVendors() {
     const vendors = await API.graphql(graphqlOperation(listVendors));
     this.setState({ vendors: vendors.data.listVendors.items });
+  }
+
+  async listCategories() {
+    const categories = await API.graphql(graphqlOperation(listCategorys));
+    this.setState({ categories: categories.data.listCategorys.items });
   }
 
   handleDrawerOpen = () => {
@@ -160,6 +169,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     const { classes } = this.props;
     return (
       <Router>
@@ -237,10 +247,20 @@ class Dashboard extends React.Component {
                   )}
                 />
                 <Route
+                  path="/categories"
+                  render={() => (
+                    <CategoriesContainer
+                      categories={this.state.categories}
+                      listCategories={this.listCategories.bind(this)}
+                    />
+                  )}
+                />
+                <Route
                   path="/add-product"
                   render={() => (
                     <AddProductContainer
                       vendors={this.state.vendors}
+                      categories={this.state.categories}
                       listProducts={this.listProducts.bind(this)}
                     />
                   )}

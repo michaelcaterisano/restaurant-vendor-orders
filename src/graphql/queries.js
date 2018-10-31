@@ -6,11 +6,14 @@ export const getProduct = `query GetProduct($id: ID!) {
     id
     name
     price
-    category
     units
     maxqty
     defaultqty
     vendor {
+      id
+      name
+    }
+    category {
       id
       name
     }
@@ -33,11 +36,14 @@ export const listProducts = `query ListProducts(
       id
       name
       price
-      category
       units
       maxqty
       defaultqty
       vendor {
+        id
+        name
+      }
+      category {
         id
         name
       }
@@ -61,7 +67,6 @@ export const getVendor = `query GetVendor($id: ID!) {
         id
         name
         price
-        category
         units
         maxqty
         defaultqty
@@ -85,7 +90,49 @@ export const listVendors = `query ListVendors(
           id
           name
           price
-          category
+          units
+          maxqty
+          defaultqty
+        }
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getCategory = `query GetCategory($id: ID!) {
+  getCategory(id: $id) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const listCategorys = `query ListCategorys(
+  $filter: ModelCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      products {
+        items {
+          id
+          name
+          price
           units
           maxqty
           defaultqty
@@ -104,7 +151,6 @@ export const getProductOrder = `query GetProductOrder($id: ID!) {
       id
       name
       price
-      category
       units
       maxqty
       defaultqty
@@ -128,7 +174,6 @@ export const listProductOrders = `query ListProductOrders(
         id
         name
         price
-        category
         units
         maxqty
         defaultqty

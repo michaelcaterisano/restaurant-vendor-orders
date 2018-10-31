@@ -15,16 +15,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-
-
-/* 
-  TODO: 
-  - Cache vendor names
-  - call getVendors after product submit
-  
-*/ 
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = theme => ({
   root: {
@@ -36,13 +27,13 @@ const styles = theme => ({
   },
   buttons: {
     display: "flex",
-    justifyContent: "flex-start",
+    justifyContent: "flex-start"
   },
   progress: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2
   },
   actions: {
-    display: "flex", 
+    display: "flex",
     flexDirection: "row"
   }
 });
@@ -54,15 +45,17 @@ class AddProductForm extends Component {
     this.state = {
       name: "",
       category: "",
+      productCategoryId: "",
       price: "",
       units: "",
       vendor: "",
-      productVendorId: "", 
-      loading: false,
+      productVendorId: "",
+      loading: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleVendorChange = this.handleVendorChange.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this._formIsValid = this._formIsValid.bind(this);
   }
@@ -84,28 +77,51 @@ class AddProductForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    if (!this._formIsValid()) return; 
-    this.setState({ loading: true })
+    if (!this._formIsValid()) return;
+    this.setState({ loading: true });
     const { onProductSubmit } = this.props;
-    const { name, category, price, units, productVendorId } = this.state;
+    const {
+      name,
+      productCategoryId,
+      price,
+      units,
+      productVendorId
+    } = this.state;
     const product = {
-      input: { name, category, price, units, productVendorId }
+      input: { name, productCategoryId, price, units, productVendorId }
     };
     console.log(await API.graphql(graphqlOperation(createProduct, product)));
     onProductSubmit();
-    this.setState( {loading: false, name: "", category: "", price: "", units: "", vendor: "", productVendorId: ""});
-
+    this.setState({
+      loading: false,
+      name: "",
+      category: "",
+      price: "",
+      units: "",
+      vendor: "",
+      productVendorId: ""
+    });
   }
 
   handleVendorChange(event) {
+    console.log(this.props);
     const { vendors } = this.props;
     const selectedVendorName = event.target.value;
     const vendor = vendors.find(vendor => vendor.name === selectedVendorName);
     this.setState({ vendor: vendor.name, productVendorId: vendor.id });
   }
 
+  handleCategoryChange(event) {
+    const { categories } = this.props;
+    const selectedCategoryName = event.target.value;
+    const category = categories.find(
+      category => category.name === selectedCategoryName
+    );
+    this.setState({ category: category.name, productCategoryId: category.id });
+  }
+
   render() {
-    const { classes, vendors } = this.props;
+    const { classes, vendors, categories } = this.props;
     return (
       <React.Fragment>
         <Typography variant="h6" gutterBottom>
@@ -123,7 +139,7 @@ class AddProductForm extends Component {
               onChange={this.handleChange}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <TextField
               id="category"
               name="category"
@@ -132,7 +148,7 @@ class AddProductForm extends Component {
               fullWidth
               onChange={this.handleChange}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6} sm={6}>
             <TextField
               required
@@ -170,6 +186,22 @@ class AddProductForm extends Component {
               </Select>
             </FormControl>
           </Grid>
+          <Grid item xs={6} sm={6}>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="age-simple">Category</InputLabel>
+              <Select
+                value={this.state.category}
+                onChange={this.handleCategoryChange}
+                name="category"
+              >
+                {categories.map(category => (
+                  <MenuItem key={category.id} value={category.name}>
+                    {category.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
           <Grid item xs={12}>
             <div className={classes.buttons}>
               <Button
@@ -181,10 +213,12 @@ class AddProductForm extends Component {
               </Button>
             </div>
             <div>
-              {this.state.loading ? <CircularProgress className={classes.progress} /> : <div id='no-loader'></div> }
+              {this.state.loading ? (
+                <CircularProgress className={classes.progress} />
+              ) : (
+                <div id="no-loader" />
+              )}
             </div>
-
-            
           </Grid>
         </Grid>
       </React.Fragment>

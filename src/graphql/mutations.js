@@ -6,11 +6,14 @@ export const createProduct = `mutation CreateProduct($input: CreateProductInput!
     id
     name
     price
-    category
     units
     maxqty
     defaultqty
     vendor {
+      id
+      name
+    }
+    category {
       id
       name
     }
@@ -28,11 +31,14 @@ export const updateProduct = `mutation UpdateProduct($input: UpdateProductInput!
     id
     name
     price
-    category
     units
     maxqty
     defaultqty
     vendor {
+      id
+      name
+    }
+    category {
       id
       name
     }
@@ -50,11 +56,14 @@ export const deleteProduct = `mutation DeleteProduct($input: DeleteProductInput!
     id
     name
     price
-    category
     units
     maxqty
     defaultqty
     vendor {
+      id
+      name
+    }
+    category {
       id
       name
     }
@@ -76,7 +85,6 @@ export const createVendor = `mutation CreateVendor($input: CreateVendorInput!) {
         id
         name
         price
-        category
         units
         maxqty
         defaultqty
@@ -95,7 +103,6 @@ export const updateVendor = `mutation UpdateVendor($input: UpdateVendorInput!) {
         id
         name
         price
-        category
         units
         maxqty
         defaultqty
@@ -114,7 +121,60 @@ export const deleteVendor = `mutation DeleteVendor($input: DeleteVendorInput!) {
         id
         name
         price
-        category
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const createCategory = `mutation CreateCategory($input: CreateCategoryInput!) {
+  createCategory(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const updateCategory = `mutation UpdateCategory($input: UpdateCategoryInput!) {
+  updateCategory(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const deleteCategory = `mutation DeleteCategory($input: DeleteCategoryInput!) {
+  deleteCategory(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
         units
         maxqty
         defaultqty
@@ -131,7 +191,6 @@ export const createProductOrder = `mutation CreateProductOrder($input: CreatePro
       id
       name
       price
-      category
       units
       maxqty
       defaultqty
@@ -150,7 +209,6 @@ export const updateProductOrder = `mutation UpdateProductOrder($input: UpdatePro
       id
       name
       price
-      category
       units
       maxqty
       defaultqty
@@ -169,7 +227,6 @@ export const deleteProductOrder = `mutation DeleteProductOrder($input: DeletePro
       id
       name
       price
-      category
       units
       maxqty
       defaultqty
