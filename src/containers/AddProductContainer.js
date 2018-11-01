@@ -6,10 +6,11 @@ import ProductEditor from "../components/ProductEditor";
 import NewProductForm from "../components/NewProductForm";
 import { listProducts } from "../graphql/queries.js";
 
-const AddProductContainer = ({ listProducts, vendors, categories, units }) => (
+const AddProductContainer = ({ listProducts, vendors, categories, units, locations }) => (
   <React.Fragment>
     <CssBaseline />
     <NewProductForm
+      locations={locations}
       units={units}
       categories={categories}
       vendors={vendors}

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { API, graphqlOperation } from "aws-amplify";
-import { listProducts, listVendors, listCategorys, listUnits } from "../graphql/queries";
+import { listProducts, listVendors, listCategorys, listUnits, listLocations } from "../graphql/queries";
 import { createVendor } from "../graphql/mutations";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
@@ -115,6 +115,7 @@ class Dashboard extends React.Component {
     vendors: [],
     categories: [],
     units: [],
+    locations: [],
     cart: [],
     open: true
   };
@@ -124,12 +125,14 @@ class Dashboard extends React.Component {
     const vendors = await API.graphql(graphqlOperation(listVendors));
     const categories = await API.graphql(graphqlOperation(listCategorys));
     const units = await API.graphql(graphqlOperation(listUnits));
+    const locations = await API.graphql(graphqlOperation(listLocations));
     console.log(products)
     this.setState({
       products: products.data.listProducts.items,
       vendors: vendors.data.listVendors.items,
       categories: categories.data.listCategorys.items,
       units: units.data.listUnits.items,
+      locations: locations.data.listLocations.items,
     });
   }
 
@@ -272,6 +275,7 @@ class Dashboard extends React.Component {
                       vendors={this.state.vendors}
                       categories={this.state.categories}
                       units={this.state.units}
+                      locations={this.state.locations}
                       listProducts={this.listProducts.bind(this)}
                     />
                   )}

@@ -20,6 +20,12 @@ export const onCreateProduct = `subscription OnCreateProduct {
       id
       name
     }
+    location {
+      items {
+        id
+      }
+      nextToken
+    }
     orders {
       items {
         id
@@ -48,6 +54,12 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
       id
       name
     }
+    location {
+      items {
+        id
+      }
+      nextToken
+    }
     orders {
       items {
         id
@@ -75,6 +87,12 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     unit {
       id
       name
+    }
+    location {
+      items {
+        id
+      }
+      nextToken
     }
     orders {
       items {
@@ -285,6 +303,96 @@ export const onDeleteProductOrder = `subscription OnDeleteProductOrder {
     order {
       id
       name
+    }
+  }
+}
+`;
+export const onCreateProductLocation = `subscription OnCreateProductLocation {
+  onCreateProductLocation {
+    id
+    product {
+      id
+      name
+      price
+      maxqty
+      defaultqty
+    }
+    location {
+      id
+      name
+    }
+  }
+}
+`;
+export const onUpdateProductLocation = `subscription OnUpdateProductLocation {
+  onUpdateProductLocation {
+    id
+    product {
+      id
+      name
+      price
+      maxqty
+      defaultqty
+    }
+    location {
+      id
+      name
+    }
+  }
+}
+`;
+export const onDeleteProductLocation = `subscription OnDeleteProductLocation {
+  onDeleteProductLocation {
+    id
+    product {
+      id
+      name
+      price
+      maxqty
+      defaultqty
+    }
+    location {
+      id
+      name
+    }
+  }
+}
+`;
+export const onCreateLocation = `subscription OnCreateLocation {
+  onCreateLocation {
+    id
+    name
+    products {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onUpdateLocation = `subscription OnUpdateLocation {
+  onUpdateLocation {
+    id
+    name
+    products {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onDeleteLocation = `subscription OnDeleteLocation {
+  onDeleteLocation {
+    id
+    name
+    products {
+      items {
+        id
+      }
+      nextToken
     }
   }
 }

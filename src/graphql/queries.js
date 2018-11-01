@@ -20,6 +20,12 @@ export const getProduct = `query GetProduct($id: ID!) {
       id
       name
     }
+    location {
+      items {
+        id
+      }
+      nextToken
+    }
     orders {
       items {
         id
@@ -52,6 +58,12 @@ export const listProducts = `query ListProducts(
       unit {
         id
         name
+      }
+      location {
+        items {
+          id
+        }
+        nextToken
       }
       orders {
         items {
@@ -222,6 +234,80 @@ export const listProductOrders = `query ListProductOrders(
       order {
         id
         name
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getProductLocation = `query GetProductLocation($id: ID!) {
+  getProductLocation(id: $id) {
+    id
+    product {
+      id
+      name
+      price
+      maxqty
+      defaultqty
+    }
+    location {
+      id
+      name
+    }
+  }
+}
+`;
+export const listProductLocations = `query ListProductLocations(
+  $filter: ModelProductLocationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProductLocations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      product {
+        id
+        name
+        price
+        maxqty
+        defaultqty
+      }
+      location {
+        id
+        name
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getLocation = `query GetLocation($id: ID!) {
+  getLocation(id: $id) {
+    id
+    name
+    products {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const listLocations = `query ListLocations(
+  $filter: ModelLocationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLocations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      products {
+        items {
+          id
+        }
+        nextToken
       }
     }
     nextToken

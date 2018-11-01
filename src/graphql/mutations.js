@@ -20,6 +20,12 @@ export const createProduct = `mutation CreateProduct($input: CreateProductInput!
       id
       name
     }
+    location {
+      items {
+        id
+      }
+      nextToken
+    }
     orders {
       items {
         id
@@ -48,6 +54,12 @@ export const updateProduct = `mutation UpdateProduct($input: UpdateProductInput!
       id
       name
     }
+    location {
+      items {
+        id
+      }
+      nextToken
+    }
     orders {
       items {
         id
@@ -75,6 +87,12 @@ export const deleteProduct = `mutation DeleteProduct($input: DeleteProductInput!
     unit {
       id
       name
+    }
+    location {
+      items {
+        id
+      }
+      nextToken
     }
     orders {
       items {
@@ -285,6 +303,96 @@ export const deleteProductOrder = `mutation DeleteProductOrder($input: DeletePro
     order {
       id
       name
+    }
+  }
+}
+`;
+export const createProductLocation = `mutation CreateProductLocation($input: CreateProductLocationInput!) {
+  createProductLocation(input: $input) {
+    id
+    product {
+      id
+      name
+      price
+      maxqty
+      defaultqty
+    }
+    location {
+      id
+      name
+    }
+  }
+}
+`;
+export const updateProductLocation = `mutation UpdateProductLocation($input: UpdateProductLocationInput!) {
+  updateProductLocation(input: $input) {
+    id
+    product {
+      id
+      name
+      price
+      maxqty
+      defaultqty
+    }
+    location {
+      id
+      name
+    }
+  }
+}
+`;
+export const deleteProductLocation = `mutation DeleteProductLocation($input: DeleteProductLocationInput!) {
+  deleteProductLocation(input: $input) {
+    id
+    product {
+      id
+      name
+      price
+      maxqty
+      defaultqty
+    }
+    location {
+      id
+      name
+    }
+  }
+}
+`;
+export const createLocation = `mutation CreateLocation($input: CreateLocationInput!) {
+  createLocation(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const updateLocation = `mutation UpdateLocation($input: UpdateLocationInput!) {
+  updateLocation(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const deleteLocation = `mutation DeleteLocation($input: DeleteLocationInput!) {
+  deleteLocation(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+      }
+      nextToken
     }
   }
 }

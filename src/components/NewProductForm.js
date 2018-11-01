@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createProduct } from "../graphql/mutations";
+import { createProduct, createProductLocation } from "../graphql/mutations";
 
 //material-ui
 import Grid from "@material-ui/core/Grid";
@@ -12,7 +12,8 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormGroup from "@material-ui/core/FormGroup";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -24,6 +25,10 @@ const styles = theme => ({
   },
   formControl: {
     minWidth: 120
+  },
+  checkBoxes: {
+    display: "flex",
+    flexDirection: "row"
   },
   buttons: {
     display: "flex",
@@ -43,6 +48,7 @@ class AddProductForm extends Component {
     super();
 
     this.state = {
+      productId: "",
       name: "",
       category: "",
       productCategoryId: "",
@@ -51,10 +57,13 @@ class AddProductForm extends Component {
       productVendorId: "",
       unit: "",
       productUnitId: "",
+      locations: [],
       loading: false
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this._createProductLocation = this._createProductLocation.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleVendorChange = this.handleVendorChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleUnitChange = this.handleUnitChange.bind(this);
@@ -66,6 +75,56 @@ class AddProductForm extends Component {
     const field = event.target.name;
     const value = event.target.value;
     this.setState({ [field]: value });
+  }
+
+  handleCheckboxChange = (event, location) => {
+    if (this._isChecked(location)) {
+      const newLocations = [...this.state.locations].filter(
+        loc => loc.id !== location.id
+      );
+      this.setState({ locations: newLocations });
+      console.log(newLocations);
+      return;
+    }
+    this.setState({
+      locations: [
+        ...this.state.locations,
+        { name: location.name, id: location.id }
+      ]
+    });
+  };
+
+  async asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  }
+
+  async _createProductLocation() {
+    await this.asyncForEach(this.state.locations, async location => {
+      const productLocation = {
+        input: {
+          productLocationProductId: this.state.productId,
+          productLocationLocationId: location.id
+        }
+      };
+      try {
+        const response = await API.graphql(
+          graphqlOperation(createProductLocation, productLocation)
+        );
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  _isChecked(selectedLocation) {
+    const result = this.state.locations.findIndex(
+      location => location.id === selectedLocation.id
+    );
+    if (result !== -1) return true;
+    else return false;
   }
 
   _formIsValid() {
@@ -92,7 +151,16 @@ class AddProductForm extends Component {
     const product = {
       input: { name, productCategoryId, price, productVendorId, productUnitId }
     };
-    console.log(await API.graphql(graphqlOperation(createProduct, product)));
+    try {
+      const response = await API.graphql(
+        graphqlOperation(createProduct, product)
+      );
+      const productId = response.data.createProduct.id;
+      this.setState({ productId });
+    } catch (err) {
+      console.log(err);
+    }
+    this._createProductLocation();
     onProductSubmit();
     this.setState({
       loading: false,
@@ -101,9 +169,10 @@ class AddProductForm extends Component {
       price: "",
       unit: "",
       vendor: "",
+      locations: [],
       productVendorId: "",
       productCategoryId: "",
-      productUnitId: "",
+      productUnitId: ""
     });
   }
 
@@ -127,14 +196,13 @@ class AddProductForm extends Component {
   handleUnitChange(event) {
     const { units } = this.props;
     const selectedUnitName = event.target.value;
-    const unit = units.find(
-      unit => unit.name === selectedUnitName
-    )
-    this.setState({ unit: unit.name, productUnitId: unit.id })
+    const unit = units.find(unit => unit.name === selectedUnitName);
+    this.setState({ unit: unit.name, productUnitId: unit.id });
   }
 
   render() {
-    const { classes, vendors, categories, units } = this.props;
+    console.log(this.state);
+    const { classes, vendors, categories, units, locations } = this.props;
     return (
       <React.Fragment>
         <Typography variant="h6" gutterBottom>
@@ -152,16 +220,6 @@ class AddProductForm extends Component {
               onChange={this.handleChange}
             />
           </Grid>
-          {/* <Grid item xs={12} sm={6}>
-            <TextField
-              id="category"
-              name="category"
-              label="Category"
-              value={this.state.category}
-              fullWidth
-              onChange={this.handleChange}
-            />
-          </Grid> */}
           <Grid item xs={6} sm={6}>
             <TextField
               required
@@ -219,6 +277,27 @@ class AddProductForm extends Component {
                   </MenuItem>
                 ))}
               </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6} sm={12}>
+            <FormControl className={classes.formControl}>
+              <FormLabel component="legend">Delivery Location</FormLabel>
+              <FormGroup>
+                {locations.map(location => (
+                  <FormControlLabel
+                    key={location.id}
+                    control={
+                      <Checkbox
+                        key={location.id}
+                        checked={this._isChecked(location)}
+                        onChange={e => this.handleCheckboxChange(e, location)}
+                        value={location.name}
+                      />
+                    }
+                    label={location.name}
+                  />
+                ))}
+              </FormGroup>
             </FormControl>
           </Grid>
           <Grid item xs={12}>
