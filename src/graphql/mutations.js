@@ -6,7 +6,6 @@ export const createProduct = `mutation CreateProduct($input: CreateProductInput!
     id
     name
     price
-    units
     maxqty
     defaultqty
     vendor {
@@ -14,6 +13,10 @@ export const createProduct = `mutation CreateProduct($input: CreateProductInput!
       name
     }
     category {
+      id
+      name
+    }
+    unit {
       id
       name
     }
@@ -31,7 +34,6 @@ export const updateProduct = `mutation UpdateProduct($input: UpdateProductInput!
     id
     name
     price
-    units
     maxqty
     defaultqty
     vendor {
@@ -39,6 +41,10 @@ export const updateProduct = `mutation UpdateProduct($input: UpdateProductInput!
       name
     }
     category {
+      id
+      name
+    }
+    unit {
       id
       name
     }
@@ -56,7 +62,6 @@ export const deleteProduct = `mutation DeleteProduct($input: DeleteProductInput!
     id
     name
     price
-    units
     maxqty
     defaultqty
     vendor {
@@ -64,6 +69,10 @@ export const deleteProduct = `mutation DeleteProduct($input: DeleteProductInput!
       name
     }
     category {
+      id
+      name
+    }
+    unit {
       id
       name
     }
@@ -85,7 +94,6 @@ export const createVendor = `mutation CreateVendor($input: CreateVendorInput!) {
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -103,7 +111,6 @@ export const updateVendor = `mutation UpdateVendor($input: UpdateVendorInput!) {
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -121,7 +128,57 @@ export const deleteVendor = `mutation DeleteVendor($input: DeleteVendorInput!) {
         id
         name
         price
-        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const createUnit = `mutation CreateUnit($input: CreateUnitInput!) {
+  createUnit(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const updateUnit = `mutation UpdateUnit($input: UpdateUnitInput!) {
+  updateUnit(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const deleteUnit = `mutation DeleteUnit($input: DeleteUnitInput!) {
+  deleteUnit(input: $input) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
         maxqty
         defaultqty
       }
@@ -139,7 +196,6 @@ export const createCategory = `mutation CreateCategory($input: CreateCategoryInp
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -157,7 +213,6 @@ export const updateCategory = `mutation UpdateCategory($input: UpdateCategoryInp
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -175,7 +230,6 @@ export const deleteCategory = `mutation DeleteCategory($input: DeleteCategoryInp
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -191,7 +245,6 @@ export const createProductOrder = `mutation CreateProductOrder($input: CreatePro
       id
       name
       price
-      units
       maxqty
       defaultqty
     }
@@ -209,7 +262,6 @@ export const updateProductOrder = `mutation UpdateProductOrder($input: UpdatePro
       id
       name
       price
-      units
       maxqty
       defaultqty
     }
@@ -227,7 +279,6 @@ export const deleteProductOrder = `mutation DeleteProductOrder($input: DeletePro
       id
       name
       price
-      units
       maxqty
       defaultqty
     }

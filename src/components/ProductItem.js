@@ -76,7 +76,7 @@ class ProductItem extends Component {
             <Typography component="p">{product.price}</Typography>
             <Typography component="p">{product.vendor.name}</Typography>
             <Typography component="p">{product.category.name}</Typography>
-            <Typography component="p">{product.units}</Typography>
+            <Typography component="p">{product.unit.name}</Typography>
             <Typography component="p">{product.maxOrder}</Typography>
           </CardContent>
         </CardActionArea>

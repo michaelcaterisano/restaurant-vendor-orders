@@ -3,13 +3,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { API, graphqlOperation } from "aws-amplify";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import ProductEditor from "../components/ProductEditor";
-import NewProductForm from '../components/NewProductForm';
+import NewProductForm from "../components/NewProductForm";
 import { listProducts } from "../graphql/queries.js";
 
-const AddProductContainer = ({ listProducts, vendors, categories }) => (
+const AddProductContainer = ({ listProducts, vendors, categories, units }) => (
   <React.Fragment>
     <CssBaseline />
-    <NewProductForm categories={categories} vendors={vendors} onProductSubmit={listProducts} />
+    <NewProductForm
+      units={units}
+      categories={categories}
+      vendors={vendors}
+      onProductSubmit={listProducts}
+    />
   </React.Fragment>
 );
 

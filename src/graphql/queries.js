@@ -6,7 +6,6 @@ export const getProduct = `query GetProduct($id: ID!) {
     id
     name
     price
-    units
     maxqty
     defaultqty
     vendor {
@@ -14,6 +13,10 @@ export const getProduct = `query GetProduct($id: ID!) {
       name
     }
     category {
+      id
+      name
+    }
+    unit {
       id
       name
     }
@@ -36,7 +39,6 @@ export const listProducts = `query ListProducts(
       id
       name
       price
-      units
       maxqty
       defaultqty
       vendor {
@@ -44,6 +46,10 @@ export const listProducts = `query ListProducts(
         name
       }
       category {
+        id
+        name
+      }
+      unit {
         id
         name
       }
@@ -67,7 +73,6 @@ export const getVendor = `query GetVendor($id: ID!) {
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -90,7 +95,47 @@ export const listVendors = `query ListVendors(
           id
           name
           price
-          units
+          maxqty
+          defaultqty
+        }
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
+export const getUnit = `query GetUnit($id: ID!) {
+  getUnit(id: $id) {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const listUnits = `query ListUnits(
+  $filter: ModelUnitFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUnits(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      products {
+        items {
+          id
+          name
+          price
           maxqty
           defaultqty
         }
@@ -110,7 +155,6 @@ export const getCategory = `query GetCategory($id: ID!) {
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -133,7 +177,6 @@ export const listCategorys = `query ListCategorys(
           id
           name
           price
-          units
           maxqty
           defaultqty
         }
@@ -151,7 +194,6 @@ export const getProductOrder = `query GetProductOrder($id: ID!) {
       id
       name
       price
-      units
       maxqty
       defaultqty
     }
@@ -174,7 +216,6 @@ export const listProductOrders = `query ListProductOrders(
         id
         name
         price
-        units
         maxqty
         defaultqty
       }

@@ -12,9 +12,9 @@ import TextField from "@material-ui/core/TextField";
 import pluralize from 'pluralize';
 import { withStyles } from "@material-ui/core/styles";
 
-const ProductCart = ({ name, price, quantity, units }) => {
+const ProductCart = ({ name, price, quantity, unit }) => {
   console.log(quantity)
-  const pluralizedQuantity = pluralize(units, quantity)
+  const pluralizedQuantity = pluralize(unit, quantity)
   return (
   <div>
     <div>{name}, {quantity} {pluralizedQuantity} </div>

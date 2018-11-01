@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { API, graphqlOperation } from "aws-amplify";
-import { listProducts, listVendors, listCategorys } from "../graphql/queries";
+import { listProducts, listVendors, listCategorys, listUnits } from "../graphql/queries";
 import { createVendor } from "../graphql/mutations";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
@@ -29,6 +29,7 @@ import { countCartItems } from "../lib/helpers";
 
 const drawerWidth = 240;
 
+// Split out into separate file
 const styles = theme => ({
   root: {
     display: "flex"
@@ -113,6 +114,7 @@ class Dashboard extends React.Component {
     products: [],
     vendors: [],
     categories: [],
+    units: [],
     cart: [],
     open: true
   };
@@ -121,10 +123,13 @@ class Dashboard extends React.Component {
     const products = await API.graphql(graphqlOperation(listProducts));
     const vendors = await API.graphql(graphqlOperation(listVendors));
     const categories = await API.graphql(graphqlOperation(listCategorys));
+    const units = await API.graphql(graphqlOperation(listUnits));
+    console.log(products)
     this.setState({
       products: products.data.listProducts.items,
       vendors: vendors.data.listVendors.items,
       categories: categories.data.listCategorys.items,
+      units: units.data.listUnits.items,
     });
   }
 
@@ -141,6 +146,11 @@ class Dashboard extends React.Component {
   async listCategories() {
     const categories = await API.graphql(graphqlOperation(listCategorys));
     this.setState({ categories: categories.data.listCategorys.items });
+  }
+
+  async listUnits() {
+    const units = await API.graphql(graphqlOperation(listUnits));
+    this.setState({ units: units.data.listUnits.items });
   }
 
   handleDrawerOpen = () => {
@@ -169,7 +179,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.state)
     const { classes } = this.props;
     return (
       <Router>
@@ -261,6 +271,7 @@ class Dashboard extends React.Component {
                     <AddProductContainer
                       vendors={this.state.vendors}
                       categories={this.state.categories}
+                      units={this.state.units}
                       listProducts={this.listProducts.bind(this)}
                     />
                   )}

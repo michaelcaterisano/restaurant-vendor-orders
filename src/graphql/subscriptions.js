@@ -6,7 +6,6 @@ export const onCreateProduct = `subscription OnCreateProduct {
     id
     name
     price
-    units
     maxqty
     defaultqty
     vendor {
@@ -14,6 +13,10 @@ export const onCreateProduct = `subscription OnCreateProduct {
       name
     }
     category {
+      id
+      name
+    }
+    unit {
       id
       name
     }
@@ -31,7 +34,6 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
     id
     name
     price
-    units
     maxqty
     defaultqty
     vendor {
@@ -39,6 +41,10 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
       name
     }
     category {
+      id
+      name
+    }
+    unit {
       id
       name
     }
@@ -56,7 +62,6 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     id
     name
     price
-    units
     maxqty
     defaultqty
     vendor {
@@ -64,6 +69,10 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
       name
     }
     category {
+      id
+      name
+    }
+    unit {
       id
       name
     }
@@ -85,7 +94,6 @@ export const onCreateVendor = `subscription OnCreateVendor {
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -103,7 +111,6 @@ export const onUpdateVendor = `subscription OnUpdateVendor {
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -121,7 +128,57 @@ export const onDeleteVendor = `subscription OnDeleteVendor {
         id
         name
         price
-        units
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onCreateUnit = `subscription OnCreateUnit {
+  onCreateUnit {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onUpdateUnit = `subscription OnUpdateUnit {
+  onUpdateUnit {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
+        maxqty
+        defaultqty
+      }
+      nextToken
+    }
+  }
+}
+`;
+export const onDeleteUnit = `subscription OnDeleteUnit {
+  onDeleteUnit {
+    id
+    name
+    products {
+      items {
+        id
+        name
+        price
         maxqty
         defaultqty
       }
@@ -139,7 +196,6 @@ export const onCreateCategory = `subscription OnCreateCategory {
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -157,7 +213,6 @@ export const onUpdateCategory = `subscription OnUpdateCategory {
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -175,7 +230,6 @@ export const onDeleteCategory = `subscription OnDeleteCategory {
         id
         name
         price
-        units
         maxqty
         defaultqty
       }
@@ -191,7 +245,6 @@ export const onCreateProductOrder = `subscription OnCreateProductOrder {
       id
       name
       price
-      units
       maxqty
       defaultqty
     }
@@ -209,7 +262,6 @@ export const onUpdateProductOrder = `subscription OnUpdateProductOrder {
       id
       name
       price
-      units
       maxqty
       defaultqty
     }
@@ -227,7 +279,6 @@ export const onDeleteProductOrder = `subscription OnDeleteProductOrder {
       id
       name
       price
-      units
       maxqty
       defaultqty
     }

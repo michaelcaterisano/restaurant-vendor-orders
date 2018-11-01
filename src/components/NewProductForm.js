@@ -47,15 +47,17 @@ class AddProductForm extends Component {
       category: "",
       productCategoryId: "",
       price: "",
-      units: "",
       vendor: "",
       productVendorId: "",
+      unit: "",
+      productUnitId: "",
       loading: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleVendorChange = this.handleVendorChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleUnitChange = this.handleUnitChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this._formIsValid = this._formIsValid.bind(this);
   }
@@ -67,8 +69,8 @@ class AddProductForm extends Component {
   }
 
   _formIsValid() {
-    const { name, category, price, units, vendor } = this.state;
-    if (!name || !category || !price || !units || !vendor) {
+    const { name, category, price, unit, vendor } = this.state;
+    if (!name || !category || !price || !unit || !vendor) {
       return false;
     } else {
       return true;
@@ -84,11 +86,11 @@ class AddProductForm extends Component {
       name,
       productCategoryId,
       price,
-      units,
+      productUnitId,
       productVendorId
     } = this.state;
     const product = {
-      input: { name, productCategoryId, price, units, productVendorId }
+      input: { name, productCategoryId, price, productVendorId, productUnitId }
     };
     console.log(await API.graphql(graphqlOperation(createProduct, product)));
     onProductSubmit();
@@ -97,9 +99,11 @@ class AddProductForm extends Component {
       name: "",
       category: "",
       price: "",
-      units: "",
+      unit: "",
       vendor: "",
-      productVendorId: ""
+      productVendorId: "",
+      productCategoryId: "",
+      productUnitId: "",
     });
   }
 
@@ -120,8 +124,17 @@ class AddProductForm extends Component {
     this.setState({ category: category.name, productCategoryId: category.id });
   }
 
+  handleUnitChange(event) {
+    const { units } = this.props;
+    const selectedUnitName = event.target.value;
+    const unit = units.find(
+      unit => unit.name === selectedUnitName
+    )
+    this.setState({ unit: unit.name, productUnitId: unit.id })
+  }
+
   render() {
-    const { classes, vendors, categories } = this.props;
+    const { classes, vendors, categories, units } = this.props;
     return (
       <React.Fragment>
         <Typography variant="h6" gutterBottom>
@@ -160,16 +173,6 @@ class AddProductForm extends Component {
               onChange={this.handleChange}
             />
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              id="units"
-              name="units"
-              label="Units"
-              value={this.state.units}
-              fullWidth
-              onChange={this.handleChange}
-            />
-          </Grid>
           <Grid item xs={6} sm={6}>
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="age-simple">Vendor</InputLabel>
@@ -197,6 +200,22 @@ class AddProductForm extends Component {
                 {categories.map(category => (
                   <MenuItem key={category.id} value={category.name}>
                     {category.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6} sm={6}>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="age-simple">Unit</InputLabel>
+              <Select
+                value={this.state.unit}
+                onChange={this.handleUnitChange}
+                name="unit"
+              >
+                {units.map(unit => (
+                  <MenuItem key={unit.id} value={unit.name}>
+                    {unit.name}
                   </MenuItem>
                 ))}
               </Select>
