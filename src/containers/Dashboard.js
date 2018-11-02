@@ -287,6 +287,9 @@ class Dashboard extends React.Component {
                 <OrderContainer
                   products={this.state.products}
                   locations={this.state.locations}
+                  vendors={this.state.vendors}
+                  categories={this.state.categories}
+                  units={this.state.units}
                   cart={countCartItems(this.state.cart)}
                   addToCart={this.addToCart.bind(this)}
                   removeFromCart={this.removeFromCart.bind(this)}
