@@ -1,6 +1,5 @@
 import React from 'react';
 import ProductCart from './ProductCart';
-import Typography from "@material-ui/core/Typography";
 
 const Cart = ({ products, total, onCheckoutClicked }) => {
   const hasProducts = products.length > 0

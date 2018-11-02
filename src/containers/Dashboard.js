@@ -1,7 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { API, graphqlOperation } from "aws-amplify";
-import { listProducts, listVendors, listCategorys, listUnits, listLocations } from "../graphql/queries";
+import {
+  listProducts,
+  listVendors,
+  listCategorys,
+  listUnits,
+  listLocations
+} from "../graphql/queries";
 import { createVendor } from "../graphql/mutations";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
@@ -21,13 +27,12 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { mainListItems, secondaryListItems } from "../components/listItems";
 import AddProductContainer from "./AddProductContainer";
-import EditVendorsContainer from "./EditVendorsContainer";
-import CategoriesContainer from './CategoriesContainer';
 import OrderContainer from "./OrderContainer";
 import CartContainer from "./CartContainer";
+import SettingsContainer from "./SettingsContainer";
 import { countCartItems } from "../lib/helpers";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 // Split out into separate file
 const styles = theme => ({
@@ -43,6 +48,14 @@ const styles = theme => ({
     justifyContent: "flex-end",
     padding: "0 8px",
     ...theme.mixins.toolbar
+  },
+  settings: {
+    width: "100vw",
+    position: "absolute",
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
   },
   appBar: {
     position: "absolute",
@@ -72,6 +85,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   drawerPaper: {
+    height: "100vh",
     position: "relative",
     whiteSpace: "nowrap",
     width: drawerWidth,
@@ -82,27 +96,22 @@ const styles = theme => ({
   },
   drawerPaperClose: {
     overflowX: "hidden",
+    // hack!
+    margin: "0 0 0 -1px",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    width: theme.spacing.unit * 7,
+    width: 0,
     [theme.breakpoints.up("sm")]: {
-      width: theme.spacing.unit * 9
+      width: 0
     }
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
-    height: "100vh",
     overflow: "auto"
-  },
-  chartContainer: {
-    marginLeft: -22
-  },
-  tableContainer: {
-    height: 320
   },
   h5: {
     marginBottom: theme.spacing.unit * 2
@@ -126,13 +135,12 @@ class Dashboard extends React.Component {
     const categories = await API.graphql(graphqlOperation(listCategorys));
     const units = await API.graphql(graphqlOperation(listUnits));
     const locations = await API.graphql(graphqlOperation(listLocations));
-    console.log(products)
     this.setState({
       products: products.data.listProducts.items,
       vendors: vendors.data.listVendors.items,
       categories: categories.data.listCategorys.items,
       units: units.data.listUnits.items,
-      locations: locations.data.listLocations.items,
+      locations: locations.data.listLocations.items
     });
   }
 
@@ -182,129 +190,121 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     const { classes } = this.props;
     return (
       <Router>
-        <React.Fragment>
-          <CssBaseline />
-          <div className={classes.root}>
-            <AppBar
-              className={classNames(
-                classes.appBar,
-                this.state.open && classes.appBarShift
-              )}
+        <div className={classes.root}>
+          <AppBar
+            className={classNames(
+              classes.appBar,
+              this.state.open && classes.appBarShift
+            )}
+          >
+            <Toolbar
+              disableGutters={!this.state.open}
+              className={classes.toolbar}
             >
-              <Toolbar
-                disableGutters={!this.state.open}
-                className={classes.toolbar}
+              <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerOpen}
+                className={classNames(
+                  classes.menuButton,
+                  this.state.open && classes.menuButtonHidden
+                )}
               >
-                <IconButton
-                  color="inherit"
-                  aria-label="Open drawer"
-                  onClick={this.handleDrawerOpen}
-                  className={classNames(
-                    classes.menuButton,
-                    this.state.open && classes.menuButtonHidden
-                  )}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Typography
-                  component="h1"
-                  variant="h6"
-                  color="inherit"
-                  noWrap
-                  className={classes.title}
-                >
-                  Dashboard
-                </Typography>
-                <IconButton color="inherit">
-                  <Badge
-                    badgeContent={this.state.cart.length}
-                    color="secondary"
-                  >
-                    <ShoppingCartIcon />
-                  </Badge>
-                </IconButton>
-              </Toolbar>
-            </AppBar>
-            <Drawer
-              variant="permanent"
-              classes={{
-                paper: classNames(
-                  classes.drawerPaper,
-                  !this.state.open && classes.drawerPaperClose
-                )
-              }}
-              open={this.state.open}
-            >
-              <div className={classes.toolbarIcon}>
-                <IconButton onClick={this.handleDrawerClose}>
-                  <ChevronLeftIcon />
-                </IconButton>
-              </div>
-              <Divider />
-              <List>{mainListItems}</List>
-            </Drawer>
-            <main className={classes.content}>
-              <div className={classes.appBarSpacer} />
-              <div className={classes.tableContainer}>
-                <Route
-                  path="/edit-vendor"
-                  render={() => (
-                    <EditVendorsContainer
-                      vendors={this.state.vendors}
-                      listVendors={this.listVendors.bind(this)}
-                    />
-                  )}
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                className={classes.title}
+              >
+                Dashboard
+              </Typography>
+              <IconButton color="inherit">
+                <Badge badgeContent={this.state.cart.length} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="permanent"
+            classes={{
+              paper: classNames(
+                classes.drawerPaper,
+                !this.state.open && classes.drawerPaperClose
+              )
+            }}
+            open={this.state.open}
+          >
+            <div className={classes.toolbarIcon}>
+              <IconButton onClick={this.handleDrawerClose}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <Divider />
+            <List>{mainListItems}</List>
+          </Drawer>
+          <main
+            className={classNames(
+              classes.settings,
+              this.state.open && classes.appBarShift
+            )}
+          >
+            <div className={classes.appBarSpacer} />
+            <Route
+              path="/settings"
+              render={() => (
+                <SettingsContainer
+                  vendors={this.state.vendors}
+                  listVendors={this.listVendors.bind(this)}
+                  categories={this.state.categories}
+                  listCategories={this.listCategories.bind(this)}
                 />
-                <Route
-                  path="/categories"
-                  render={() => (
-                    <CategoriesContainer
-                      categories={this.state.categories}
-                      listCategories={this.listCategories.bind(this)}
-                    />
-                  )}
+              )}
+            />
+            <Route
+              path="/add-product"
+              render={() => (
+                <div style={{ padding: 8 * 3 }}>
+                  <AddProductContainer
+                    vendors={this.state.vendors}
+                    categories={this.state.categories}
+                    units={this.state.units}
+                    locations={this.state.locations}
+                    listProducts={this.listProducts.bind(this)}
+                  />
+                </div>
+              )}
+            />
+            <Route
+              path="/order"
+              render={() => (
+                <OrderContainer
+                  products={this.state.products}
+                  locations={this.state.locations}
+                  cart={countCartItems(this.state.cart)}
+                  addToCart={this.addToCart.bind(this)}
+                  removeFromCart={this.removeFromCart.bind(this)}
                 />
-                <Route
-                  path="/add-product"
-                  render={() => (
-                    <AddProductContainer
-                      vendors={this.state.vendors}
-                      categories={this.state.categories}
-                      units={this.state.units}
-                      locations={this.state.locations}
-                      listProducts={this.listProducts.bind(this)}
-                    />
-                  )}
+              )}
+            />
+            <Route
+              path="/cart"
+              render={() => (
+                <CartContainer
+                  products={countCartItems(this.state.cart)}
+                  total={20}
+                  checkout={this.checkout.bind(this)}
                 />
-                <Route
-                  path="/order"
-                  render={() => (
-                    <OrderContainer
-                      products={this.state.products}
-                      cart={countCartItems(this.state.cart)}
-                      addToCart={this.addToCart.bind(this)}
-                      removeFromCart={this.removeFromCart.bind(this)}
-                    />
-                  )}
-                />
-                <Route
-                  path="/cart"
-                  render={() => (
-                    <CartContainer
-                      products={countCartItems(this.state.cart)}
-                      total={20}
-                      checkout={this.checkout.bind(this)}
-                    />
-                  )}
-                />
-              </div>
-            </main>
-          </div>
-        </React.Fragment>
+              )}
+            />
+          </main>
+        </div>
       </Router>
     );
   }

@@ -10,28 +10,37 @@ import BarChartIcon from "@material-ui/icons/BarChart";
 import LayersIcon from "@material-ui/icons/Layers";
 import CreateIcon from '@material-ui/icons/Create';
 import ListIcon from '@material-ui/icons/List';
+import SettingsIcon from '@material-ui/icons/Settings';
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
 
 export const mainListItems = (
   <div>
-    <Link to="/categories">
+     <Link to="/settings">
+      <ListItem button>
+        <ListItemIcon>
+          <SettingsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Settings" />
+      </ListItem>
+    </Link>
+    {/* <Link to="/categories">
       <ListItem button>
         <ListItemIcon>
           <CreateIcon />
         </ListItemIcon>
         <ListItemText primary="Categories" />
       </ListItem>
-    </Link>
+    </Link> */}
     
-    <Link to="/edit-vendor">
+    {/* <Link to="/edit-vendor">
       <ListItem button>
         <ListItemIcon>
           <CreateIcon />
         </ListItemIcon>
         <ListItemText primary="Vendors" />
       </ListItem>
-    </Link>
+    </Link> */}
 
     <Link to="/add-product">
       <ListItem button>

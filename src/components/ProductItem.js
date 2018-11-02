@@ -57,7 +57,8 @@ class ProductItem extends Component {
       cart,
       onAddToCartClicked,
       onRemoveFromCartClicked,
-      classes
+      classes,
+      locations
     } = this.props;
 
     return (
