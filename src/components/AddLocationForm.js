@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createVendor, deleteVendor } from "../graphql/mutations";
+import { createLocation, deleteLocation } from "../graphql/mutations";
 
 //material-ui
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+// import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import Checkbox from "@material-ui/core/Checkbox";
+// import Select from "@material-ui/core/Select";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import FormControl from "@material-ui/core/FormControl";
+// import FormHelperText from "@material-ui/core/FormHelperText";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -23,7 +30,7 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "flex-start"
   },
-  vendor: {
+  location: {
     display: "flex",
     flexDirection: "row", 
     alignItems: "center",
@@ -36,7 +43,7 @@ const styles = theme => ({
   }
 });
 
-class Categories extends Component {
+class AddLocationForm extends Component {
   constructor() {
     super();
 
@@ -45,7 +52,7 @@ class Categories extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    // this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    // this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -57,24 +64,24 @@ class Categories extends Component {
     event.preventDefault();
     const { name } = this.state;
     if (name === "") return;
-    const { onVendorSubmit } = this.props;
-    const vendor = {
+    const { onLocationSubmit } = this.props;
+    const location = {
       input: { name }
     };
-    await API.graphql(graphqlOperation(createVendor, vendor));
-    onVendorSubmit();
+    await API.graphql(graphqlOperation(createLocation, location));
+    onLocationSubmit();
     this.setState({ name: "" })
   }
 
-  // async handleDeleteCategory(id) {
-  //   const { onCategorySubmit } = this.props;
-  //   const category = { input: { id }}
-  //   await API.graphql(graphqlOperation(deleteCategory, category));
-  //   onCategorySubmit();
-  // }
+  async handleDeleteLocation(id) {
+    const { onLocationSubmit } = this.props;
+    const location = { input: { id }}
+    await API.graphql(graphqlOperation(deleteLocation, location));
+    onLocationSubmit();
+  }
 
   render() {
-    const { classes, vendors } = this.props;
+    const { classes, locations } = this.props;
     return (
       <React.Fragment>
         <Grid container spacing={24}>
@@ -83,7 +90,7 @@ class Categories extends Component {
               required
               id="name"
               name="name"
-              label="vendor name"
+              label="Location name"
               value={this.state.name}
               fullWidth
               onChange={this.handleChange}
@@ -96,7 +103,7 @@ class Categories extends Component {
                 color="primary"
                 onClick={this.handleSubmit}
               >
-                Add Vendor
+                Add Location
               </Button>
             </div>
           </Grid>
@@ -104,9 +111,9 @@ class Categories extends Component {
         <Grid item xs={12}>
         {
           <div>
-            {vendors.map(vendor => (
-              <div key={vendor.id} className={classes.vendor}>
-                <Typography >{vendor.name}</Typography>
+            {locations.map(location => (
+              <div key={location.id} className={classes.location}>
+                <Typography >{location.name}</Typography>
               </div>
             ))}
           </div> 
@@ -117,4 +124,4 @@ class Categories extends Component {
   }
 }
 
-export default withStyles(styles)(Categories);
+export default withStyles(styles)(AddLocationForm);

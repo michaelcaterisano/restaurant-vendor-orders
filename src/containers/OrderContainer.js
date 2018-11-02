@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ProductList from "../components/ProductList";
-import GridList from "@material-ui/core/GridList";
 import ProductItem from "../components/ProductItem";
 import AppBar from "@material-ui/core/AppBar";
 import Select from "@material-ui/core/Select";
@@ -9,9 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import { classExpression } from "babel-types";
 
 const styles = theme => ({
   root: {
@@ -37,6 +34,10 @@ class OrderContainer extends React.Component {
     selectedCategories: []
   };
 
+  componentDidMount() {
+    this.props.listProducts();
+  }
+
   handleChange = event => {
     const name = event.target.name;
     this.setState({ [name]: event.target.value });
@@ -50,10 +51,9 @@ class OrderContainer extends React.Component {
     const { selectedLocations } = this.state;
     if (!selectedLocations.length) return true;
     else {
-      const result = product.location.items.filter(item =>
-        selectedLocations.includes(item.location.name)
-      );
-      return result.length ? true : false;
+      const productLocations = product.location.items.map(el => el.location.name);
+      const result = selectedLocations.map(loc => productLocations.includes(loc));
+      return result.every(el => el === true);
     }
   };
 
@@ -100,12 +100,11 @@ class OrderContainer extends React.Component {
       categories,
       units
     } = this.props;
-    console.log(this.state);
     return (
       <div>
         <AppBar color="default" position={"static"}>
           <div style={{ display: "flex", flexWrap: "wrap" }}>
-            <span style={{ margin: "30px 0 0 10px" }}>Filter by: </span>   
+            <span style={{ margin: "30px 0 0 10px" }}>Filter by: </span>
             <FormControl className={classes.formControl}>
               <InputLabel>Category</InputLabel>
               <Select

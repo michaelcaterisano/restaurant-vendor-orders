@@ -52,32 +52,25 @@ class Categories extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    // this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    const field = event.target.name;
-    const value = event.target.value;
-    this.setState({ [field]: value });
+    this.setState({ name: event.target.value })
   }
 
   async handleSubmit(event) {
     event.preventDefault();
     const { name } = this.state;
+    if (name === "") return;
     const { onCategorySubmit } = this.props;
     const category = {
       input: { name }
     };
     await API.graphql(graphqlOperation(createCategory, category));
     onCategorySubmit();
-  }
-
-  handleCategoryChange(event) {
-    const { categories } = this.props;
-    const selectedCategoryName = event.target.value;
-    const category = categories.find(category => category.name === selectedCategoryName);
-    this.setState({ category: category.name, productCategoryId: category.id });
+    this.setState({ name: "" })
   }
 
   async handleDeleteCategory(id) {
@@ -98,6 +91,7 @@ class Categories extends Component {
               id="name"
               name="name"
               label="Category name"
+              value={this.state.name}
               fullWidth
               onChange={this.handleChange}
             />
@@ -116,17 +110,13 @@ class Categories extends Component {
         </Grid>
         <Grid item xs={12}>
         {
-          categories.length ? 
           <div>
             {categories.map(category => (
               <div key={category.id} className={classes.category}>
                 <Typography >{category.name}</Typography>
               </div>
             ))}
-          </div> : 
-          <div className={classes.loader}>
-            <CircularProgress />
-          </div>
+          </div> 
         }
         </Grid>
       </React.Fragment>

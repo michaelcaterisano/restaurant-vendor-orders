@@ -8,11 +8,11 @@ import {
   listUnits,
   listLocations
 } from "../graphql/queries";
-import { createVendor } from "../graphql/mutations";
+// import { createVendor } from "../graphql/mutations";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import CssBaseline from "@material-ui/core/CssBaseline";
+// import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -23,7 +23,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+// import NotificationsIcon from "@material-ui/icons/Notifications";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { mainListItems, secondaryListItems } from "../components/listItems";
 import AddProductContainer from "./AddProductContainer";
@@ -130,9 +130,9 @@ class Dashboard extends React.Component {
   };
 
   async componentDidMount() {
-    const products = await API.graphql(graphqlOperation(listProducts));
+    const products = await API.graphql(graphqlOperation(listProducts, {limit: 30}));
     const vendors = await API.graphql(graphqlOperation(listVendors));
-    const categories = await API.graphql(graphqlOperation(listCategorys));
+    const categories = await API.graphql(graphqlOperation(listCategorys, {limit: 30}));
     const units = await API.graphql(graphqlOperation(listUnits));
     const locations = await API.graphql(graphqlOperation(listLocations));
     this.setState({
@@ -145,7 +145,7 @@ class Dashboard extends React.Component {
   }
 
   async listProducts() {
-    const products = await API.graphql(graphqlOperation(listProducts));
+    const products = await API.graphql(graphqlOperation(listProducts, {limit: 30}));
     this.setState({ products: products.data.listProducts.items });
   }
 
@@ -155,13 +155,19 @@ class Dashboard extends React.Component {
   }
 
   async listCategories() {
-    const categories = await API.graphql(graphqlOperation(listCategorys));
+    const categories = await API.graphql(graphqlOperation(listCategorys, {limit: 30}));
+    console.log(categories)
     this.setState({ categories: categories.data.listCategorys.items });
   }
 
   async listUnits() {
     const units = await API.graphql(graphqlOperation(listUnits));
     this.setState({ units: units.data.listUnits.items });
+  }
+
+  listLocations = async () => {
+    const locations = await API.graphql(graphqlOperation(listLocations));
+    this.setState({ locations: locations.data.listLocations.items });
   }
 
   handleDrawerOpen = () => {
@@ -264,6 +270,10 @@ class Dashboard extends React.Component {
                   listVendors={this.listVendors.bind(this)}
                   categories={this.state.categories}
                   listCategories={this.listCategories.bind(this)}
+                  units={this.state.units}
+                  listUnits={this.listUnits.bind(this)}
+                  locations={this.state.locations}
+                  listLocations={this.listLocations}
                 />
               )}
             />
@@ -293,6 +303,7 @@ class Dashboard extends React.Component {
                   cart={countCartItems(this.state.cart)}
                   addToCart={this.addToCart.bind(this)}
                   removeFromCart={this.removeFromCart.bind(this)}
+                  listProducts={this.listProducts.bind(this)}
                 />
               )}
             />

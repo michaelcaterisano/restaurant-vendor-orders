@@ -100,6 +100,7 @@ class AddProductForm extends Component {
     }
   }
 
+  // problem
   async _createProductLocation() {
     await this.asyncForEach(this.state.locations, async location => {
       const productLocation = {
@@ -161,7 +162,7 @@ class AddProductForm extends Component {
       console.log(err);
     }
     this._createProductLocation();
-    onProductSubmit();
+    // onProductSubmit(); // do this elsewhere?
     this.setState({
       loading: false,
       name: "",
@@ -201,7 +202,6 @@ class AddProductForm extends Component {
   }
 
   render() {
-    console.log(this.state);
     const { classes, vendors, categories, units, locations } = this.props;
     return (
       <React.Fragment>

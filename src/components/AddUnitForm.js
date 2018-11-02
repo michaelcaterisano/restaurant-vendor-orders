@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createVendor, deleteVendor } from "../graphql/mutations";
+import { createUnit, deleteUnit } from "../graphql/mutations";
 
 //material-ui
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+// import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import Checkbox from "@material-ui/core/Checkbox";
+// import Select from "@material-ui/core/Select";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import FormControl from "@material-ui/core/FormControl";
+// import FormHelperText from "@material-ui/core/FormHelperText";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -23,7 +30,7 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "flex-start"
   },
-  vendor: {
+  unit: {
     display: "flex",
     flexDirection: "row", 
     alignItems: "center",
@@ -57,12 +64,12 @@ class Categories extends Component {
     event.preventDefault();
     const { name } = this.state;
     if (name === "") return;
-    const { onVendorSubmit } = this.props;
-    const vendor = {
+    const { onUnitSubmit } = this.props;
+    const unit = {
       input: { name }
     };
-    await API.graphql(graphqlOperation(createVendor, vendor));
-    onVendorSubmit();
+    await API.graphql(graphqlOperation(createUnit, unit));
+    onUnitSubmit();
     this.setState({ name: "" })
   }
 
@@ -74,7 +81,7 @@ class Categories extends Component {
   // }
 
   render() {
-    const { classes, vendors } = this.props;
+    const { classes, units } = this.props;
     return (
       <React.Fragment>
         <Grid container spacing={24}>
@@ -83,7 +90,7 @@ class Categories extends Component {
               required
               id="name"
               name="name"
-              label="vendor name"
+              label="Unit name"
               value={this.state.name}
               fullWidth
               onChange={this.handleChange}
@@ -96,7 +103,7 @@ class Categories extends Component {
                 color="primary"
                 onClick={this.handleSubmit}
               >
-                Add Vendor
+                Add Unit
               </Button>
             </div>
           </Grid>
@@ -104,9 +111,9 @@ class Categories extends Component {
         <Grid item xs={12}>
         {
           <div>
-            {vendors.map(vendor => (
-              <div key={vendor.id} className={classes.vendor}>
-                <Typography >{vendor.name}</Typography>
+            {units.map(unit => (
+              <div key={unit.id} className={classes.unit}>
+                <Typography >{unit.name}</Typography>
               </div>
             ))}
           </div> 

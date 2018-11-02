@@ -7,6 +7,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import CategoriesContainer from "./CategoriesContainer";
 import VendorsContainer from "./VendorsContainer";
+import UnitsContainer from "./UnitsContainer";
+import LocationsContainer from "./LocationsContainer";
 
 function TabContainer(props) {
   return (
@@ -41,7 +43,11 @@ class SimpleTabs extends React.Component {
       categories,
       listCategories,
       vendors,
-      listVendors
+      listVendors,
+      units,
+      listUnits,
+      locations,
+      listLocations
     } = this.props;
     const { value } = this.state;
 
@@ -73,7 +79,16 @@ class SimpleTabs extends React.Component {
             <VendorsContainer vendors={vendors} listVendors={listVendors} />
           </TabContainer>
         )}
-        {value === 2 && <TabContainer>Item Three</TabContainer>}
+        {value === 2 && (
+          <TabContainer>
+            <UnitsContainer units={units} listUnits={listUnits} />
+          </TabContainer>
+        )}
+        {value === 3 && (
+          <TabContainer>
+            <LocationsContainer locations={locations} listLocations={listLocations} />
+          </TabContainer>
+        )}
       </div>
     );
   }
