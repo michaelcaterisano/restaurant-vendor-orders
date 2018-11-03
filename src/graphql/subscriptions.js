@@ -6,8 +6,10 @@ export const onCreateProduct = `subscription OnCreateProduct {
     id
     name
     price
-    maxqty
-    defaultqty
+    maxOrder
+    defaultOrder
+    favorite
+    notes
     vendor {
       id
       name
@@ -40,8 +42,10 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
     id
     name
     price
-    maxqty
-    defaultqty
+    maxOrder
+    defaultOrder
+    favorite
+    notes
     vendor {
       id
       name
@@ -74,8 +78,10 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     id
     name
     price
-    maxqty
-    defaultqty
+    maxOrder
+    defaultOrder
+    favorite
+    notes
     vendor {
       id
       name
@@ -112,8 +118,10 @@ export const onCreateVendor = `subscription OnCreateVendor {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -129,8 +137,10 @@ export const onUpdateVendor = `subscription OnUpdateVendor {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -146,8 +156,10 @@ export const onDeleteVendor = `subscription OnDeleteVendor {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -163,8 +175,10 @@ export const onCreateUnit = `subscription OnCreateUnit {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -180,8 +194,10 @@ export const onUpdateUnit = `subscription OnUpdateUnit {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -197,8 +213,10 @@ export const onDeleteUnit = `subscription OnDeleteUnit {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -214,8 +232,10 @@ export const onCreateCategory = `subscription OnCreateCategory {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -231,8 +251,10 @@ export const onUpdateCategory = `subscription OnUpdateCategory {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -248,8 +270,10 @@ export const onDeleteCategory = `subscription OnDeleteCategory {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -263,8 +287,10 @@ export const onCreateProductOrder = `subscription OnCreateProductOrder {
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     order {
       id
@@ -280,8 +306,10 @@ export const onUpdateProductOrder = `subscription OnUpdateProductOrder {
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     order {
       id
@@ -297,8 +325,10 @@ export const onDeleteProductOrder = `subscription OnDeleteProductOrder {
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     order {
       id
@@ -314,8 +344,10 @@ export const onCreateProductLocation = `subscription OnCreateProductLocation {
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     location {
       id
@@ -331,8 +363,10 @@ export const onUpdateProductLocation = `subscription OnUpdateProductLocation {
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     location {
       id
@@ -348,8 +382,10 @@ export const onDeleteProductLocation = `subscription OnDeleteProductLocation {
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     location {
       id

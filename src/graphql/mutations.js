@@ -6,8 +6,10 @@ export const createProduct = `mutation CreateProduct($input: CreateProductInput!
     id
     name
     price
-    maxqty
-    defaultqty
+    maxOrder
+    defaultOrder
+    favorite
+    notes
     vendor {
       id
       name
@@ -40,8 +42,10 @@ export const updateProduct = `mutation UpdateProduct($input: UpdateProductInput!
     id
     name
     price
-    maxqty
-    defaultqty
+    maxOrder
+    defaultOrder
+    favorite
+    notes
     vendor {
       id
       name
@@ -74,8 +78,10 @@ export const deleteProduct = `mutation DeleteProduct($input: DeleteProductInput!
     id
     name
     price
-    maxqty
-    defaultqty
+    maxOrder
+    defaultOrder
+    favorite
+    notes
     vendor {
       id
       name
@@ -112,8 +118,10 @@ export const createVendor = `mutation CreateVendor($input: CreateVendorInput!) {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -129,8 +137,10 @@ export const updateVendor = `mutation UpdateVendor($input: UpdateVendorInput!) {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -146,8 +156,10 @@ export const deleteVendor = `mutation DeleteVendor($input: DeleteVendorInput!) {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -163,8 +175,10 @@ export const createUnit = `mutation CreateUnit($input: CreateUnitInput!) {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -180,8 +194,10 @@ export const updateUnit = `mutation UpdateUnit($input: UpdateUnitInput!) {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -197,8 +213,10 @@ export const deleteUnit = `mutation DeleteUnit($input: DeleteUnitInput!) {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -214,8 +232,10 @@ export const createCategory = `mutation CreateCategory($input: CreateCategoryInp
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -231,8 +251,10 @@ export const updateCategory = `mutation UpdateCategory($input: UpdateCategoryInp
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -248,8 +270,10 @@ export const deleteCategory = `mutation DeleteCategory($input: DeleteCategoryInp
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -263,8 +287,10 @@ export const createProductOrder = `mutation CreateProductOrder($input: CreatePro
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     order {
       id
@@ -280,8 +306,10 @@ export const updateProductOrder = `mutation UpdateProductOrder($input: UpdatePro
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     order {
       id
@@ -297,8 +325,10 @@ export const deleteProductOrder = `mutation DeleteProductOrder($input: DeletePro
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     order {
       id
@@ -314,8 +344,10 @@ export const createProductLocation = `mutation CreateProductLocation($input: Cre
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     location {
       id
@@ -331,8 +363,10 @@ export const updateProductLocation = `mutation UpdateProductLocation($input: Upd
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     location {
       id
@@ -348,8 +382,10 @@ export const deleteProductLocation = `mutation DeleteProductLocation($input: Del
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     location {
       id

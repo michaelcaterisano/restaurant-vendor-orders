@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ProductList from "../components/ProductList";
-import ProductItem from "../components/ProductItem";
+import ProductItem2 from "../components/ProductItem2";
 import AppBar from "@material-ui/core/AppBar";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -31,7 +31,8 @@ class OrderContainer extends React.Component {
     selectedLocations: [],
     selectedUnits: [],
     selectedVendors: [],
-    selectedCategories: []
+    selectedCategories: [],
+    favoriteFilter: false
   };
 
   componentDidMount() {
@@ -43,16 +44,16 @@ class OrderContainer extends React.Component {
     this.setState({ [name]: event.target.value });
   };
 
-  isNegativeOne = val => {
-    return val === -1;
-  };
-
   locationFilter = product => {
     const { selectedLocations } = this.state;
     if (!selectedLocations.length) return true;
     else {
-      const productLocations = product.location.items.map(el => el.location.name);
-      const result = selectedLocations.map(loc => productLocations.includes(loc));
+      const productLocations = product.location.items.map(
+        el => el.location.name
+      );
+      const result = selectedLocations.map(loc =>
+        productLocations.includes(loc)
+      );
       return result.every(el => el === true);
     }
   };
@@ -88,6 +89,16 @@ class OrderContainer extends React.Component {
     }
   };
 
+  favoriteFilter = product => {
+    const { favoriteFilter } = this.state;
+    if (favoriteFilter === false) return true;
+    if (product.favorite === null) {
+      return favoriteFilter === false;
+    } else {
+      return product.favorite === favoriteFilter;
+    }
+  };
+
   render() {
     const {
       classes,
@@ -98,7 +109,8 @@ class OrderContainer extends React.Component {
       locations,
       vendors,
       categories,
-      units
+      units,
+      listProducts
     } = this.props;
     return (
       <div>
@@ -173,6 +185,17 @@ class OrderContainer extends React.Component {
                 ))}
               </Select>
             </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel>Favorites</InputLabel>
+              <Select
+                value={this.state.favoriteFilter}
+                onChange={this.handleChange}
+                name="favoriteFilter"
+              >
+                <MenuItem value={true}>Favorites</MenuItem>
+                <MenuItem value={false}>View all</MenuItem>
+              </Select>
+            </FormControl>
           </div>
         </AppBar>
         <ProductList>
@@ -181,14 +204,20 @@ class OrderContainer extends React.Component {
             .filter(this.locationFilter)
             .filter(this.vendorFilter)
             .filter(this.categoryFilter)
+            .filter(this.favoriteFilter)
             .map(product => (
-              <ProductItem
+              <ProductItem2
                 key={product.id}
                 product={product}
-                cart={cart}
-                onAddToCartClicked={() => addToCart(product)}
-                onRemoveFromCartClicked={() => removeFromCart(product)}
+                listProducts={listProducts}
               />
+              // <ProductItem
+              //   key={product.id}
+              //   product={product}
+              //   cart={cart}
+              //   onAddToCartClicked={() => addToCart(product)}
+              //   onRemoveFromCartClicked={() => removeFromCart(product)}
+              // />
             ))}
         </ProductList>
       </div>

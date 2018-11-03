@@ -8,11 +8,9 @@ import {
   listUnits,
   listLocations
 } from "../graphql/queries";
-// import { createVendor } from "../graphql/mutations";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -23,10 +21,9 @@ import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-// import NotificationsIcon from "@material-ui/icons/Notifications";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { mainListItems, secondaryListItems } from "../components/listItems";
-import AddProductContainer from "./AddProductContainer";
+import ProductContainer from "./ProductContainer";
 import OrderContainer from "./OrderContainer";
 import CartContainer from "./CartContainer";
 import SettingsContainer from "./SettingsContainer";
@@ -144,23 +141,23 @@ class Dashboard extends React.Component {
     });
   }
 
-  async listProducts() {
+  listProducts = async () => {
     const products = await API.graphql(graphqlOperation(listProducts, {limit: 30}));
     this.setState({ products: products.data.listProducts.items });
   }
 
-  async listVendors() {
+  listVendors = async () => {
     const vendors = await API.graphql(graphqlOperation(listVendors));
     this.setState({ vendors: vendors.data.listVendors.items });
   }
 
-  async listCategories() {
+  listCategories = async () => {
     const categories = await API.graphql(graphqlOperation(listCategorys, {limit: 30}));
     console.log(categories)
     this.setState({ categories: categories.data.listCategorys.items });
   }
 
-  async listUnits() {
+  listUnits = async () => {
     const units = await API.graphql(graphqlOperation(listUnits));
     this.setState({ units: units.data.listUnits.items });
   }
@@ -178,7 +175,7 @@ class Dashboard extends React.Component {
     this.setState({ open: false });
   };
 
-  addToCart(product) {
+  addToCart = product => {
     this.setState({ cart: [...this.state.cart, product] });
   }
 
@@ -255,6 +252,8 @@ class Dashboard extends React.Component {
             <Divider />
             <List>{mainListItems}</List>
           </Drawer>
+
+          {/* routes */}
           <main
             className={classNames(
               classes.settings,
@@ -262,16 +261,17 @@ class Dashboard extends React.Component {
             )}
           >
             <div className={classes.appBarSpacer} />
+
             <Route
               path="/settings"
               render={() => (
                 <SettingsContainer
                   vendors={this.state.vendors}
-                  listVendors={this.listVendors.bind(this)}
+                  listVendors={this.listVendors}
                   categories={this.state.categories}
-                  listCategories={this.listCategories.bind(this)}
+                  listCategories={this.listCategories}
                   units={this.state.units}
-                  listUnits={this.listUnits.bind(this)}
+                  listUnits={this.listUnits}
                   locations={this.state.locations}
                   listLocations={this.listLocations}
                 />
@@ -281,12 +281,12 @@ class Dashboard extends React.Component {
               path="/add-product"
               render={() => (
                 <div style={{ padding: 8 * 3 }}>
-                  <AddProductContainer
+                  <ProductContainer
                     vendors={this.state.vendors}
                     categories={this.state.categories}
                     units={this.state.units}
                     locations={this.state.locations}
-                    listProducts={this.listProducts.bind(this)}
+                    listProducts={this.listProducts}
                   />
                 </div>
               )}
@@ -301,9 +301,9 @@ class Dashboard extends React.Component {
                   categories={this.state.categories}
                   units={this.state.units}
                   cart={countCartItems(this.state.cart)}
-                  addToCart={this.addToCart.bind(this)}
-                  removeFromCart={this.removeFromCart.bind(this)}
-                  listProducts={this.listProducts.bind(this)}
+                  addToCart={this.addToCart}
+                  removeFromCart={this.removeFromCart}
+                  listProducts={this.listProducts}
                 />
               )}
             />
@@ -313,7 +313,7 @@ class Dashboard extends React.Component {
                 <CartContainer
                   products={countCartItems(this.state.cart)}
                   total={20}
-                  checkout={this.checkout.bind(this)}
+                  checkout={this.checkout}
                 />
               )}
             />

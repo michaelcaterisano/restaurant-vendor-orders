@@ -58,7 +58,10 @@ class AddProductForm extends Component {
       unit: "",
       productUnitId: "",
       locations: [],
-      loading: false
+      loading: false,
+      maxOrder: "",
+      defaultOrder: "",
+      notes: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -118,6 +121,8 @@ class AddProductForm extends Component {
         console.log(err);
       }
     });
+    this.setState({ locations: [], productId: ""})
+
   }
 
   _isChecked(selectedLocation) {
@@ -141,16 +146,19 @@ class AddProductForm extends Component {
     event.preventDefault();
     if (!this._formIsValid()) return;
     this.setState({ loading: true });
-    const { onProductSubmit } = this.props;
+    // const { onProductSubmit } = this.props;
     const {
       name,
       productCategoryId,
       price,
       productUnitId,
-      productVendorId
+      productVendorId,
+      maxOrder,
+      defaultOrder,
+      notes
     } = this.state;
     const product = {
-      input: { name, productCategoryId, price, productVendorId, productUnitId }
+      input: { name, productCategoryId, price, productVendorId, productUnitId, maxOrder, defaultOrder, notes }
     };
     try {
       const response = await API.graphql(
@@ -164,15 +172,17 @@ class AddProductForm extends Component {
     this._createProductLocation();
     // onProductSubmit(); // do this elsewhere?
     this.setState({
-      loading: false,
       name: "",
       category: "",
       price: "",
-      unit: "",
       vendor: "",
-      locations: [],
-      productVendorId: "",
+      unit: "",
+      loading: false,
+      maxOrder: "",
+      defaultOrder: "",
+      notes: "",
       productCategoryId: "",
+      productVendorId: "",
       productUnitId: ""
     });
   }
@@ -202,6 +212,7 @@ class AddProductForm extends Component {
   }
 
   render() {
+    console.log(this.state)
     const { classes, vendors, categories, units, locations } = this.props;
     return (
       <React.Fragment>
@@ -220,9 +231,8 @@ class AddProductForm extends Component {
               onChange={this.handleChange}
             />
           </Grid>
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={12} sm={6}>
             <TextField
-              required
               id="price"
               name="price"
               label="Price"
@@ -231,10 +241,31 @@ class AddProductForm extends Component {
               onChange={this.handleChange}
             />
           </Grid>
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="maxOrder"
+              name="maxOrder"
+              label="Max Order"
+              value={this.state.maxOrder}
+              fullWidth
+              onChange={this.handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="defaultOrder"
+              name="defaultOrder"
+              label="Default Order"
+              value={this.state.defaultOrder}
+              fullWidth
+              onChange={this.handleChange}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="age-simple">Vendor</InputLabel>
               <Select
+                fullWidth
                 value={this.state.vendor}
                 onChange={this.handleVendorChange}
                 name="vendor"
@@ -247,7 +278,7 @@ class AddProductForm extends Component {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="age-simple">Category</InputLabel>
               <Select
@@ -263,7 +294,7 @@ class AddProductForm extends Component {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="age-simple">Unit</InputLabel>
               <Select
@@ -279,10 +310,21 @@ class AddProductForm extends Component {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={12}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="notes"
+              name="notes"
+              label="Unit notes"
+              value={this.state.notes}
+              fullWidth
+              onChange={this.handleChange}
+            />
+          </Grid>
+          
+          <Grid item xs={12} sm={12}>
             <FormControl className={classes.formControl}>
               <FormLabel component="legend">Delivery Location</FormLabel>
-              <FormGroup>
+              <FormGroup row={true}>
                 {locations.map(location => (
                   <FormControlLabel
                     key={location.id}

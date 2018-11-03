@@ -6,8 +6,10 @@ export const getProduct = `query GetProduct($id: ID!) {
     id
     name
     price
-    maxqty
-    defaultqty
+    maxOrder
+    defaultOrder
+    favorite
+    notes
     vendor {
       id
       name
@@ -45,8 +47,10 @@ export const listProducts = `query ListProducts(
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
       vendor {
         id
         name
@@ -62,6 +66,7 @@ export const listProducts = `query ListProducts(
       location {
         items {
           location {
+            id
             name
           }
         }
@@ -87,8 +92,10 @@ export const getVendor = `query GetVendor($id: ID!) {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -109,8 +116,10 @@ export const listVendors = `query ListVendors(
           id
           name
           price
-          maxqty
-          defaultqty
+          maxOrder
+          defaultOrder
+          favorite
+          notes
         }
         nextToken
       }
@@ -128,8 +137,10 @@ export const getUnit = `query GetUnit($id: ID!) {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -150,8 +161,10 @@ export const listUnits = `query ListUnits(
           id
           name
           price
-          maxqty
-          defaultqty
+          maxOrder
+          defaultOrder
+          favorite
+          notes
         }
         nextToken
       }
@@ -169,8 +182,10 @@ export const getCategory = `query GetCategory($id: ID!) {
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       nextToken
     }
@@ -191,8 +206,10 @@ export const listCategorys = `query ListCategorys(
           id
           name
           price
-          maxqty
-          defaultqty
+          maxOrder
+          defaultOrder
+          favorite
+          notes
         }
         nextToken
       }
@@ -208,8 +225,10 @@ export const getProductOrder = `query GetProductOrder($id: ID!) {
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     order {
       id
@@ -230,8 +249,10 @@ export const listProductOrders = `query ListProductOrders(
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       order {
         id
@@ -249,8 +270,10 @@ export const getProductLocation = `query GetProductLocation($id: ID!) {
       id
       name
       price
-      maxqty
-      defaultqty
+      maxOrder
+      defaultOrder
+      favorite
+      notes
     }
     location {
       id
@@ -271,8 +294,10 @@ export const listProductLocations = `query ListProductLocations(
         id
         name
         price
-        maxqty
-        defaultqty
+        maxOrder
+        defaultOrder
+        favorite
+        notes
       }
       location {
         id
