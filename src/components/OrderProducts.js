@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ProductList from "../components/ProductList";
-import ProductItem2 from "../components/ProductItem2";
+// import ProductItem2 from "../components/ProductItem2";
+import OrderItem from "../components/OrderItem";
 import AppBar from "@material-ui/core/AppBar";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -9,7 +10,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import { withStyles } from "@material-ui/core/styles";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -43,19 +43,16 @@ class OrderContainer extends React.Component {
     this.setState({ [name]: event.target.value });
   };
 
-  // locationFilter = product => {
-  //   const { selectedLocations } = this.state;
-  //   if (!selectedLocations.length) return true;
-  //   else {
-  //     const productLocations = product.location.items.map(
-  //       el => el.location.name
-  //     );
-  //     const result = selectedLocations.map(loc =>
-  //       productLocations.includes(loc)
-  //     );
-  //     return result.every(el => el === true);
-  //   }
-  // };
+  locationFilter = product => {
+    const { location } = this.props;
+    const productLocations = product.location.items.map(el => el.location.name);
+    return productLocations.includes(location);
+  };
+
+  vendorFilter = product => {
+    const { vendor } = this.props;
+    return product.vendor.name = vendor;
+  }
 
   unitFilter = product => {
     const { selectedUnits } = this.state;
@@ -65,17 +62,6 @@ class OrderContainer extends React.Component {
       return result !== -1;
     }
   };
-
-  // vendorFilter = product => {
-  //   const { selectedVendors } = this.state;
-  //   if (!selectedVendors.length) return true;
-  //   else {
-  //     const result = selectedVendors.findIndex(
-  //       el => el === product.vendor.name
-  //     );
-  //     return result !== -1;
-  //   }
-  // };
 
   categoryFilter = product => {
     const { selectedCategories } = this.state;
@@ -105,8 +91,6 @@ class OrderContainer extends React.Component {
       cart,
       addToCart,
       removeFromCart,
-      locations,
-      vendors,
       categories,
       units,
       listProducts
@@ -133,23 +117,6 @@ class OrderContainer extends React.Component {
                 ))}
               </Select>
             </FormControl>
-            {/* <FormControl className={classes.formControl}>
-              <InputLabel>Location</InputLabel>
-              <Select
-                multiple
-                value={this.state.selectedLocations}
-                onChange={this.handleChange}
-                input={<Input />}
-                renderValue={selected => selected.join(", ")}
-                name="selectedLocations"
-              >
-                {locations.map(el => (
-                  <MenuItem key={el.id} value={el.name}>
-                    {el.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl> */}
             <FormControl className={classes.formControl}>
               <InputLabel>Units</InputLabel>
               <Select
@@ -167,23 +134,6 @@ class OrderContainer extends React.Component {
                 ))}
               </Select>
             </FormControl>
-            {/* <FormControl className={classes.formControl}>
-              <InputLabel>Vendors</InputLabel>
-              <Select
-                multiple
-                value={this.state.selectedVendors}
-                onChange={this.handleChange}
-                input={<Input />}
-                renderValue={selected => selected.join(", ")}
-                name="selectedVendors"
-              >
-                {vendors.map(el => (
-                  <MenuItem key={el.id} value={el.name}>
-                    {el.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl> */}
             <FormControl className={classes.formControl}>
               <InputLabel>Favorites</InputLabel>
               <Select
@@ -199,23 +149,20 @@ class OrderContainer extends React.Component {
         </AppBar>
         <ProductList>
           {products
+            .filter(this.locationFilter)
+            .filter(this.vendorFilter)
             .filter(this.unitFilter)
             .filter(this.categoryFilter)
             .filter(this.favoriteFilter)
             .map(product => (
-              <ProductItem2
+              <OrderItem
                 key={product.id}
                 product={product}
                 listProducts={listProducts}
+                cart={cart}
+                addToCart={() => addToCart(product)}
+                removeFromCart={() => removeFromCart(product)}
               />
-
-              // <ProductItem
-              //   key={product.id}
-              //   product={product}
-              //   cart={cart}
-              //   onAddToCartClicked={() => addToCart(product)}
-              //   onRemoveFromCartClicked={() => removeFromCart(product)}
-              // />
             ))}
         </ProductList>
       </div>

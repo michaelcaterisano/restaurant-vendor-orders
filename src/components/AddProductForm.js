@@ -24,7 +24,10 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   formControl: {
-    minWidth: 120
+    margin: 0,
+    fullWidth: true,
+    display: 'flex',
+    wrap: 'nowrap'
   },
   checkBoxes: {
     display: "flex",
@@ -196,7 +199,6 @@ class AddProductForm extends Component {
   }
 
   handleVendorChange(event) {
-    console.log(this.props);
     const { vendors } = this.props;
     const selectedVendorName = event.target.value;
     const vendor = vendors.find(vendor => vendor.name === selectedVendorName);

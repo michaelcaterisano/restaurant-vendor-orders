@@ -35,27 +35,49 @@ const steps = ["Select vendor and location", "Select products", "Review order"];
 
 class OrderContainer extends React.Component {
   state = {
-    activeStep: 0
+    activeStep: 0,
+    vendor: "",
+    location: ""
+  };
+
+  handleChange = event => {
+    const name = event.target.name;
+    this.setState({ [name]: event.target.value });
   };
 
   getStepContent = step => {
-    const { ...props } = this.props;
+    const { locations, vendors, cart, ...props } = this.props;
+    const { vendor, location } = this.state;
     switch (step) {
       case 0:
-        return <VendorLocationForm />;
+        return (
+          <VendorLocationForm
+            locations={locations}
+            vendors={vendors}
+            vendor={vendor}
+            location={location}
+            onSelect={this.handleChange}
+          />
+        );
       case 1:
-        return <OrderProducts {...props} />;
+        return <OrderProducts cart={cart} vendor={vendor} location={location} {...props} />;
       case 2:
-        return <ReviewOrder />;
+        return <ReviewOrder cart={cart} vendor={vendor} location={location}/>;
       default:
         throw new Error("Unknown step");
     }
   };
 
   handleNext = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep + 1
-    }));
+    const { location, vendor } = this.state;
+    if (!location || !vendor) {
+      alert("please select a vendor and location");
+      return;
+    } else {
+      this.setState(state => ({
+        activeStep: state.activeStep + 1
+      }));
+    }
   };
 
   handleBack = () => {
@@ -71,7 +93,7 @@ class OrderContainer extends React.Component {
   };
 
   render() {
-    const { classes, ...props } = this.props;
+    const { classes } = this.props;
     const { activeStep } = this.state;
 
     return (

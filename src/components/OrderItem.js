@@ -4,23 +4,17 @@ import { updateProduct } from "../graphql/mutations";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import classNames from "classnames";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 
 const styles = {
   card: {
@@ -28,7 +22,8 @@ const styles = {
     width: 300
   },
   actions: {
-    display: "flex"
+    display: "flex",
+    justifyContent: "space-around"
   },
   media: {
     height: 151
@@ -49,26 +44,28 @@ const styles = {
   }
 };
 
-class ProductItem extends React.Component {
-  state = {
-    favorite: false,
-    anchorEl: null
-  };
+class OrderItem extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      favorite: false
+    };
+
+    this._itemQuantity = this._itemQuantity.bind(this);
+  }
+
+  _itemQuantity() {
+    const { product, cart } = this.props;
+    const item = cart.find(obj => obj.id === product.id);
+    if (item) return item.quantity;
+  }
 
   componentDidMount() {
     const { product } = this.props;
     const favorite = product.favorite === null ? false : product.favorite;
     this.setState({ favorite });
   }
-
-  handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleClose = event => {
-    console.log(event);
-    this.setState({ anchorEl: null });
-  };
 
   toggleFavorite = async () => {
     const { listProducts, product } = this.props;
@@ -89,8 +86,7 @@ class ProductItem extends React.Component {
   };
 
   render() {
-    const { classes, product } = this.props;
-    const { anchorEl } = this.state;
+    const { classes, product, cart, addToCart, removeFromCart } = this.props;
     return (
       <Card className={classes.card}>
         <CardHeader
@@ -101,21 +97,13 @@ class ProductItem extends React.Component {
             />
           }
           action={
-            <div>
-              <IconButton onClick={this.handleClick}>
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={this.handleClose}
-              >
-                <MenuItem onClick={this.handleClose}>Edit Product</MenuItem>
-                <MenuItem onClick={this.handleClose}>Delete Product</MenuItem>
-                <MenuItem onClick={this.handleClose}>Other stuff</MenuItem>
-              </Menu>
-            </div>
+            <IconButton
+              aria-label="Add to favorites"
+              color={this.state.favorite ? "secondary" : "primary"}
+              onClick={this.toggleFavorite}
+            >
+              <FavoriteIcon />
+            </IconButton>
           }
           title={product.name}
           subheader={product.category.name}
@@ -125,9 +113,10 @@ class ProductItem extends React.Component {
             <Typography variant="body2">
               Price
               <Typography variant="caption" gutterBottom>
-                ${product.price}
+                {product.price}
               </Typography>
             </Typography>
+
             <Typography variant="body2">
               Unit
               <Typography variant="caption" gutterBottom>
@@ -147,7 +136,7 @@ class ProductItem extends React.Component {
                 <Typography variant="body2">Location(s):</Typography>
                 <div>
                   {product.location.items.map(el => (
-                    <Typography variant="caption" key={el.location.id}>
+                    <Typography variant="caption" key={el.location.name}>
                       {el.location.name}
                     </Typography>
                   ))}
@@ -182,21 +171,35 @@ class ProductItem extends React.Component {
             ) : null}
           </div>
         </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton
-            aria-label="Add to favorites"
-            color={this.state.favorite ? "secondary" : "primary"}
-            onClick={this.toggleFavorite}
+        <CardActions className={classes.actions}>
+          <Button
+            onClick={removeFromCart}
+            variant="fab"
+            mini
+            color="secondary"
+            aria-label="Remove"
+            className={classes.button}
           >
-            <FavoriteIcon />
-          </IconButton>
+            <RemoveIcon />
+          </Button>
+          <Typography> {this._itemQuantity() || 0} </Typography>
+          <Button
+            onClick={addToCart}
+            variant="fab"
+            mini
+            color="secondary"
+            aria-label="Add"
+            className={classes.button}
+          >
+            <AddIcon />
+          </Button>
         </CardActions>
       </Card>
     );
   }
 }
 
-// ProductItem.propTypes = {
+// OrderItem.propTypes = {
 //   product: PropTypes.shape({
 //     title: PropTypes.string.isRequired,
 //     price: PropTypes.number.isRequired,
@@ -206,4 +209,4 @@ class ProductItem extends React.Component {
 //   onRemoveFromCartClicked: PropTypes.func.isRequired
 // };
 
-export default withStyles(styles)(ProductItem);
+export default withStyles(styles)(OrderItem);

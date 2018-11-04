@@ -69,14 +69,14 @@ export const mainListItems = (
       </ListItem>
     </Link>
 
-    <Link to="/cart">
+    {/* <Link to="/cart">
       <ListItem button>
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
         <ListItemText primary="Cart" />
       </ListItem>
-    </Link>
+    </Link> */}
 
     {/* <ListItem button>
       <ListItemIcon>

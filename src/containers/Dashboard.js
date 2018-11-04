@@ -177,6 +177,7 @@ class Dashboard extends React.Component {
   };
 
   addToCart = product => {
+    console.log('product added', product)
     this.setState({ cart: [...this.state.cart, product] });
   }
 
@@ -189,11 +190,12 @@ class Dashboard extends React.Component {
     }
   };
 
-  checkout() {
-    alert("checkout");
-  }
+  // checkout() {
+  //   alert("checkout");
+  // }
 
   render() {
+    console.log('global state', this.state)
     const { classes } = this.props;
     return (
       <Router>
@@ -302,8 +304,8 @@ class Dashboard extends React.Component {
                   categories={this.state.categories}
                   units={this.state.units}
                   cart={countCartItems(this.state.cart)}
-                  addToCart={this.addToCart}
-                  removeFromCart={this.removeFromCart}
+                  // addToCart={this.addToCart}
+                  // removeFromCart={this.removeFromCart}
                   listProducts={this.listProducts}
                 />
               )}
@@ -324,7 +326,7 @@ class Dashboard extends React.Component {
                 />
               )}
             />
-            <Route
+            {/* <Route
               path="/cart"
               render={() => (
                 <CartContainer
@@ -333,7 +335,7 @@ class Dashboard extends React.Component {
                   checkout={this.checkout}
                 />
               )}
-            />
+            /> */}
           </main>
         </div>
       </Router>

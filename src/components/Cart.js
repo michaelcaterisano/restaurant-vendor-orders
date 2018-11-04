@@ -1,10 +1,10 @@
 import React from 'react';
 import ProductCart from './ProductCart';
 
-const Cart = ({ products, total, onCheckoutClicked }) => {
-  const hasProducts = products.length > 0
+const Cart = ({ cart, vendor, location }) => {
+  const hasProducts = cart.length > 0
   const nodes = hasProducts ? (
-    products.map(product => 
+    cart.map(product => 
       <ProductCart
         name={product.name}
         price={product.price}
@@ -14,7 +14,9 @@ const Cart = ({ products, total, onCheckoutClicked }) => {
 
   return (
     <div>
+      <div>Hi {vendor}! Order for Tampopo {location}.</div>
       <div> {nodes} </div>
+      <div>Thanks!</div>
     </div>
   )
 }
