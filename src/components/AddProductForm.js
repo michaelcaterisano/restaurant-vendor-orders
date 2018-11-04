@@ -61,7 +61,7 @@ class AddProductForm extends Component {
       loading: false,
       maxOrder: "",
       defaultOrder: "",
-      notes: "",
+      notes: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -121,8 +121,7 @@ class AddProductForm extends Component {
         console.log(err);
       }
     });
-    this.setState({ locations: [], productId: ""})
-
+    this.setState({ locations: [], productId: "" });
   }
 
   _isChecked(selectedLocation) {
@@ -158,7 +157,16 @@ class AddProductForm extends Component {
       notes
     } = this.state;
     const product = {
-      input: { name, productCategoryId, price, productVendorId, productUnitId, maxOrder, defaultOrder, notes }
+      input: {
+        name,
+        productCategoryId,
+        price,
+        productVendorId,
+        productUnitId,
+        maxOrder,
+        defaultOrder,
+        notes
+      }
     };
     try {
       const response = await API.graphql(
@@ -212,7 +220,7 @@ class AddProductForm extends Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     const { classes, vendors, categories, units, locations } = this.props;
     return (
       <React.Fragment>
@@ -320,7 +328,7 @@ class AddProductForm extends Component {
               onChange={this.handleChange}
             />
           </Grid>
-          
+
           <Grid item xs={12} sm={12}>
             <FormControl className={classes.formControl}>
               <FormLabel component="legend">Delivery Location</FormLabel>

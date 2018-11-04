@@ -51,12 +51,21 @@ export const mainListItems = (
       </ListItem>
     </Link>
 
-    <Link to="/order">
+    <Link to="/product-list">
       <ListItem button>
         <ListItemIcon>
           <ListIcon />
         </ListItemIcon>
         <ListItemText primary="Product List" />
+      </ListItem>
+    </Link>
+
+    <Link to="/order">
+      <ListItem button>
+        <ListItemIcon>
+          <ListIcon />
+        </ListItemIcon>
+        <ListItemText primary="Order Products" />
       </ListItem>
     </Link>
 

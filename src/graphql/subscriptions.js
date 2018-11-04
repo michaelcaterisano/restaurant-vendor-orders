@@ -13,6 +13,10 @@ export const onCreateProduct = `subscription OnCreateProduct {
     vendor {
       id
       name
+      repName
+      repPhone
+      repEmail
+      minOrder
     }
     category {
       id
@@ -49,6 +53,10 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
     vendor {
       id
       name
+      repName
+      repPhone
+      repEmail
+      minOrder
     }
     category {
       id
@@ -85,6 +93,10 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     vendor {
       id
       name
+      repName
+      repPhone
+      repEmail
+      minOrder
     }
     category {
       id
@@ -113,6 +125,17 @@ export const onCreateVendor = `subscription OnCreateVendor {
   onCreateVendor {
     id
     name
+    repName
+    repPhone
+    repEmail
+    minOrder
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -132,6 +155,17 @@ export const onUpdateVendor = `subscription OnUpdateVendor {
   onUpdateVendor {
     id
     name
+    repName
+    repPhone
+    repEmail
+    minOrder
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -151,6 +185,17 @@ export const onDeleteVendor = `subscription OnDeleteVendor {
   onDeleteVendor {
     id
     name
+    repName
+    repPhone
+    repEmail
+    minOrder
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -398,6 +443,13 @@ export const onCreateLocation = `subscription OnCreateLocation {
   onCreateLocation {
     id
     name
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -411,6 +463,13 @@ export const onUpdateLocation = `subscription OnUpdateLocation {
   onUpdateLocation {
     id
     name
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -424,6 +483,13 @@ export const onDeleteLocation = `subscription OnDeleteLocation {
   onDeleteLocation {
     id
     name
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -437,6 +503,18 @@ export const onCreateOrder = `subscription OnCreateOrder {
   onCreateOrder {
     id
     name
+    location {
+      id
+      name
+    }
+    vendor {
+      id
+      name
+      repName
+      repPhone
+      repEmail
+      minOrder
+    }
     products {
       items {
         id
@@ -450,6 +528,18 @@ export const onUpdateOrder = `subscription OnUpdateOrder {
   onUpdateOrder {
     id
     name
+    location {
+      id
+      name
+    }
+    vendor {
+      id
+      name
+      repName
+      repPhone
+      repEmail
+      minOrder
+    }
     products {
       items {
         id
@@ -463,6 +553,18 @@ export const onDeleteOrder = `subscription OnDeleteOrder {
   onDeleteOrder {
     id
     name
+    location {
+      id
+      name
+    }
+    vendor {
+      id
+      name
+      repName
+      repPhone
+      repEmail
+      minOrder
+    }
     products {
       items {
         id

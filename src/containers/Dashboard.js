@@ -23,10 +23,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { mainListItems, secondaryListItems } from "../components/listItems";
-import ProductContainer from "./ProductContainer";
-import OrderContainer from "./OrderContainer";
+import AddProductContainer from "./AddProductContainer";
+import ProductListContainer from "./ProductListContainer";
 import CartContainer from "./CartContainer";
 import SettingsContainer from "./SettingsContainer";
+import OrderContainer from "./OrderContainer";
 import { countCartItems } from "../lib/helpers";
 
 const drawerWidth = 200;
@@ -117,9 +118,9 @@ const styles = theme => ({
 
 class Dashboard extends React.Component {
   state = {
-    products: [],
-    vendors: [],
-    categories: [],
+    products: [], // possible this can live in child components?
+    vendors: [], // also query from child components?
+    categories: [], // query from child components
     units: [],
     locations: [],
     cart: [],
@@ -281,7 +282,7 @@ class Dashboard extends React.Component {
               path="/add-product"
               render={() => (
                 <div style={{ padding: 8 * 3 }}>
-                  <ProductContainer
+                  <AddProductContainer
                     vendors={this.state.vendors}
                     categories={this.state.categories}
                     units={this.state.units}
@@ -292,6 +293,22 @@ class Dashboard extends React.Component {
               )}
             />
             <Route
+              path="/product-list"
+              render={() => (
+                <ProductListContainer
+                  products={this.state.products}
+                  locations={this.state.locations}
+                  vendors={this.state.vendors}
+                  categories={this.state.categories}
+                  units={this.state.units}
+                  cart={countCartItems(this.state.cart)}
+                  addToCart={this.addToCart}
+                  removeFromCart={this.removeFromCart}
+                  listProducts={this.listProducts}
+                />
+              )}
+            />
+             <Route
               path="/order"
               render={() => (
                 <OrderContainer

@@ -13,6 +13,10 @@ export const getProduct = `query GetProduct($id: ID!) {
     vendor {
       id
       name
+      repName
+      repPhone
+      repEmail
+      minOrder
     }
     category {
       id
@@ -54,6 +58,10 @@ export const listProducts = `query ListProducts(
       vendor {
         id
         name
+        repName
+        repPhone
+        repEmail
+        minOrder
       }
       category {
         id
@@ -66,7 +74,6 @@ export const listProducts = `query ListProducts(
       location {
         items {
           location {
-            id
             name
           }
         }
@@ -87,6 +94,17 @@ export const getVendor = `query GetVendor($id: ID!) {
   getVendor(id: $id) {
     id
     name
+    repName
+    repPhone
+    repEmail
+    minOrder
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -111,6 +129,17 @@ export const listVendors = `query ListVendors(
     items {
       id
       name
+      repName
+      repPhone
+      repEmail
+      minOrder
+      orders {
+        items {
+          id
+          name
+        }
+        nextToken
+      }
       products {
         items {
           id
@@ -312,6 +341,13 @@ export const getLocation = `query GetLocation($id: ID!) {
   getLocation(id: $id) {
     id
     name
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -330,6 +366,13 @@ export const listLocations = `query ListLocations(
     items {
       id
       name
+      orders {
+        items {
+          id
+          name
+        }
+        nextToken
+      }
       products {
         items {
           id
@@ -345,6 +388,18 @@ export const getOrder = `query GetOrder($id: ID!) {
   getOrder(id: $id) {
     id
     name
+    location {
+      id
+      name
+    }
+    vendor {
+      id
+      name
+      repName
+      repPhone
+      repEmail
+      minOrder
+    }
     products {
       items {
         id
@@ -363,6 +418,18 @@ export const listOrders = `query ListOrders(
     items {
       id
       name
+      location {
+        id
+        name
+      }
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+      }
       products {
         items {
           id

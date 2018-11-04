@@ -13,6 +13,10 @@ export const createProduct = `mutation CreateProduct($input: CreateProductInput!
     vendor {
       id
       name
+      repName
+      repPhone
+      repEmail
+      minOrder
     }
     category {
       id
@@ -49,6 +53,10 @@ export const updateProduct = `mutation UpdateProduct($input: UpdateProductInput!
     vendor {
       id
       name
+      repName
+      repPhone
+      repEmail
+      minOrder
     }
     category {
       id
@@ -85,6 +93,10 @@ export const deleteProduct = `mutation DeleteProduct($input: DeleteProductInput!
     vendor {
       id
       name
+      repName
+      repPhone
+      repEmail
+      minOrder
     }
     category {
       id
@@ -113,6 +125,17 @@ export const createVendor = `mutation CreateVendor($input: CreateVendorInput!) {
   createVendor(input: $input) {
     id
     name
+    repName
+    repPhone
+    repEmail
+    minOrder
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -132,6 +155,17 @@ export const updateVendor = `mutation UpdateVendor($input: UpdateVendorInput!) {
   updateVendor(input: $input) {
     id
     name
+    repName
+    repPhone
+    repEmail
+    minOrder
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -151,6 +185,17 @@ export const deleteVendor = `mutation DeleteVendor($input: DeleteVendorInput!) {
   deleteVendor(input: $input) {
     id
     name
+    repName
+    repPhone
+    repEmail
+    minOrder
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -398,6 +443,13 @@ export const createLocation = `mutation CreateLocation($input: CreateLocationInp
   createLocation(input: $input) {
     id
     name
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -411,6 +463,13 @@ export const updateLocation = `mutation UpdateLocation($input: UpdateLocationInp
   updateLocation(input: $input) {
     id
     name
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -424,6 +483,13 @@ export const deleteLocation = `mutation DeleteLocation($input: DeleteLocationInp
   deleteLocation(input: $input) {
     id
     name
+    orders {
+      items {
+        id
+        name
+      }
+      nextToken
+    }
     products {
       items {
         id
@@ -437,6 +503,18 @@ export const createOrder = `mutation CreateOrder($input: CreateOrderInput!) {
   createOrder(input: $input) {
     id
     name
+    location {
+      id
+      name
+    }
+    vendor {
+      id
+      name
+      repName
+      repPhone
+      repEmail
+      minOrder
+    }
     products {
       items {
         id
@@ -450,6 +528,18 @@ export const updateOrder = `mutation UpdateOrder($input: UpdateOrderInput!) {
   updateOrder(input: $input) {
     id
     name
+    location {
+      id
+      name
+    }
+    vendor {
+      id
+      name
+      repName
+      repPhone
+      repEmail
+      minOrder
+    }
     products {
       items {
         id
@@ -463,6 +553,18 @@ export const deleteOrder = `mutation DeleteOrder($input: DeleteOrderInput!) {
   deleteOrder(input: $input) {
     id
     name
+    location {
+      id
+      name
+    }
+    vendor {
+      id
+      name
+      repName
+      repPhone
+      repEmail
+      minOrder
+    }
     products {
       items {
         id

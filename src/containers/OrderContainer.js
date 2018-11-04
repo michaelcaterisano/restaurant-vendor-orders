@@ -1,239 +1,123 @@
 import React from "react";
-import PropTypes from "prop-types";
-import ProductList from "../components/ProductList";
-import ProductItem2 from "../components/ProductItem2";
-import AppBar from "@material-ui/core/AppBar";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import { withStyles } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import OrderProducts from "../components/OrderProducts";
+import VendorLocationForm from "../components/VendorLocationForm";
+import ReviewOrder from "../components/ReviewOrder";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = theme => ({
-  root: {
+  buttons: {
     display: "flex",
-    flexWrap: "wrap",
-    background: "white"
+    justifyContent: "flex-end"
   },
-  formControl: {
-    display: "flex",
-    margin: theme.spacing.unit,
-    minWidth: 120
+  button: {
+    marginTop: theme.spacing.unit * 3,
+    marginLeft: theme.spacing.unit
   },
-  selectEmpty: {
-    marginTop: theme.spacing.unit * 2
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2
+    // [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
+    //   width: 600,
+    //   marginLeft: "auto",
+    //   marginRight: "auto"
+    // }
   }
 });
 
+const steps = ["Select vendor and location", "Select products", "Review order"];
+
 class OrderContainer extends React.Component {
   state = {
-    selectedLocations: [],
-    selectedUnits: [],
-    selectedVendors: [],
-    selectedCategories: [],
-    favoriteFilter: false
+    activeStep: 0
   };
 
-  componentDidMount() {
-    this.props.listProducts();
-  }
-
-  handleChange = event => {
-    const name = event.target.name;
-    this.setState({ [name]: event.target.value });
-  };
-
-  locationFilter = product => {
-    const { selectedLocations } = this.state;
-    if (!selectedLocations.length) return true;
-    else {
-      const productLocations = product.location.items.map(
-        el => el.location.name
-      );
-      const result = selectedLocations.map(loc =>
-        productLocations.includes(loc)
-      );
-      return result.every(el => el === true);
+  getStepContent = step => {
+    const { ...props } = this.props;
+    switch (step) {
+      case 0:
+        return <VendorLocationForm />;
+      case 1:
+        return <OrderProducts {...props} />;
+      case 2:
+        return <ReviewOrder />;
+      default:
+        throw new Error("Unknown step");
     }
   };
 
-  unitFilter = product => {
-    const { selectedUnits } = this.state;
-    if (!selectedUnits.length) return true;
-    else {
-      const result = selectedUnits.findIndex(el => el === product.unit.name);
-      return result !== -1;
-    }
+  handleNext = () => {
+    this.setState(state => ({
+      activeStep: state.activeStep + 1
+    }));
   };
 
-  vendorFilter = product => {
-    const { selectedVendors } = this.state;
-    if (!selectedVendors.length) return true;
-    else {
-      const result = selectedVendors.findIndex(
-        el => el === product.vendor.name
-      );
-      return result !== -1;
-    }
+  handleBack = () => {
+    this.setState(state => ({
+      activeStep: state.activeStep - 1
+    }));
   };
 
-  categoryFilter = product => {
-    const { selectedCategories } = this.state;
-    if (!selectedCategories.length) return true;
-    else {
-      const result = selectedCategories.findIndex(
-        el => el === product.category.name
-      );
-      return result !== -1;
-    }
-  };
-
-  favoriteFilter = product => {
-    const { favoriteFilter } = this.state;
-    if (favoriteFilter === false) return true;
-    if (product.favorite === null) {
-      return favoriteFilter === false;
-    } else {
-      return product.favorite === favoriteFilter;
-    }
+  handleReset = () => {
+    this.setState({
+      activeStep: 0
+    });
   };
 
   render() {
-    const {
-      classes,
-      products,
-      cart,
-      addToCart,
-      removeFromCart,
-      locations,
-      vendors,
-      categories,
-      units,
-      listProducts
-    } = this.props;
+    const { classes, ...props } = this.props;
+    const { activeStep } = this.state;
+
     return (
-      <div>
-        <AppBar color="default" position={"static"}>
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
-            <span style={{ margin: "30px 0 0 10px" }}>Filter by: </span>
-            <FormControl className={classes.formControl}>
-              <InputLabel>Category</InputLabel>
-              <Select
-                multiple
-                value={this.state.selectedCategories}
-                onChange={this.handleChange}
-                input={<Input />}
-                renderValue={selected => selected.join(", ")}
-                name="selectedCategories"
-              >
-                {categories.map(el => (
-                  <MenuItem key={el.id} value={el.name}>
-                    {el.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel>Location</InputLabel>
-              <Select
-                multiple
-                value={this.state.selectedLocations}
-                onChange={this.handleChange}
-                input={<Input />}
-                renderValue={selected => selected.join(", ")}
-                name="selectedLocations"
-              >
-                {locations.map(el => (
-                  <MenuItem key={el.id} value={el.name}>
-                    {el.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel>Units</InputLabel>
-              <Select
-                multiple
-                value={this.state.selectedUnits}
-                onChange={this.handleChange}
-                input={<Input />}
-                renderValue={selected => selected.join(", ")}
-                name="selectedUnits"
-              >
-                {units.map(el => (
-                  <MenuItem key={el.id} value={el.name}>
-                    {el.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel>Vendors</InputLabel>
-              <Select
-                multiple
-                value={this.state.selectedVendors}
-                onChange={this.handleChange}
-                input={<Input />}
-                renderValue={selected => selected.join(", ")}
-                name="selectedVendors"
-              >
-                {vendors.map(el => (
-                  <MenuItem key={el.id} value={el.name}>
-                    {el.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel>Favorites</InputLabel>
-              <Select
-                value={this.state.favoriteFilter}
-                onChange={this.handleChange}
-                name="favoriteFilter"
-              >
-                <MenuItem value={true}>Favorites</MenuItem>
-                <MenuItem value={false}>View all</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        </AppBar>
-        <ProductList>
-          {products
-            .filter(this.unitFilter)
-            .filter(this.locationFilter)
-            .filter(this.vendorFilter)
-            .filter(this.categoryFilter)
-            .filter(this.favoriteFilter)
-            .map(product => (
-              <ProductItem2
-                key={product.id}
-                product={product}
-                listProducts={listProducts}
-              />
-              // <ProductItem
-              //   key={product.id}
-              //   product={product}
-              //   cart={cart}
-              //   onAddToCartClicked={() => addToCart(product)}
-              //   onRemoveFromCartClicked={() => removeFromCart(product)}
-              // />
+      <React.Fragment>
+        <main className={classes.layout}>
+          <Stepper activeStep={activeStep} className={classes.stepper}>
+            {steps.map(label => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
             ))}
-        </ProductList>
-      </div>
+          </Stepper>
+
+          <React.Fragment>
+            {activeStep === steps.length ? (
+              <React.Fragment>
+                <Typography variant="subtitle1">the end</Typography>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <div className={classes.buttons}>
+                  {activeStep !== 0 && (
+                    <Button
+                      onClick={this.handleBack}
+                      className={classes.button}
+                    >
+                      Back
+                    </Button>
+                  )}
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  </Button>
+                </div>
+                {this.getStepContent(activeStep)}
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        </main>
+      </React.Fragment>
     );
   }
 }
-
-// OrderContainer.propTypes = {
-//   products: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.number.isRequired,
-//       name: PropTypes.string.isRequired,
-//       price: PropTypes.number.isRequired
-//     })
-//   ).isRequired,
-//   addToCart: PropTypes.func.isRequired
-// };
 
 export default withStyles(styles)(OrderContainer);
