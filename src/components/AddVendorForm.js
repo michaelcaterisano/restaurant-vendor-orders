@@ -41,37 +41,40 @@ class Categories extends Component {
     super();
 
     this.state = {
-      name: ""
+      name: "", 
+      repName: "", 
+      repPhone: "", 
+      repEmail: "",
+      minOrder: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
-    // this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ name: event.target.value })
+    const name = event.target.name;
+    this.setState({ [name]: event.target.value })
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-    const { name } = this.state;
+    const { name, repName, repPhone, minOrder } = this.state;
     if (name === "") return;
     const { onVendorSubmit } = this.props;
     const vendor = {
-      input: { name }
+      input: { name, repName, repPhone, minOrder }
     };
-    await API.graphql(graphqlOperation(createVendor, vendor));
-    onVendorSubmit();
-    this.setState({ name: "" })
-  }
+    try {
+      const result = await API.graphql(graphqlOperation(createVendor, vendor));
+      console.log('create vendor success', result)
+      onVendorSubmit();
+      this.setState({ name: "", repName: "", repPhone: "", minOrder: "" })
+    } catch (err) {
+      console.log('create vendor error', err)
+    }
 
-  // async handleDeleteCategory(id) {
-  //   const { onCategorySubmit } = this.props;
-  //   const category = { input: { id }}
-  //   await API.graphql(graphqlOperation(deleteCategory, category));
-  //   onCategorySubmit();
-  // }
+  }
 
   render() {
     const { classes, vendors } = this.props;
@@ -85,6 +88,36 @@ class Categories extends Component {
               name="name"
               label="vendor name"
               value={this.state.name}
+              fullWidth
+              onChange={this.handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="repName"
+              name="repName"
+              label="rep name"
+              value={this.state.repName}
+              fullWidth
+              onChange={this.handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="repPhone"
+              name="repPhone"
+              label="rep phone number"
+              value={this.state.repPhone}
+              fullWidth
+              onChange={this.handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="minOrder"
+              name="minOrder"
+              label="min order"
+              value={this.state.minOrder}
               fullWidth
               onChange={this.handleChange}
             />

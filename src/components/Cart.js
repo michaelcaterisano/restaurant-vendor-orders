@@ -15,8 +15,9 @@ const Cart = ({ cart, selectedVendor, selectedLocation }) => {
 
   return (
     <div>
-      <p>Hi {selectedVendor}! Order for Tampopo {selectedLocation}.</p>
-      <p> {nodes} </p>
+      <p>Hi {selectedVendor.repName}! Order for Tampopo {selectedLocation.name}.</p>
+      <div> {nodes} </div>
+      <br></br>
       <p>Thanks!</p>
     </div>
   )

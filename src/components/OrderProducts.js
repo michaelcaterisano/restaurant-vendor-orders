@@ -46,12 +46,12 @@ class OrderContainer extends React.Component {
   locationFilter = product => {
     const { selectedLocation } = this.props;
     const productLocations = product.location.items.map(el => el.location.name);
-    return productLocations.includes(selectedLocation);
+    return productLocations.includes(selectedLocation.name);
   };
 
   vendorFilter = product => {
     const { selectedVendor } = this.props;
-    return product.vendor.name = selectedVendor;
+    return product.vendor.name === selectedVendor.name;
   }
 
   unitFilter = product => {

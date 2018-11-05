@@ -17,20 +17,42 @@ const styles = theme => ({
 });
 
 class VendorLocationform extends React.Component {
-  handleChange = event => {
-    const { onSelect } = this.props;
-    onSelect(event);
+  state = {
+    vendorName: "",
+    locationName: ""
+  };
+
+  handleVendorChange = event => {
+    const { vendors, onSelectVendor } = this.props;
+    const selectedVendorName = event.target.value;
+    const vendor = vendors.find(vendor => vendor.name === selectedVendorName);
+    this.setState({ vendorName: vendor.name });
+    onSelectVendor(vendor);
+  };
+
+  handleLocationChange = event => {
+    const { locations, onSelectLocation } = this.props;
+    const selectedLocationName = event.target.value;
+    const location = locations.find(
+      location => location.name === selectedLocationName
+    );
+    this.setState({ locationName: location.name });
+    onSelectLocation(location);
   };
 
   render() {
-    const { classes, locations, vendors, selectedVendor, selectedLocation } = this.props;
+    const { classes, locations, vendors } = this.props;
     return (
       <React.Fragment>
         <Grid container spacing={32}>
           <Grid item xs={12} sm={6}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="age-simple">Vendor</InputLabel>
-              <Select value={selectedVendor} onChange={this.handleChange} name="selectedVendor">
+              <InputLabel>Vendor</InputLabel>
+              <Select
+                value={this.state.vendorName}
+                onChange={this.handleVendorChange}
+                name="selectedVendor"
+              >
                 {vendors.map(vendor => (
                   <MenuItem key={vendor.id} value={vendor.name}>
                     {vendor.name}
@@ -41,10 +63,10 @@ class VendorLocationform extends React.Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="age-simple">Location</InputLabel>
+              <InputLabel>Location</InputLabel>
               <Select
-                value={selectedLocation}
-                onChange={this.handleChange}
+                value={this.state.locationName}
+                onChange={this.handleLocationChange}
                 name="selectedLocation"
               >
                 {locations.map(location => (

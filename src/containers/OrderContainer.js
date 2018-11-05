@@ -49,18 +49,25 @@ class OrderContainer extends React.Component {
     this.setState({ [name]: event.target.value });
   };
 
+  handleVendorChange = vendor => {
+    this.setState({ selectedVendor: vendor });
+  };
+
+  handleLocationChange = location => {
+    this.setState({ selectedLocation: location });
+  };
+
   getStepContent = step => {
     const { locations, vendors, cart, ...props } = this.props;
-    const { selectedVendor, selectedLocation } = this.state;
+    const { selectedLocation, selectedVendor } = this.state;
     switch (step) {
       case 0:
         return (
           <VendorLocationForm
             locations={locations}
             vendors={vendors}
-            selectedVendor={selectedVendor}
-            selectedLocation={selectedLocation}
-            onSelect={this.handleChange}
+            onSelectVendor={this.handleVendorChange}
+            onSelectLocation={this.handleLocationChange}
           />
         );
       case 1:
@@ -114,13 +121,12 @@ class OrderContainer extends React.Component {
   render() {
     const { classes, ordering, toggleOrdering, emptyCart } = this.props;
     const { activeStep } = this.state;
-
-    console.log("order container state", this.state);
-
-    console.log("orderContainer location", this.props.location);
     return (
       <React.Fragment>
-        <Prompt when={ordering} message={"cmon"} />
+        <Prompt
+          when={ordering}
+          message={"Are you sure? Your current order will not be saved."}
+        />
         <main className={classes.layout}>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map(label => (

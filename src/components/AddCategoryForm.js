@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { createCategory, deleteCategory } from "../graphql/mutations";
-
-//material-ui
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-// import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import Checkbox from "@material-ui/core/Checkbox";
-// import Select from "@material-ui/core/Select";
-// import InputLabel from "@material-ui/core/InputLabel";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import FormControl from "@material-ui/core/FormControl";
-// import FormHelperText from "@material-ui/core/FormHelperText";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
