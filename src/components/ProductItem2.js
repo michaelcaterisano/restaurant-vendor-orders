@@ -49,7 +49,7 @@ const styles = {
   }
 };
 
-class ProductItem extends React.Component {
+class ProductItem2 extends React.Component {
   state = {
     favorite: false,
     anchorEl: null
@@ -147,7 +147,7 @@ class ProductItem extends React.Component {
                 <Typography variant="body2">Location(s):</Typography>
                 <div>
                   {product.location.items.map(el => (
-                    <Typography variant="caption" key={el.location.id}>
+                    <Typography variant="caption" key={el.location.name}>
                       {el.location.name}
                     </Typography>
                   ))}
@@ -206,4 +206,4 @@ class ProductItem extends React.Component {
 //   onRemoveFromCartClicked: PropTypes.func.isRequired
 // };
 
-export default withStyles(styles)(ProductItem);
+export default withStyles(styles)(ProductItem2);

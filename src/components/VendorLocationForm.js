@@ -23,14 +23,14 @@ class VendorLocationform extends React.Component {
   };
 
   render() {
-    const { classes, locations, vendors, vendor, location } = this.props;
+    const { classes, locations, vendors, selectedVendor, selectedLocation } = this.props;
     return (
       <React.Fragment>
         <Grid container spacing={32}>
           <Grid item xs={12} sm={6}>
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="age-simple">Vendor</InputLabel>
-              <Select value={vendor} onChange={this.handleChange} name="vendor">
+              <Select value={selectedVendor} onChange={this.handleChange} name="selectedVendor">
                 {vendors.map(vendor => (
                   <MenuItem key={vendor.id} value={vendor.name}>
                     {vendor.name}
@@ -43,9 +43,9 @@ class VendorLocationform extends React.Component {
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="age-simple">Location</InputLabel>
               <Select
-                value={location}
+                value={selectedLocation}
                 onChange={this.handleChange}
-                name="location"
+                name="selectedLocation"
               >
                 {locations.map(location => (
                   <MenuItem key={location.id} value={location.name}>

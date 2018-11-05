@@ -124,13 +124,18 @@ class Dashboard extends React.Component {
     units: [],
     locations: [],
     cart: [],
-    open: true
+    open: true,
+    ordering: false
   };
 
   async componentDidMount() {
-    const products = await API.graphql(graphqlOperation(listProducts, {limit: 30}));
+    const products = await API.graphql(
+      graphqlOperation(listProducts, { limit: 30 })
+    );
     const vendors = await API.graphql(graphqlOperation(listVendors));
-    const categories = await API.graphql(graphqlOperation(listCategorys, {limit: 30}));
+    const categories = await API.graphql(
+      graphqlOperation(listCategorys, { limit: 30 })
+    );
     const units = await API.graphql(graphqlOperation(listUnits));
     const locations = await API.graphql(graphqlOperation(listLocations));
     this.setState({
@@ -142,31 +147,39 @@ class Dashboard extends React.Component {
     });
   }
 
+  emptyCart = () => {
+    this.setState({ cart: [] });
+  };
+
   listProducts = async () => {
-    const products = await API.graphql(graphqlOperation(listProducts, {limit: 30}));
+    const products = await API.graphql(
+      graphqlOperation(listProducts, { limit: 30 })
+    );
     this.setState({ products: products.data.listProducts.items });
-  }
+  };
 
   listVendors = async () => {
     const vendors = await API.graphql(graphqlOperation(listVendors));
     this.setState({ vendors: vendors.data.listVendors.items });
-  }
+  };
 
   listCategories = async () => {
-    const categories = await API.graphql(graphqlOperation(listCategorys, {limit: 30}));
-    console.log(categories)
+    const categories = await API.graphql(
+      graphqlOperation(listCategorys, { limit: 30 })
+    );
+    console.log(categories);
     this.setState({ categories: categories.data.listCategorys.items });
-  }
+  };
 
   listUnits = async () => {
     const units = await API.graphql(graphqlOperation(listUnits));
     this.setState({ units: units.data.listUnits.items });
-  }
+  };
 
   listLocations = async () => {
     const locations = await API.graphql(graphqlOperation(listLocations));
     this.setState({ locations: locations.data.listLocations.items });
-  }
+  };
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -176,10 +189,14 @@ class Dashboard extends React.Component {
     this.setState({ open: false });
   };
 
+  toggleOrdering = () => {
+    this.setState({ ordering: !this.state.ordering });
+  };
+
   addToCart = product => {
-    console.log('product added', product)
+    console.log("product added", product);
     this.setState({ cart: [...this.state.cart, product] });
-  }
+  };
 
   removeFromCart = product => {
     const cart = [...this.state.cart];
@@ -195,7 +212,7 @@ class Dashboard extends React.Component {
   // }
 
   render() {
-    console.log('global state', this.state)
+    console.log("global state", this.state);
     const { classes } = this.props;
     return (
       <Router>
@@ -303,14 +320,11 @@ class Dashboard extends React.Component {
                   vendors={this.state.vendors}
                   categories={this.state.categories}
                   units={this.state.units}
-                  cart={countCartItems(this.state.cart)}
-                  // addToCart={this.addToCart}
-                  // removeFromCart={this.removeFromCart}
                   listProducts={this.listProducts}
                 />
               )}
             />
-             <Route
+            <Route
               path="/order"
               render={() => (
                 <OrderContainer
@@ -323,6 +337,9 @@ class Dashboard extends React.Component {
                   addToCart={this.addToCart}
                   removeFromCart={this.removeFromCart}
                   listProducts={this.listProducts}
+                  ordering={this.state.ordering}
+                  toggleOrdering={this.toggleOrdering}
+                  emptyCart={this.emptyCart}
                 />
               )}
             />

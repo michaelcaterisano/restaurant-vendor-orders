@@ -8,7 +8,11 @@ import Typography from "@material-ui/core/Typography";
 import OrderProducts from "../components/OrderProducts";
 import VendorLocationForm from "../components/VendorLocationForm";
 import ReviewOrder from "../components/ReviewOrder";
+import OrderComplete from "../components/OrderComplete";
 import withStyles from "@material-ui/core/styles/withStyles";
+import { withRouter } from "react-router";
+import { ConsoleLogger } from "@aws-amplify/core";
+import { Prompt } from "react-router";
 
 const styles = theme => ({
   buttons: {
@@ -36,8 +40,8 @@ const steps = ["Select vendor and location", "Select products", "Review order"];
 class OrderContainer extends React.Component {
   state = {
     activeStep: 0,
-    vendor: "",
-    location: ""
+    selectedVendor: "",
+    selectedLocation: ""
   };
 
   handleChange = event => {
@@ -47,33 +51,48 @@ class OrderContainer extends React.Component {
 
   getStepContent = step => {
     const { locations, vendors, cart, ...props } = this.props;
-    const { vendor, location } = this.state;
+    const { selectedVendor, selectedLocation } = this.state;
     switch (step) {
       case 0:
         return (
           <VendorLocationForm
             locations={locations}
             vendors={vendors}
-            vendor={vendor}
-            location={location}
+            selectedVendor={selectedVendor}
+            selectedLocation={selectedLocation}
             onSelect={this.handleChange}
           />
         );
       case 1:
-        return <OrderProducts cart={cart} vendor={vendor} location={location} {...props} />;
+        return (
+          <OrderProducts
+            cart={cart}
+            selectedVendor={selectedVendor}
+            selectedLocation={selectedLocation}
+            {...props}
+          />
+        );
       case 2:
-        return <ReviewOrder cart={cart} vendor={vendor} location={location}/>;
+        return (
+          <ReviewOrder
+            cart={cart}
+            selectedVendor={selectedVendor}
+            selectedLocation={selectedLocation}
+          />
+        );
       default:
         throw new Error("Unknown step");
     }
   };
 
   handleNext = () => {
-    const { location, vendor } = this.state;
-    if (!location || !vendor) {
+    const { toggleOrdering } = this.props;
+    const { selectedLocation, selectedVendor } = this.state;
+    if (!selectedLocation || !selectedVendor) {
       alert("please select a vendor and location");
       return;
     } else {
+      toggleOrdering();
       this.setState(state => ({
         activeStep: state.activeStep + 1
       }));
@@ -93,11 +112,15 @@ class OrderContainer extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, ordering, toggleOrdering, emptyCart } = this.props;
     const { activeStep } = this.state;
 
+    console.log("order container state", this.state);
+
+    console.log("orderContainer location", this.props.location);
     return (
       <React.Fragment>
+        <Prompt when={ordering} message={"cmon"} />
         <main className={classes.layout}>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map(label => (
@@ -110,7 +133,10 @@ class OrderContainer extends React.Component {
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>
-                <Typography variant="subtitle1">the end</Typography>
+                <OrderComplete
+                  toggleOrdering={toggleOrdering}
+                  emptyCart={emptyCart}
+                />
               </React.Fragment>
             ) : (
               <React.Fragment>
@@ -142,4 +168,4 @@ class OrderContainer extends React.Component {
   }
 }
 
-export default withStyles(styles)(OrderContainer);
+export default withRouter(withStyles(styles)(OrderContainer));

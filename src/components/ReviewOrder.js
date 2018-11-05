@@ -5,13 +5,13 @@ import { countCartItems } from "../lib/helpers";
 
 export default class ReviewOrder extends React.Component {
   render() {
-    const { cart, vendor, location } = this.props;
+    const { cart, selectedVendor, selectedLocation } = this.props;
     return (
       <div>
         <Cart
           cart={cart}
-          vendor={vendor}
-          location={location}
+          selectedVendor={selectedVendor}
+          selectedLocation={selectedLocation}
         />
       </div>
     );
