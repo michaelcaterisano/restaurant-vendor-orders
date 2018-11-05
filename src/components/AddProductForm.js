@@ -100,14 +100,15 @@ class AddProductForm extends Component {
     });
   };
 
+  // move to /lib
   async asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
       await callback(array[index], index, array);
     }
   }
 
-  // problem
   async _createProductLocation() {
+    // use map instead?
     await this.asyncForEach(this.state.locations, async location => {
       const productLocation = {
         input: {
@@ -119,9 +120,9 @@ class AddProductForm extends Component {
         const response = await API.graphql(
           graphqlOperation(createProductLocation, productLocation)
         );
-        console.log(response);
+        console.log('create productLocation success', response);
       } catch (err) {
-        console.log(err);
+        console.log('create productLocation failed', err);
       }
     });
     this.setState({ locations: [], productId: "" });
