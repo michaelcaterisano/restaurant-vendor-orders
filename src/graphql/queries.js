@@ -73,9 +73,7 @@ export const listProducts = `query ListProducts(
       }
       location {
         items {
-          location {
-            name
-          }
+          id
         }
         nextToken
       }

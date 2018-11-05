@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { API, graphqlOperation } from "aws-amplify";
 import {
-  listProducts,
+  // listProducts,
   listVendors,
   listCategorys,
   listUnits,
@@ -29,6 +29,57 @@ import CartContainer from "./CartContainer";
 import SettingsContainer from "./SettingsContainer";
 import OrderContainer from "./OrderContainer";
 import { countCartItems } from "../lib/helpers";
+
+const listProducts = `query ListProducts(
+  $filter: ModelProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      price
+      maxOrder
+      defaultOrder
+      favorite
+      notes
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+      }
+      category {
+        id
+        name
+      }
+      unit {
+        id
+        name
+      }
+      location {
+        items {
+          location {
+            id
+            name
+          }
+        }
+        nextToken
+      }
+      orders {
+        items {
+          id
+        }
+        nextToken
+      }
+    }
+    nextToken
+  }
+}
+`;
 
 const drawerWidth = 200;
 
