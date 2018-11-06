@@ -28,6 +28,7 @@ import ProductListContainer from "./ProductListContainer";
 import CartContainer from "./CartContainer";
 import SettingsContainer from "./SettingsContainer";
 import OrderContainer from "./OrderContainer";
+import AnalyticsContainer from "./AnalyticsContainer";
 import { countCartItems } from "../lib/helpers";
 
 const listProducts = `query ListProducts(
@@ -199,6 +200,7 @@ class Dashboard extends React.Component {
   }
 
   emptyCart = () => {
+    console.log("empty cart");
     this.setState({ cart: [] });
   };
 
@@ -241,6 +243,7 @@ class Dashboard extends React.Component {
   };
 
   toggleOrdering = () => {
+    console.log("toggle ordering");
     this.setState({ ordering: !this.state.ordering });
   };
 
@@ -265,6 +268,7 @@ class Dashboard extends React.Component {
   render() {
     console.log("global state", this.state);
     const { classes } = this.props;
+    const { vendors } = this.state;
     return (
       <Router>
         <div className={classes.root}>
@@ -394,6 +398,7 @@ class Dashboard extends React.Component {
                 />
               )}
             />
+            <Route path="/analytics" render={() => <AnalyticsContainer vendors={vendors}/>} />
             {/* <Route
               path="/cart"
               render={() => (

@@ -21,6 +21,7 @@ export const onCreateProduct = `subscription OnCreateProduct {
     category {
       id
       name
+      createdAt
     }
     unit {
       id
@@ -35,6 +36,7 @@ export const onCreateProduct = `subscription OnCreateProduct {
     orders {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -61,6 +63,7 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
     category {
       id
       name
+      createdAt
     }
     unit {
       id
@@ -75,6 +78,7 @@ export const onUpdateProduct = `subscription OnUpdateProduct {
     orders {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -101,6 +105,7 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     category {
       id
       name
+      createdAt
     }
     unit {
       id
@@ -115,6 +120,7 @@ export const onDeleteProduct = `subscription OnDeleteProduct {
     orders {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -132,6 +138,7 @@ export const onCreateVendor = `subscription OnCreateVendor {
     orders {
       items {
         id
+        createdAt
         name
       }
       nextToken
@@ -162,6 +169,7 @@ export const onUpdateVendor = `subscription OnUpdateVendor {
     orders {
       items {
         id
+        createdAt
         name
       }
       nextToken
@@ -192,6 +200,7 @@ export const onDeleteVendor = `subscription OnDeleteVendor {
     orders {
       items {
         id
+        createdAt
         name
       }
       nextToken
@@ -272,6 +281,7 @@ export const onCreateCategory = `subscription OnCreateCategory {
   onCreateCategory {
     id
     name
+    createdAt
     products {
       items {
         id
@@ -291,6 +301,7 @@ export const onUpdateCategory = `subscription OnUpdateCategory {
   onUpdateCategory {
     id
     name
+    createdAt
     products {
       items {
         id
@@ -310,6 +321,7 @@ export const onDeleteCategory = `subscription OnDeleteCategory {
   onDeleteCategory {
     id
     name
+    createdAt
     products {
       items {
         id
@@ -328,6 +340,7 @@ export const onDeleteCategory = `subscription OnDeleteCategory {
 export const onCreateProductOrder = `subscription OnCreateProductOrder {
   onCreateProductOrder {
     id
+    createdAt
     product {
       id
       name
@@ -339,6 +352,7 @@ export const onCreateProductOrder = `subscription OnCreateProductOrder {
     }
     order {
       id
+      createdAt
       name
     }
   }
@@ -347,6 +361,7 @@ export const onCreateProductOrder = `subscription OnCreateProductOrder {
 export const onUpdateProductOrder = `subscription OnUpdateProductOrder {
   onUpdateProductOrder {
     id
+    createdAt
     product {
       id
       name
@@ -358,6 +373,7 @@ export const onUpdateProductOrder = `subscription OnUpdateProductOrder {
     }
     order {
       id
+      createdAt
       name
     }
   }
@@ -366,6 +382,7 @@ export const onUpdateProductOrder = `subscription OnUpdateProductOrder {
 export const onDeleteProductOrder = `subscription OnDeleteProductOrder {
   onDeleteProductOrder {
     id
+    createdAt
     product {
       id
       name
@@ -377,6 +394,7 @@ export const onDeleteProductOrder = `subscription OnDeleteProductOrder {
     }
     order {
       id
+      createdAt
       name
     }
   }
@@ -446,6 +464,7 @@ export const onCreateLocation = `subscription OnCreateLocation {
     orders {
       items {
         id
+        createdAt
         name
       }
       nextToken
@@ -466,6 +485,7 @@ export const onUpdateLocation = `subscription OnUpdateLocation {
     orders {
       items {
         id
+        createdAt
         name
       }
       nextToken
@@ -486,6 +506,7 @@ export const onDeleteLocation = `subscription OnDeleteLocation {
     orders {
       items {
         id
+        createdAt
         name
       }
       nextToken
@@ -502,6 +523,7 @@ export const onDeleteLocation = `subscription OnDeleteLocation {
 export const onCreateOrder = `subscription OnCreateOrder {
   onCreateOrder {
     id
+    createdAt
     name
     location {
       id
@@ -518,6 +540,7 @@ export const onCreateOrder = `subscription OnCreateOrder {
     products {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -527,6 +550,7 @@ export const onCreateOrder = `subscription OnCreateOrder {
 export const onUpdateOrder = `subscription OnUpdateOrder {
   onUpdateOrder {
     id
+    createdAt
     name
     location {
       id
@@ -543,6 +567,7 @@ export const onUpdateOrder = `subscription OnUpdateOrder {
     products {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -552,6 +577,7 @@ export const onUpdateOrder = `subscription OnUpdateOrder {
 export const onDeleteOrder = `subscription OnDeleteOrder {
   onDeleteOrder {
     id
+    createdAt
     name
     location {
       id
@@ -568,6 +594,7 @@ export const onDeleteOrder = `subscription OnDeleteOrder {
     products {
       items {
         id
+        createdAt
       }
       nextToken
     }

@@ -75,7 +75,7 @@ class OrderContainer extends React.Component {
   };
 
   createProductOrder = async orderId => {
-    const { cart } = this.props;
+    const { cart, emptyCart } = this.props;
     try {
       const responses = cart.map(async product => {
         const productOrder = {
@@ -89,6 +89,7 @@ class OrderContainer extends React.Component {
             graphqlOperation(createProductOrder, productOrder)
           );
           console.log("create productOrder success", response);
+          emptyCart();
           return true;
         } catch (err) {
           console.log("create productOrder failed", err);
@@ -97,6 +98,7 @@ class OrderContainer extends React.Component {
       });
       const success = await Promise.all(responses);
       console.log("productOrder success", success);
+
       return success.every(el => el === true);
     } catch (err) {
       console.log("productOrder error", err);
@@ -164,20 +166,29 @@ class OrderContainer extends React.Component {
   };
 
   handleNext = () => {
-    const { toggleOrdering } = this.props;
+    const { toggleOrdering, emptyCart } = this.props;
     const { selectedLocation, selectedVendor, activeStep } = this.state;
+    // clean this up. switch?
     if (!selectedLocation || !selectedVendor) {
       alert("please select a vendor and location");
       return;
-    } else if (activeStep === 2) {
-      const success = this.createOrder();
-      if (success) this.setState({ activeStep: 4 });
-      else this.setState({ activeStep: 3 });
-    } else {
+    } else if (activeStep === 0) {
       toggleOrdering();
       this.setState(state => ({
         activeStep: state.activeStep + 1
       }));
+    } else if (activeStep === 1) {
+      this.setState(state => ({
+        activeStep: state.activeStep + 1
+      }));
+    } else if (activeStep === 2) {
+      const success = this.createOrder();
+      if (success) {
+        toggleOrdering();
+        this.setState({ activeStep: 4 });
+      } else {
+        this.setState({ activeStep: 3 });
+      }
     }
   };
 
@@ -212,21 +223,27 @@ class OrderContainer extends React.Component {
           </Stepper>
           <React.Fragment>
             <React.Fragment>
-              <div className={classes.buttons}>
-                {activeStep !== 0 && (
-                  <Button onClick={this.handleBack} className={classes.button}>
-                    Back
+              {activeStep === 3 || activeStep === 4 ? null : (
+                <div className={classes.buttons}>
+                  {activeStep !== 0 && (
+                    <Button
+                      onClick={this.handleBack}
+                      className={classes.button}
+                    >
+                      Back
+                    </Button>
+                  )}
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 2 ? "Place order" : "Next"}
                   </Button>
-                )}
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={this.handleNext}
-                  className={classes.button}
-                >
-                  {activeStep === steps.length - 2 ? "Place order" : "Next"}
-                </Button>
-              </div>
+                </div>
+              )}
+
               {this.getStepContent(activeStep)}
             </React.Fragment>
           </React.Fragment>

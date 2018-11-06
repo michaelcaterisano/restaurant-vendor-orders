@@ -69,6 +69,16 @@ export const mainListItems = (
       </ListItem>
     </Link>
 
+    <Link to="/analytics">
+      <ListItem button>
+        <ListItemIcon>
+          <ListIcon />
+        </ListItemIcon>
+        <ListItemText primary="Analytics" />
+      </ListItem>
+    </Link>
+
+
     {/* <Link to="/cart">
       <ListItem button>
         <ListItemIcon>

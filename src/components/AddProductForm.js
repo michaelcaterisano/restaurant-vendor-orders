@@ -26,8 +26,8 @@ const styles = theme => ({
   formControl: {
     margin: 0,
     fullWidth: true,
-    display: 'flex',
-    wrap: 'nowrap'
+    display: "flex",
+    wrap: "nowrap"
   },
   checkBoxes: {
     display: "flex",
@@ -120,9 +120,9 @@ class AddProductForm extends Component {
         const response = await API.graphql(
           graphqlOperation(createProductLocation, productLocation)
         );
-        console.log('create productLocation success', response);
+        console.log("create productLocation success", response);
       } catch (err) {
-        console.log('create productLocation failed', err);
+        console.log("create productLocation failed", err);
       }
     });
     this.setState({ locations: [], productId: "" });
@@ -137,8 +137,8 @@ class AddProductForm extends Component {
   }
 
   _formIsValid() {
-    const { name, category, price, unit, vendor } = this.state;
-    if (!name || !category || !price || !unit || !vendor) {
+    const { name, category, unit, vendor, locations } = this.state;
+    if (!name || !category ||  !unit || !vendor || !locations.length) {
       return false;
     } else {
       return true;
@@ -147,7 +147,10 @@ class AddProductForm extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    if (!this._formIsValid()) return;
+    if (!this._formIsValid()) {
+      alert("please enter all required fields")
+      return
+    };
     this.setState({ loading: true });
     // const { onProductSubmit } = this.props;
     const {
@@ -164,25 +167,25 @@ class AddProductForm extends Component {
       input: {
         name,
         productCategoryId,
-        price,
+        price: price.length ? price : null,
         productVendorId,
         productUnitId,
-        maxOrder,
-        defaultOrder,
-        notes
+        maxOrder: maxOrder.length ? maxOrder : null,
+        defaultOrder: defaultOrder.length ? defaultOrder : null,
+        notes: notes.length ? notes : null
       }
     };
     try {
       const response = await API.graphql(
         graphqlOperation(createProduct, product)
       );
+      console.log('createProduct success', response);
       const productId = response.data.createProduct.id;
       this.setState({ productId });
     } catch (err) {
       console.log(err);
     }
     this._createProductLocation();
-    // onProductSubmit(); // do this elsewhere?
     this.setState({
       name: "",
       category: "",
@@ -223,7 +226,6 @@ class AddProductForm extends Component {
   }
 
   render() {
-    console.log(this.state);
     const { classes, vendors, categories, units, locations } = this.props;
     return (
       <React.Fragment>
@@ -274,12 +276,15 @@ class AddProductForm extends Component {
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="age-simple">Vendor</InputLabel>
+              <InputLabel htmlFor="vendor" required>Vendor</InputLabel>
               <Select
                 fullWidth
                 value={this.state.vendor}
                 onChange={this.handleVendorChange}
                 name="vendor"
+                inputProps={{
+                  id: "vendor"
+                }}
               >
                 {vendors.map(vendor => (
                   <MenuItem key={vendor.id} value={vendor.name}>
@@ -291,11 +296,14 @@ class AddProductForm extends Component {
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="age-simple">Category</InputLabel>
+              <InputLabel htmlFor="category" required>Category</InputLabel>
               <Select
                 value={this.state.category}
                 onChange={this.handleCategoryChange}
                 name="category"
+                inputProps={{
+                  id: "category"
+                }}
               >
                 {categories.map(category => (
                   <MenuItem key={category.id} value={category.name}>
@@ -307,11 +315,14 @@ class AddProductForm extends Component {
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="age-simple">Unit</InputLabel>
+              <InputLabel htmlFor="unit" required>Unit</InputLabel>
               <Select
                 value={this.state.unit}
                 onChange={this.handleUnitChange}
                 name="unit"
+                inputProps={{
+                  id: "unit"
+                }}
               >
                 {units.map(unit => (
                   <MenuItem key={unit.id} value={unit.name}>

@@ -21,6 +21,7 @@ export const getProduct = `query GetProduct($id: ID!) {
     category {
       id
       name
+      createdAt
     }
     unit {
       id
@@ -35,6 +36,7 @@ export const getProduct = `query GetProduct($id: ID!) {
     orders {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -66,6 +68,7 @@ export const listProducts = `query ListProducts(
       category {
         id
         name
+        createdAt
       }
       unit {
         id
@@ -80,6 +83,7 @@ export const listProducts = `query ListProducts(
       orders {
         items {
           id
+          createdAt
         }
         nextToken
       }
@@ -99,6 +103,7 @@ export const getVendor = `query GetVendor($id: ID!) {
     orders {
       items {
         id
+        createdAt
         name
       }
       nextToken
@@ -134,6 +139,7 @@ export const listVendors = `query ListVendors(
       orders {
         items {
           id
+          createdAt
           name
         }
         nextToken
@@ -204,6 +210,7 @@ export const getCategory = `query GetCategory($id: ID!) {
   getCategory(id: $id) {
     id
     name
+    createdAt
     products {
       items {
         id
@@ -228,6 +235,7 @@ export const listCategorys = `query ListCategorys(
     items {
       id
       name
+      createdAt
       products {
         items {
           id
@@ -248,6 +256,7 @@ export const listCategorys = `query ListCategorys(
 export const getProductOrder = `query GetProductOrder($id: ID!) {
   getProductOrder(id: $id) {
     id
+    createdAt
     product {
       id
       name
@@ -259,6 +268,7 @@ export const getProductOrder = `query GetProductOrder($id: ID!) {
     }
     order {
       id
+      createdAt
       name
     }
   }
@@ -272,6 +282,7 @@ export const listProductOrders = `query ListProductOrders(
   listProductOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      createdAt
       product {
         id
         name
@@ -283,6 +294,7 @@ export const listProductOrders = `query ListProductOrders(
       }
       order {
         id
+        createdAt
         name
       }
     }
@@ -342,6 +354,7 @@ export const getLocation = `query GetLocation($id: ID!) {
     orders {
       items {
         id
+        createdAt
         name
       }
       nextToken
@@ -367,6 +380,7 @@ export const listLocations = `query ListLocations(
       orders {
         items {
           id
+          createdAt
           name
         }
         nextToken
@@ -385,6 +399,7 @@ export const listLocations = `query ListLocations(
 export const getOrder = `query GetOrder($id: ID!) {
   getOrder(id: $id) {
     id
+    createdAt
     name
     location {
       id
@@ -401,6 +416,7 @@ export const getOrder = `query GetOrder($id: ID!) {
     products {
       items {
         id
+        createdAt
       }
       nextToken
     }
@@ -415,6 +431,7 @@ export const listOrders = `query ListOrders(
   listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      createdAt
       name
       location {
         id
@@ -431,6 +448,7 @@ export const listOrders = `query ListOrders(
       products {
         items {
           id
+          createdAt
         }
         nextToken
       }
