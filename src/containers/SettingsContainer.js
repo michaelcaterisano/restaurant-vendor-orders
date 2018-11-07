@@ -33,6 +33,11 @@ class SimpleTabs extends React.Component {
     value: 0
   };
 
+  componentDidMount() {
+    const {resetOrdering} = this.props;
+    resetOrdering()
+  }
+
   handleChange = (event, value) => {
     this.setState({ value });
   };

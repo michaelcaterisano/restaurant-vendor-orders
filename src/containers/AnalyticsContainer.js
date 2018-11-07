@@ -51,6 +51,11 @@ class AnalyticsContainer extends React.Component {
     vendor: { name: "" }
   };
 
+  componentDidMount() {
+    const { resetOrdering } = this.props;
+    resetOrdering();
+  }
+
   getTotalPrice = data => {
     if (!data) return null;
     return data.data.listVendors.items[0].orders.items
@@ -108,7 +113,8 @@ class AnalyticsContainer extends React.Component {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <span>Order total: </span>{data ? '$' + this.getTotalPrice(data) : '(select a vendor)'}
+          <span>Order total: </span>
+          {data ? "$" + this.getTotalPrice(data) : "(select a vendor)"}
         </Grid>
       </Grid>
     );

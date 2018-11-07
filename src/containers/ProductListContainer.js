@@ -36,7 +36,9 @@ class ProductListContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.listProducts();
+    const { listProducts, resetOrdering } = this.props;
+    resetOrdering();
+    listProducts();
   }
 
   handleChange = event => {

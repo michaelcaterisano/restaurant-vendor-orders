@@ -176,6 +176,7 @@ class Dashboard extends React.Component {
     units: [],
     locations: [],
     cart: [],
+    orderTotal: 0,
     open: true,
     ordering: false
   };
@@ -198,11 +199,6 @@ class Dashboard extends React.Component {
       locations: locations.data.listLocations.items
     });
   }
-
-  emptyCart = () => {
-    console.log("empty cart");
-    this.setState({ cart: [] });
-  };
 
   listProducts = async () => {
     const products = await API.graphql(
@@ -247,17 +243,39 @@ class Dashboard extends React.Component {
     this.setState({ ordering: !this.state.ordering });
   };
 
+  resetOrdering = () => {
+    this.setState({ cart: [], orderTotal: 0, ordering: false });
+  };
+
+  // cart functions
+
+  emptyCart = () => {
+    console.log("empty cart");
+    this.setState({ cart: [] }, () => this.getOrderTotal());
+  };
+
+  getOrderTotal = () => {
+    const { cart } = this.state;
+    const orderTotal = cart.reduce((prev, curr) => {
+      return prev + curr.price;
+    }, 0);
+    this.setState({ orderTotal }, () => console.log(orderTotal));
+  };
+
   addToCart = product => {
     console.log("product added", product);
-    this.setState({ cart: [...this.state.cart, product] });
+    this.setState({ cart: [...this.state.cart, product] }, () =>
+      this.getOrderTotal()
+    );
   };
 
   removeFromCart = product => {
+    console.log("product removed", product);
     const cart = [...this.state.cart];
     const index = cart.findIndex(item => item.id === product.id);
     if (index !== -1) {
       cart.splice(index, 1);
-      this.setState({ cart });
+      this.setState({ cart }, () => this.getOrderTotal());
     }
   };
 
@@ -266,9 +284,18 @@ class Dashboard extends React.Component {
   // }
 
   render() {
-    console.log("global state", this.state);
+    console.log('dashboard state', this.state)
     const { classes } = this.props;
-    const { vendors } = this.state;
+    const {
+      products,
+      vendors,
+      categories,
+      units,
+      locations,
+      cart,
+      orderTotal,
+      ordering
+    } = this.state;
     return (
       <Router>
         <div className={classes.root}>
@@ -349,6 +376,7 @@ class Dashboard extends React.Component {
                   listUnits={this.listUnits}
                   locations={this.state.locations}
                   listLocations={this.listLocations}
+                  resetOrdering={this.resetOrdering}
                 />
               )}
             />
@@ -362,6 +390,7 @@ class Dashboard extends React.Component {
                     units={this.state.units}
                     locations={this.state.locations}
                     listProducts={this.listProducts}
+                    resetOrdering={this.resetOrdering}
                   />
                 </div>
               )}
@@ -376,6 +405,7 @@ class Dashboard extends React.Component {
                   categories={this.state.categories}
                   units={this.state.units}
                   listProducts={this.listProducts}
+                  resetOrdering={this.resetOrdering}
                 />
               )}
             />
@@ -392,23 +422,22 @@ class Dashboard extends React.Component {
                   addToCart={this.addToCart}
                   removeFromCart={this.removeFromCart}
                   listProducts={this.listProducts}
+                  orderTotal={this.state.orderTotal}
                   ordering={this.state.ordering}
                   toggleOrdering={this.toggleOrdering}
                   emptyCart={this.emptyCart}
                 />
               )}
             />
-            <Route path="/analytics" render={() => <AnalyticsContainer vendors={vendors}/>} />
-            {/* <Route
-              path="/cart"
+            <Route
+              path="/analytics"
               render={() => (
-                <CartContainer
-                  products={countCartItems(this.state.cart)}
-                  total={20}
-                  checkout={this.checkout}
+                <AnalyticsContainer
+                  vendors={vendors}
+                  resetOrdering={this.resetOrdering}
                 />
               )}
-            /> */}
+            />
           </main>
         </div>
       </Router>

@@ -19,8 +19,15 @@ import { Prompt } from "react-router";
 
 const styles = theme => ({
   buttons: {
+    // display: "flex",
+    // justifyContent: "flex-end"
+  },
+  actionsGroup: {
     display: "flex",
-    justifyContent: "flex-end"
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    marginBottom: 10
   },
   button: {
     marginTop: theme.spacing.unit * 3,
@@ -105,19 +112,6 @@ class OrderContainer extends React.Component {
     }
   };
 
-  handleChange = event => {
-    const name = event.target.name;
-    this.setState({ [name]: event.target.value });
-  };
-
-  handleVendorChange = vendor => {
-    this.setState({ selectedVendor: vendor });
-  };
-
-  handleLocationChange = location => {
-    this.setState({ selectedLocation: location });
-  };
-
   getStepContent = step => {
     const {
       locations,
@@ -165,8 +159,21 @@ class OrderContainer extends React.Component {
     }
   };
 
+  handleChange = event => {
+    const name = event.target.name;
+    this.setState({ [name]: event.target.value });
+  };
+
+  handleVendorChange = vendor => {
+    this.setState({ selectedVendor: vendor });
+  };
+
+  handleLocationChange = location => {
+    this.setState({ selectedLocation: location });
+  };
+
   handleNext = () => {
-    const { toggleOrdering, emptyCart } = this.props;
+    const { toggleOrdering } = this.props;
     const { selectedLocation, selectedVendor, activeStep } = this.state;
     // clean this up. switch?
     if (!selectedLocation || !selectedVendor) {
@@ -193,9 +200,20 @@ class OrderContainer extends React.Component {
   };
 
   handleBack = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep - 1
-    }));
+    const { toggleOrdering } = this.props;
+    const { activeStep } = this.state;
+    if (activeStep === 1) {
+      this.setState(
+        state => ({
+          activeStep: state.activeStep - 1
+        }),
+        () => toggleOrdering()
+      );
+    } else {
+      this.setState(state => ({
+        activeStep: state.activeStep - 1
+      }));
+    }
   };
 
   handleReset = () => {
@@ -205,7 +223,7 @@ class OrderContainer extends React.Component {
   };
 
   render() {
-    const { classes, ordering } = this.props;
+    const { classes, ordering, orderTotal } = this.props;
     const { activeStep } = this.state;
     return (
       <React.Fragment>
@@ -223,26 +241,35 @@ class OrderContainer extends React.Component {
           </Stepper>
           <React.Fragment>
             <React.Fragment>
-              {activeStep === 3 || activeStep === 4 ? null : (
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
+              <div className={classes.actionsGroup}>
+                {activeStep > 0 && activeStep < 3 ? (
+                  <Typography variant="headline">
+                    Total: ${orderTotal}
+                  </Typography>
+                ) : (
+                  <div />
+                )}
+                {activeStep === 3 || activeStep === 4 ? null : (
+                  <div className={classes.buttons}>
+                    {activeStep !== 0 && (
+                      <Button
+                        onClick={this.handleBack}
+                        className={classes.button}
+                      >
+                        Back
+                      </Button>
+                    )}
                     <Button
-                      onClick={this.handleBack}
+                      variant="contained"
+                      color="primary"
+                      onClick={this.handleNext}
                       className={classes.button}
                     >
-                      Back
+                      {activeStep === steps.length - 2 ? "Place order" : "Next"}
                     </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 2 ? "Place order" : "Next"}
-                  </Button>
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
 
               {this.getStepContent(activeStep)}
             </React.Fragment>
