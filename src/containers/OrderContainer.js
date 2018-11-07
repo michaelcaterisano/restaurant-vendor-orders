@@ -55,8 +55,8 @@ const steps = [
 class OrderContainer extends React.Component {
   state = {
     activeStep: 0,
-    selectedVendor: "",
-    selectedLocation: ""
+    selectedVendor: { name: "" },
+    selectedLocation: { name: "" }
   };
 
   createOrder = async () => {
@@ -113,13 +113,17 @@ class OrderContainer extends React.Component {
   };
 
   getStepContent = step => {
+    console.log("getstep props", this.props);
     const {
       locations,
       vendors,
       cart,
-      toggleOrdering,
-      emptyCart,
-      ...props
+      addToCart,
+      removeFromCart,
+      products,
+      categories,
+      units,
+      listProducts
     } = this.props;
     const { selectedLocation, selectedVendor } = this.state;
     switch (step) {
@@ -128,6 +132,8 @@ class OrderContainer extends React.Component {
           <VendorLocationForm
             locations={locations}
             vendors={vendors}
+            selectedVendor={selectedVendor}
+            selectedLocation={selectedLocation}
             onSelectVendor={this.handleVendorChange}
             onSelectLocation={this.handleLocationChange}
           />
@@ -135,11 +141,15 @@ class OrderContainer extends React.Component {
       case 1:
         return (
           <OrderProducts
-            // do this lower
             cart={countCartItems(cart)}
+            products={products}
+            categories={categories}
+            units={units}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
             selectedVendor={selectedVendor}
             selectedLocation={selectedLocation}
-            {...props}
+            listProducts={listProducts}
           />
         );
       case 2:
@@ -173,7 +183,7 @@ class OrderContainer extends React.Component {
   };
 
   handleNext = () => {
-    const { toggleOrdering } = this.props;
+    const { toggleOrdering, cart } = this.props;
     const { selectedLocation, selectedVendor, activeStep } = this.state;
     // clean this up. switch?
     if (!selectedLocation || !selectedVendor) {
@@ -189,6 +199,10 @@ class OrderContainer extends React.Component {
         activeStep: state.activeStep + 1
       }));
     } else if (activeStep === 2) {
+      if (!cart.length) {
+        alert('add some products to your cart first')
+        return;
+      }
       const success = this.createOrder();
       if (success) {
         toggleOrdering();
@@ -222,14 +236,24 @@ class OrderContainer extends React.Component {
     });
   };
 
+  // preventPrompt() {
+  //   const
+  //   return
+  // }
+
   render() {
     const { classes, ordering, orderTotal } = this.props;
     const { activeStep } = this.state;
+    console.log("ordercontainer step", activeStep);
     return (
       <React.Fragment>
         <Prompt
           when={ordering}
-          message={"Are you sure? Your current order will not be saved."}
+          message={location =>
+            location.pathname.startsWith("/order")
+              ? true
+              : "Are you sure? Your current order will not be saved."
+          }
         />
         <main className={classes.layout}>
           <Stepper activeStep={activeStep} className={classes.stepper}>

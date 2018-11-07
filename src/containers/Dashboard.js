@@ -279,12 +279,8 @@ class Dashboard extends React.Component {
     }
   };
 
-  // checkout() {
-  //   alert("checkout");
-  // }
-
   render() {
-    console.log('dashboard state', this.state)
+    console.log("dashboard state", this.state);
     const { classes } = this.props;
     const {
       products,
@@ -411,23 +407,25 @@ class Dashboard extends React.Component {
             />
             <Route
               path="/order"
-              render={() => (
-                <OrderContainer
-                  products={this.state.products}
-                  locations={this.state.locations}
-                  vendors={this.state.vendors}
-                  categories={this.state.categories}
-                  units={this.state.units}
-                  cart={this.state.cart}
-                  addToCart={this.addToCart}
-                  removeFromCart={this.removeFromCart}
-                  listProducts={this.listProducts}
-                  orderTotal={this.state.orderTotal}
-                  ordering={this.state.ordering}
-                  toggleOrdering={this.toggleOrdering}
-                  emptyCart={this.emptyCart}
-                />
-              )}
+              render={() => {
+                return (
+                  <OrderContainer
+                    products={this.state.products}
+                    locations={this.state.locations}
+                    vendors={this.state.vendors}
+                    categories={this.state.categories}
+                    units={this.state.units}
+                    cart={this.state.cart}
+                    addToCart={this.addToCart}
+                    removeFromCart={this.removeFromCart}
+                    listProducts={this.listProducts}
+                    orderTotal={this.state.orderTotal}
+                    ordering={this.state.ordering}
+                    toggleOrdering={this.toggleOrdering}
+                    emptyCart={this.emptyCart}
+                  />
+                );
+              }}
             />
             <Route
               path="/analytics"

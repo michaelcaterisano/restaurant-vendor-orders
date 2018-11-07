@@ -17,16 +17,11 @@ const styles = theme => ({
 });
 
 class VendorLocationform extends React.Component {
-  state = {
-    vendorName: "",
-    locationName: ""
-  };
 
   handleVendorChange = event => {
     const { vendors, onSelectVendor } = this.props;
     const selectedVendorName = event.target.value;
     const vendor = vendors.find(vendor => vendor.name === selectedVendorName);
-    this.setState({ vendorName: vendor.name });
     onSelectVendor(vendor);
   };
 
@@ -36,12 +31,11 @@ class VendorLocationform extends React.Component {
     const location = locations.find(
       location => location.name === selectedLocationName
     );
-    this.setState({ locationName: location.name });
     onSelectLocation(location);
   };
 
   render() {
-    const { classes, locations, vendors } = this.props;
+    const { classes, locations, vendors, selectedVendor, selectedLocation } = this.props;
     return (
       <React.Fragment>
         <Grid container spacing={32}>
@@ -49,7 +43,7 @@ class VendorLocationform extends React.Component {
             <FormControl className={classes.formControl}>
               <InputLabel>Vendor</InputLabel>
               <Select
-                value={this.state.vendorName}
+                value={selectedVendor.name}
                 onChange={this.handleVendorChange}
                 name="selectedVendor"
               >
@@ -65,7 +59,7 @@ class VendorLocationform extends React.Component {
             <FormControl className={classes.formControl}>
               <InputLabel>Location</InputLabel>
               <Select
-                value={this.state.locationName}
+                value={selectedLocation.name}
                 onChange={this.handleLocationChange}
                 name="selectedLocation"
               >

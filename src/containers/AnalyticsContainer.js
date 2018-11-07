@@ -79,7 +79,7 @@ class AnalyticsContainer extends React.Component {
 
   getVendorTotal = () => {
     const { vendorOrders } = this.state;
-    if (!vendorOrders.data.listVendors.items.length) return "0";
+    if (!vendorOrders.data.listVendors.items[0].orders.items.length) return "0";
     return vendorOrders.data.listVendors.items[0].orders.items
       .map(order => order.products.items.map(item => item.product.price))
       .flat()
@@ -88,7 +88,6 @@ class AnalyticsContainer extends React.Component {
 
   getOrderTotal = () => {
     const { orders } = this.state;
-    console.log('getOrderTotal', orders)
     if (!orders.data.listOrders.items.length) return "0";
     const total = orders.data.listOrders.items
       .map(order => order.products.items.map(item => item.product.price))
@@ -121,7 +120,6 @@ class AnalyticsContainer extends React.Component {
   };
 
   getOrders = async () => {
-    console.log('get orders')
     const filter = {
       dateRange: dateRange
     };
@@ -138,7 +136,6 @@ class AnalyticsContainer extends React.Component {
   render() {
     const { classes, vendors } = this.props;
     const { vendorOrders, vendor, orders } = this.state;
-    console.log('render orders', orders)
     return (
       <Grid container spacing={24}>
         <Grid item xs={6} sm={4}>

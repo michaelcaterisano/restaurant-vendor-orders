@@ -107,6 +107,9 @@ class Categories extends Component {
               id="repPhone"
               name="repPhone"
               label="rep phone number"
+              placeholder="xxx-xxx-xxxx"
+              type="tel"
+              pattern="\d{3}[\-]\d{3}[\-]\d{4}"
               value={this.state.repPhone}
               fullWidth
               onChange={this.handleChange}
@@ -117,6 +120,7 @@ class Categories extends Component {
               id="minOrder"
               name="minOrder"
               label="min order"
+              type="number"
               value={this.state.minOrder}
               fullWidth
               onChange={this.handleChange}

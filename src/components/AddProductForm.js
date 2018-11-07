@@ -249,6 +249,7 @@ class AddProductForm extends Component {
               id="price"
               name="price"
               label="Price"
+              type="number"
               value={this.state.price}
               fullWidth
               onChange={this.handleChange}
@@ -259,6 +260,7 @@ class AddProductForm extends Component {
               id="maxOrder"
               name="maxOrder"
               label="Max Order"
+              type="number"
               value={this.state.maxOrder}
               fullWidth
               onChange={this.handleChange}
@@ -269,6 +271,7 @@ class AddProductForm extends Component {
               id="defaultOrder"
               name="defaultOrder"
               label="Default Order"
+              type="number"
               value={this.state.defaultOrder}
               fullWidth
               onChange={this.handleChange}
