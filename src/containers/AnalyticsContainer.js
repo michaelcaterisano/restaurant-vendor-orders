@@ -6,6 +6,8 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
+import Typography from "@material-ui/core/Typography";
+
 import { withStyles } from "@material-ui/core/styles";
 
 const listOrdersByVendor = `query listVendorOrders($vendorFilter: ModelVendorFilterInput, $dateRange: [String]) {
@@ -60,11 +62,11 @@ const styles = theme => ({
 const vendorFilter = {
   id: { eq: "abdfc39f-edec-42e2-80ba-62f45a9f7177" }
 };
-const dateRange = ["2018-11-01T09:47:22.352Z", "2018-11-30T19:47:22.352Z"];
+const dateRange = ["2018-11-01T00:00:00.000Z", "2018-12-01T05:00:01.000Z"];
 
 class AnalyticsContainer extends React.Component {
   state = {
-    data: null,
+    vendorOrders: null,
     vendor: { name: "" },
     orders: null
   };
@@ -75,9 +77,10 @@ class AnalyticsContainer extends React.Component {
     this.getOrders();
   }
 
-  getVendorTotal = data => {
-    if (!data) return null;
-    return data.data.listVendors.items[0].orders.items
+  getVendorTotal = () => {
+    const { vendorOrders } = this.state;
+    if (!vendorOrders.data.listVendors.items.length) return "0";
+    return vendorOrders.data.listVendors.items[0].orders.items
       .map(order => order.products.items.map(item => item.product.price))
       .flat()
       .reduce((prev, curr) => prev + curr);
@@ -85,6 +88,8 @@ class AnalyticsContainer extends React.Component {
 
   getOrderTotal = () => {
     const { orders } = this.state;
+    console.log('getOrderTotal', orders)
+    if (!orders.data.listOrders.items.length) return "0";
     const total = orders.data.listOrders.items
       .map(order => order.products.items.map(item => item.product.price))
       .flat()
@@ -112,10 +117,11 @@ class AnalyticsContainer extends React.Component {
     const result = await API.graphql(
       graphqlOperation(listOrdersByVendor, vendorFilter)
     );
-    this.setState({ data: result });
+    this.setState({ vendorOrders: result });
   };
 
   getOrders = async () => {
+    console.log('get orders')
     const filter = {
       dateRange: dateRange
     };
@@ -131,7 +137,8 @@ class AnalyticsContainer extends React.Component {
 
   render() {
     const { classes, vendors } = this.props;
-    const { data, vendor, orders } = this.state;
+    const { vendorOrders, vendor, orders } = this.state;
+    console.log('render orders', orders)
     return (
       <Grid container spacing={24}>
         <Grid item xs={6} sm={4}>
@@ -157,12 +164,16 @@ class AnalyticsContainer extends React.Component {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <span>Vendor total: </span>
-          {data ? "$" + this.getVendorTotal(data) : "(select a vendor)"}
+          <Typography variant="title">Vendor total </Typography>
+          <Typography variant="body2">
+            {vendor.name ? (vendorOrders ? "$" + this.getVendorTotal() : "$0") : "select a vendor"}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
-          <span>Orders total: </span>
-          {orders ? "$" + this.getOrderTotal() : null}
+          <Typography variant="title">Order total </Typography>
+          <Typography variant="body2">
+            {orders? "$" + this.getOrderTotal() : "$0"}
+          </Typography>
         </Grid>
       </Grid>
     );
