@@ -30,6 +30,7 @@ import SettingsContainer from "./SettingsContainer";
 import OrderContainer from "./OrderContainer";
 import AnalyticsContainer from "./AnalyticsContainer";
 import { countCartItems } from "../lib/helpers";
+import Home from "../components/Home";
 
 const listProducts = `query ListProducts(
   $filter: ModelProductFilterInput
@@ -359,7 +360,7 @@ class Dashboard extends React.Component {
             )}
           >
             <div className={classes.appBarSpacer} />
-
+            <Route exact path="/" component={Home} />
             <Route
               path="/settings"
               render={() => (
