@@ -5,6 +5,7 @@ import Amplify from 'aws-amplify';
 import { withAuthenticator} from 'aws-amplify-react'; 
 import aws_exports from './aws-exports'; 
 import Dashboard from './containers/Dashboard';
+import customAuthTheme from './customAuthTheme';
 Amplify.configure(aws_exports);
 
 
@@ -29,4 +30,4 @@ const App = () => (
 
 )
 
-export default withAuthenticator(App, { includeGreetings: true });
+export default withAuthenticator(App, true, [], null, customAuthTheme);

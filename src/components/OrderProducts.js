@@ -27,7 +27,7 @@ const styles = theme => ({
   }
 });
 
-class OrderContainer extends React.Component {
+class OrderProducts extends React.Component {
   state = {
     selectedUnits: [],
     selectedCategories: [],
@@ -170,4 +170,4 @@ class OrderContainer extends React.Component {
   }
 }
 
-export default withStyles(styles)(OrderContainer);
+export default withStyles(styles)(OrderProducts);
