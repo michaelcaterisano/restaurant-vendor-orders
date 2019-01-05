@@ -46,7 +46,7 @@ const styles = theme => ({
 });
 
 const steps = [
-  "Select vendor and location",
+  "Select location",
   "Select products",
   "Review order",
   "Order complete"
@@ -55,36 +55,54 @@ const steps = [
 class OrderContainer extends React.Component {
   state = {
     activeStep: 0,
-    selectedVendor: { name: "" },
     selectedLocation: { name: "" }
   };
 
   createOrder = async () => {
-    const { selectedVendor, selectedLocation } = this.state;
-    const order = {
-      input: {
-        name: selectedVendor.name + selectedLocation.name,
-        orderLocationId: selectedLocation.id,
-        orderVendorId: selectedVendor.id
-      }
-    };
+    const { selectedLocation } = this.state;
+    const cartByVendor = this.organizeCartByVendor();
+
+    const vendorIds = Object.keys(cartByVendor);
+    console.log("vendorIds ", vendorIds);
     try {
-      const response = await API.graphql(graphqlOperation(createOrder, order));
-      console.log("create order success", response);
-      const orderId = response.data.createOrder.id;
-      const result = await this.createProductOrder(orderId);
-      console.log("createProductOrder success", result);
-      return result;
+      const responses = vendorIds.map(async vendorId => {
+        const products = cartByVendor[vendorId];
+        const order = {
+          input: {
+            name: selectedLocation.name,
+            orderLocationId: selectedLocation.id,
+            orderVendorId: vendorId
+          }
+        };
+        try {
+          const response = await API.graphql(
+            graphqlOperation(createOrder, order)
+          );
+          const orderId = response.data.createOrder.id;
+          const result = await this.createProductOrder(
+            orderId,
+            products
+          );
+          return true;
+        } catch (err) {
+          console.log("create order error", err);
+          return false;
+        }
+      });
+      const success = await Promise.all(responses)
+      console.log('create order success ', success)
+      return success.every(el => el === true);
+
     } catch (err) {
-      console.log("create order error", err);
-      return false;
+      console.log("createOrder error ", err);
     }
   };
 
-  createProductOrder = async orderId => {
-    const { cart, emptyCart } = this.props;
+  createProductOrder = async (orderId, products) => {
+    const { emptyCart } = this.props;
     try {
-      const responses = cart.map(async product => {
+      console.log('products ', products)
+      const responses = products.map(async product => {
         const productOrder = {
           input: {
             productOrderProductId: product.id,
@@ -104,8 +122,6 @@ class OrderContainer extends React.Component {
         }
       });
       const success = await Promise.all(responses);
-      console.log("productOrder success", success);
-
       return success.every(el => el === true);
     } catch (err) {
       console.log("productOrder error", err);
@@ -113,7 +129,6 @@ class OrderContainer extends React.Component {
   };
 
   getStepContent = step => {
-    console.log("getstep props", this.props);
     const {
       locations,
       vendors,
@@ -125,14 +140,13 @@ class OrderContainer extends React.Component {
       units,
       listProducts
     } = this.props;
-    const { selectedLocation, selectedVendor } = this.state;
+    const { selectedLocation } = this.state;
     switch (step) {
       case 0:
         return (
           <VendorLocationForm
             locations={locations}
             vendors={vendors}
-            selectedVendor={selectedVendor}
             selectedLocation={selectedLocation}
             onSelectVendor={this.handleVendorChange}
             onSelectLocation={this.handleLocationChange}
@@ -147,7 +161,6 @@ class OrderContainer extends React.Component {
             units={units}
             addToCart={addToCart}
             removeFromCart={removeFromCart}
-            selectedVendor={selectedVendor}
             selectedLocation={selectedLocation}
             listProducts={listProducts}
           />
@@ -156,7 +169,6 @@ class OrderContainer extends React.Component {
         return (
           <ReviewOrder
             cart={countCartItems(cart)}
-            selectedVendor={selectedVendor}
             selectedLocation={selectedLocation}
           />
         );
@@ -186,7 +198,7 @@ class OrderContainer extends React.Component {
     const { toggleOrdering, cart } = this.props;
     const { selectedLocation, selectedVendor, activeStep } = this.state;
     // clean this up. switch?
-    if (!selectedLocation || !selectedVendor) {
+    if (!selectedLocation) {
       alert("please select a vendor and location");
       return;
     } else if (activeStep === 0) {
@@ -200,7 +212,7 @@ class OrderContainer extends React.Component {
       }));
     } else if (activeStep === 2) {
       if (!cart.length) {
-        alert('add some products to your cart first')
+        alert("add some products to your cart first");
         return;
       }
       const success = this.createOrder();
@@ -236,15 +248,26 @@ class OrderContainer extends React.Component {
     });
   };
 
-  // preventPrompt() {
-  //   const
-  //   return
-  // }
+  organizeCartByVendor = () => {
+    const { cart } = this.props;
+    const cartByVendor = {};
+    for (let i = 0; i < cart.length; i++) {
+      const product = cart[i];
+      const vendorId = product.vendor.id;
+      if (typeof cartByVendor[vendorId] == "undefined") {
+        cartByVendor[vendorId] = [];
+        cartByVendor[vendorId].push(product);
+      } else {
+        cartByVendor[vendorId].push(product);
+      }
+    }
+    return cartByVendor;
+  };
 
   render() {
+    console.log(this.organizeCartByVendor());
     const { classes, ordering, orderTotal } = this.props;
     const { activeStep } = this.state;
-    console.log("ordercontainer step", activeStep);
     return (
       <React.Fragment>
         <Prompt

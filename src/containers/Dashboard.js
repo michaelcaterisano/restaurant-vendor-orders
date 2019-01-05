@@ -217,7 +217,6 @@ class Dashboard extends React.Component {
     const categories = await API.graphql(
       graphqlOperation(listCategorys, { limit: 30 })
     );
-    console.log(categories);
     this.setState({ categories: categories.data.listCategorys.items });
   };
 
@@ -260,7 +259,7 @@ class Dashboard extends React.Component {
     const orderTotal = cart.reduce((prev, curr) => {
       return prev + curr.price;
     }, 0);
-    this.setState({ orderTotal }, () => console.log(orderTotal));
+    this.setState({ orderTotal }, () => console.log('orderTotal ', orderTotal));
   };
 
   addToCart = product => {
@@ -281,7 +280,7 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    console.log("dashboard state", this.state);
+    // console.log("dashboard state", this.state);
     const { classes } = this.props;
     const {
       products,

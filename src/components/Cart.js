@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductCart from './ProductCart';
 
-const Cart = ({ cart, selectedVendor, selectedLocation }) => {
+const Cart = ({ cart, selectedLocation }) => {
   const hasProducts = cart.length > 0
   const nodes = hasProducts ? (
     cart.map(product => 
@@ -15,7 +15,7 @@ const Cart = ({ cart, selectedVendor, selectedLocation }) => {
 
   return (
     <div>
-      <p>Hi {selectedVendor.repName}! Order for Tampopo {selectedLocation.name}.</p>
+      <p>Hi vendor rep! Order for Tampopo {selectedLocation.name}.</p>
       <div> {nodes} </div>
       <br></br>
       <p>Thanks!</p>

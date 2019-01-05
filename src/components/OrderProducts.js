@@ -49,11 +49,6 @@ class OrderProducts extends React.Component {
     return productLocations.includes(selectedLocation.name);
   };
 
-  vendorFilter = product => {
-    const { selectedVendor } = this.props;
-    return product.vendor.name === selectedVendor.name;
-  }
-
   unitFilter = product => {
     const { selectedUnits } = this.state;
     if (!selectedUnits.length) return true;
@@ -150,7 +145,6 @@ class OrderProducts extends React.Component {
         <ProductList>
           {products
             .filter(this.locationFilter)
-            .filter(this.vendorFilter)
             .filter(this.unitFilter)
             .filter(this.categoryFilter)
             .filter(this.favoriteFilter)
