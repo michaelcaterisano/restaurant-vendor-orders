@@ -1,7 +1,7 @@
 import React from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { createOrder, createProductOrder } from "../graphql/mutations";
-import { asyncForEach, countCartItems } from "../lib/helpers";
+import { countCartItems, organizeCartByVendor } from "../lib/helpers";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -59,11 +59,10 @@ class OrderContainer extends React.Component {
   };
 
   createOrder = async () => {
+    const { cart } = this.props;
     const { selectedLocation } = this.state;
-    const cartByVendor = this.organizeCartByVendor();
-
+    const cartByVendor = organizeCartByVendor(cart);
     const vendorIds = Object.keys(cartByVendor);
-    console.log("vendorIds ", vendorIds);
     try {
       const responses = vendorIds.map(async vendorId => {
         const products = cartByVendor[vendorId];
@@ -248,24 +247,24 @@ class OrderContainer extends React.Component {
     });
   };
 
-  organizeCartByVendor = () => {
-    const { cart } = this.props;
-    const cartByVendor = {};
-    for (let i = 0; i < cart.length; i++) {
-      const product = cart[i];
-      const vendorId = product.vendor.id;
-      if (typeof cartByVendor[vendorId] == "undefined") {
-        cartByVendor[vendorId] = [];
-        cartByVendor[vendorId].push(product);
-      } else {
-        cartByVendor[vendorId].push(product);
-      }
-    }
-    return cartByVendor;
-  };
+  // organizeCartByVendor = () => {
+  //   const { cart } = this.props;
+  //   const cartByVendor = {};
+  //   for (let i = 0; i < cart.length; i++) {
+  //     const product = cart[i];
+  //     const vendorId = product.vendor.id;
+  //     if (typeof cartByVendor[vendorId] == "undefined") {
+  //       cartByVendor[vendorId] = [];
+  //       cartByVendor[vendorId].push(product);
+  //     } else {
+  //       cartByVendor[vendorId].push(product);
+  //     }
+  //   }
+  //   return cartByVendor;
+  // };
 
   render() {
-    console.log(this.organizeCartByVendor());
+    console.log(organizeCartByVendor(this.props.cart));
     const { classes, ordering, orderTotal } = this.props;
     const { activeStep } = this.state;
     return (

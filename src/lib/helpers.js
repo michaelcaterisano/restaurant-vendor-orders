@@ -22,3 +22,18 @@ export const asyncForEach = async (array, callback) => {
     return result;
   }
 }
+
+export const organizeCartByVendor = (cart) => {
+  const cartByVendor = {};
+  for (let i = 0; i < cart.length; i++) {
+    const product = cart[i];
+    const vendorId = product.vendor.id;
+    if (typeof cartByVendor[vendorId] == "undefined") {
+      cartByVendor[vendorId] = [];
+      cartByVendor[vendorId].push(product);
+    } else {
+      cartByVendor[vendorId].push(product);
+    }
+  }
+  return cartByVendor;
+};
