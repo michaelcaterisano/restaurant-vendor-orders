@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ProductList from "../components/ProductList";
-import ProductItem2 from "../components/ProductItem2";
+import ProductItem from "../components/ProductItem";
 import AppBar from "@material-ui/core/AppBar";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -208,18 +208,11 @@ class ProductListContainer extends React.Component {
             .filter(this.categoryFilter)
             .filter(this.favoriteFilter)
             .map(product => (
-              <ProductItem2
+              <ProductItem
                 key={product.id}
                 product={product}
                 listProducts={listProducts}
               />
-              // <ProductItem
-              //   key={product.id}
-              //   product={product}
-              //   cart={cart}
-              //   onAddToCartClicked={() => addToCart(product)}
-              //   onRemoveFromCartClicked={() => removeFromCart(product)}
-              // />
             ))}
         </ProductList>
       </div>

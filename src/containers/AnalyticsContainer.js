@@ -7,8 +7,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
-
 import { withStyles } from "@material-ui/core/styles";
+import moment from "moment";
 
 const listOrdersByVendor = `query listVendorOrders($vendorFilter: ModelVendorFilterInput, $dateRange: [String]) {
   listVendors(filter: $vendorFilter){
@@ -62,7 +62,7 @@ const styles = theme => ({
 const vendorFilter = {
   id: { eq: "abdfc39f-edec-42e2-80ba-62f45a9f7177" }
 };
-const dateRange = ["2018-11-01T00:00:00.000Z", "2018-12-01T05:00:01.000Z"];
+const dateRange = ["2018-11-01T00:00:00.000Z", "2019-02-01T00:00:00.000Z"];
 
 class AnalyticsContainer extends React.Component {
   state = {
@@ -163,13 +163,17 @@ class AnalyticsContainer extends React.Component {
         <Grid item xs={12}>
           <Typography variant="title">Vendor total </Typography>
           <Typography variant="body2">
-            {vendor.name ? (vendorOrders ? "$" + this.getVendorTotal() : "$0") : "select a vendor"}
+            {vendor.name
+              ? vendorOrders
+                ? "$" + this.getVendorTotal()
+                : "$0"
+              : "select a vendor"}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="title">Order total </Typography>
           <Typography variant="body2">
-            {orders? "$" + this.getOrderTotal() : "$0"}
+            {orders ? "$" + this.getOrderTotal() : "$0"}
           </Typography>
         </Grid>
       </Grid>

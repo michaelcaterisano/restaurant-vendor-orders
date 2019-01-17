@@ -9,13 +9,15 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import OrderProducts from "../components/OrderProducts";
-import VendorLocationForm from "../components/VendorLocationForm";
+import LocationForm from "../components/LocationForm";
 import ReviewOrder from "../components/ReviewOrder";
 import OrderComplete from "../components/OrderComplete";
 import OrderFailed from "../components/OrderFailed";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { withRouter } from "react-router";
 import { Prompt } from "react-router";
+import {isMobile} from 'react-device-detect';
+
 
 const styles = theme => ({
   buttons: {
@@ -143,7 +145,7 @@ class OrderContainer extends React.Component {
     switch (step) {
       case 0:
         return (
-          <VendorLocationForm
+          <LocationForm
             locations={locations}
             vendors={vendors}
             selectedLocation={selectedLocation}
@@ -264,7 +266,7 @@ class OrderContainer extends React.Component {
   // };
 
   render() {
-    console.log(organizeCartByVendor(this.props.cart));
+    console.log(`isMobile: `, isMobile)
     const { classes, ordering, orderTotal } = this.props;
     const { activeStep } = this.state;
     return (
@@ -278,7 +280,7 @@ class OrderContainer extends React.Component {
           }
         />
         <main className={classes.layout}>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
+          <Stepper activeStep={activeStep} orientation={`${isMobile ? 'vertical' : 'horizontal'}`}>
             {steps.map(label => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
