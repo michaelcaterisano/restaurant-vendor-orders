@@ -6,13 +6,6 @@ import { createLocation, deleteLocation } from "../graphql/mutations";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-// import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import Checkbox from "@material-ui/core/Checkbox";
-// import Select from "@material-ui/core/Select";
-// import InputLabel from "@material-ui/core/InputLabel";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import FormControl from "@material-ui/core/FormControl";
-// import FormHelperText from "@material-ui/core/FormHelperText";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -36,7 +29,6 @@ const styles = theme => ({
     alignItems: "center",
     justifyContent: "flex-start",
     margin: 10,
-    // border: "1px solid red"
   }, 
   loader: {
     margin: 10
@@ -52,7 +44,6 @@ class AddLocationForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    // this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -69,6 +60,7 @@ class AddLocationForm extends Component {
       input: { name }
     };
     await API.graphql(graphqlOperation(createLocation, location));
+    // TODO: Move Location GraphQL query here, don't pass down from Dashboard
     onLocationSubmit();
     this.setState({ name: "" })
   }

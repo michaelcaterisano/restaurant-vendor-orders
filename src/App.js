@@ -6,6 +6,13 @@ import { withAuthenticator} from 'aws-amplify-react';
 import aws_exports from './aws-exports'; 
 import Dashboard from './containers/Dashboard';
 import customAuthTheme from './customAuthTheme';
+
+/* eslint-disable */
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+// pick utils
+import MomentUtils from '@date-io/moment';
+import DateFnsUtils from '@date-io/date-fns';
+// import LuxonUtils from '@date-io/luxon';
 Amplify.configure(aws_exports);
 
 
@@ -23,10 +30,9 @@ TODO:
 
 
 const App = () => (
-  <div>
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
     <Dashboard />
-    {/* <AddProduct /> */}
-  </div>
+  </MuiPickersUtilsProvider>
 
 )
 

@@ -8,7 +8,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import moment from "moment";
+import { DatePicker } from "material-ui-pickers";
 
 const listOrdersByVendor = `query listVendorOrders($vendorFilter: ModelVendorFilterInput, $dateRange: [String]) {
   listVendors(filter: $vendorFilter){
@@ -59,22 +59,30 @@ const styles = theme => ({
   }
 });
 
-const vendorFilter = {
-  id: { eq: "abdfc39f-edec-42e2-80ba-62f45a9f7177" }
-};
-const dateRange = ["2018-11-01T00:00:00.000Z", "2019-02-01T00:00:00.000Z"];
+// const dateRange = ["2018-11-01T00:00:00.000Z", "2019-02-01T00:00:00.000Z"];
 
 class AnalyticsContainer extends React.Component {
   state = {
     vendorOrders: null,
     vendor: { name: "" },
-    orders: null
+    orders: null,
+    selectedStartDate: null,
+    selectedEndDate: null
   };
 
   componentDidMount() {
     const { resetOrdering } = this.props;
-    resetOrdering();
-    this.getOrders();
+    resetOrdering(); // call this every time?
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.selectedStartDate !== this.state.selectedStartDate ||
+      prevState.selectedEndDate !== this.state.selectedEndDate
+    ) {
+      this.getOrders();
+      this.getVendorData();
+    }
   }
 
   getVendorTotal = () => {
@@ -106,12 +114,12 @@ class AnalyticsContainer extends React.Component {
   };
 
   getVendorData = async () => {
-    const { vendor } = this.state;
+    const { vendor, selectedStartDate, selectedEndDate } = this.state;
     const vendorFilter = {
       vendorFilter: {
         id: { eq: vendor.id }
       },
-      dateRange: dateRange
+      dateRange: [selectedStartDate, selectedEndDate]
     };
     const result = await API.graphql(
       graphqlOperation(listOrdersByVendor, vendorFilter)
@@ -120,8 +128,10 @@ class AnalyticsContainer extends React.Component {
   };
 
   getOrders = async () => {
+    const { selectedStartDate, selectedEndDate } = this.state;
+    if (!selectedStartDate || !selectedEndDate) return;
     const filter = {
-      dateRange: dateRange
+      dateRange: [selectedStartDate, selectedEndDate]
     };
     try {
       const result = await API.graphql(graphqlOperation(listAllOrders, filter));
@@ -133,11 +143,41 @@ class AnalyticsContainer extends React.Component {
     }
   };
 
+  handleStartDateChange = date => {
+    this.setState({ selectedStartDate: date });
+  };
+
+  handleEndDateChange = date => {
+    this.setState({ selectedEndDate: date });
+  };
+
   render() {
     const { classes, vendors } = this.props;
-    const { vendorOrders, vendor, orders } = this.state;
+    const {
+      vendorOrders,
+      vendor,
+      orders,
+      selectedStartDate,
+      selectedEndDate
+    } = this.state;
     return (
-      <Grid container spacing={24}>
+      <Grid container spacing={24} style={{ padding: "20px" }}>
+        <Grid item xs={6} sm={4}>
+          <DatePicker
+            label="start date"
+            value={selectedStartDate}
+            onChange={this.handleStartDateChange}
+            animateYearScrolling
+          />
+        </Grid>
+        <Grid item xs={6} sm={4}>
+          <DatePicker
+            label="end date"
+            value={selectedEndDate}
+            onChange={this.handleEndDateChange}
+            animateYearScrolling
+          />
+        </Grid>
         <Grid item xs={6} sm={4}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="vendor" required>
@@ -167,13 +207,13 @@ class AnalyticsContainer extends React.Component {
               ? vendorOrders
                 ? "$" + this.getVendorTotal()
                 : "$0"
-              : "select a vendor"}
+              : "select date range and vendor"}
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="title">Order total </Typography>
           <Typography variant="body2">
-            {orders ? "$" + this.getOrderTotal() : "$0"}
+            {orders ? "$" + this.getOrderTotal() : "select date range"}
           </Typography>
         </Grid>
       </Grid>
