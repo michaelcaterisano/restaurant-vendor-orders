@@ -183,6 +183,7 @@ class Dashboard extends React.Component {
   };
 
   async componentDidMount() {
+    console.log('dashboard component did mount')
     const products = await API.graphql(
       graphqlOperation(listProducts, { limit: 30 })
     );
@@ -226,6 +227,7 @@ class Dashboard extends React.Component {
   };
 
   listLocations = async () => {
+    console.log('listLocations dashboard')
     const locations = await API.graphql(graphqlOperation(listLocations));
     this.setState({ locations: locations.data.listLocations.items });
   };
@@ -280,7 +282,6 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    // console.log("dashboard state", this.state);
     const { classes } = this.props;
     const {
       products,
@@ -422,6 +423,7 @@ class Dashboard extends React.Component {
                     orderTotal={this.state.orderTotal}
                     ordering={this.state.ordering}
                     toggleOrdering={this.toggleOrdering}
+                    resetOrdering={this.resetOrdering}
                     emptyCart={this.emptyCart}
                   />
                 );

@@ -16,7 +16,7 @@ const styles = theme => ({
   }
 });
 
-class VendorLocationform extends React.Component {
+class LocationForm extends React.Component {
 
   handleLocationChange = event => {
     const { locations, onSelectLocation } = this.props;
@@ -54,4 +54,4 @@ class VendorLocationform extends React.Component {
   }
 }
 
-export default withStyles(styles)(VendorLocationform);
+export default withStyles(styles)(LocationForm);

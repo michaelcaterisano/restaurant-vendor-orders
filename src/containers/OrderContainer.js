@@ -16,14 +16,9 @@ import OrderFailed from "../components/OrderFailed";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { withRouter } from "react-router";
 import { Prompt } from "react-router";
-import {isMobile} from 'react-device-detect';
-
+import { isMobile } from "react-device-detect";
 
 const styles = theme => ({
-  buttons: {
-    // display: "flex",
-    // justifyContent: "flex-end"
-  },
   actionsGroup: {
     display: "flex",
     flexDirection: "row",
@@ -39,11 +34,6 @@ const styles = theme => ({
     width: "auto",
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2
-    // [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-    //   width: 600,
-    //   marginLeft: "auto",
-    //   marginRight: "auto"
-    // }
   }
 });
 
@@ -80,20 +70,16 @@ class OrderContainer extends React.Component {
             graphqlOperation(createOrder, order)
           );
           const orderId = response.data.createOrder.id;
-          const result = await this.createProductOrder(
-            orderId,
-            products
-          );
+          const result = await this.createProductOrder(orderId, products);
           return true;
         } catch (err) {
           console.log("create order error", err);
           return false;
         }
       });
-      const success = await Promise.all(responses)
-      console.log('create order success ', success)
+      const success = await Promise.all(responses);
+      console.log("create order success ", success);
       return success.every(el => el === true);
-
     } catch (err) {
       console.log("createOrder error ", err);
     }
@@ -102,7 +88,7 @@ class OrderContainer extends React.Component {
   createProductOrder = async (orderId, products) => {
     const { emptyCart } = this.props;
     try {
-      console.log('products ', products)
+      console.log("products ", products);
       const responses = products.map(async product => {
         const productOrder = {
           input: {
@@ -227,14 +213,15 @@ class OrderContainer extends React.Component {
   };
 
   handleBack = () => {
-    const { toggleOrdering } = this.props;
+    const { resetOrdering } = this.props;
     const { activeStep } = this.state;
     if (activeStep === 1) {
+      alert('Are you sure? Your current order will not be saved.')
       this.setState(
         state => ({
           activeStep: state.activeStep - 1
         }),
-        () => toggleOrdering()
+        () => resetOrdering()
       );
     } else {
       this.setState(state => ({
@@ -243,30 +230,8 @@ class OrderContainer extends React.Component {
     }
   };
 
-  handleReset = () => {
-    this.setState({
-      activeStep: 0
-    });
-  };
-
-  // organizeCartByVendor = () => {
-  //   const { cart } = this.props;
-  //   const cartByVendor = {};
-  //   for (let i = 0; i < cart.length; i++) {
-  //     const product = cart[i];
-  //     const vendorId = product.vendor.id;
-  //     if (typeof cartByVendor[vendorId] == "undefined") {
-  //       cartByVendor[vendorId] = [];
-  //       cartByVendor[vendorId].push(product);
-  //     } else {
-  //       cartByVendor[vendorId].push(product);
-  //     }
-  //   }
-  //   return cartByVendor;
-  // };
-
   render() {
-    console.log(`isMobile: `, isMobile)
+    console.log(`isMobile: `, isMobile);
     const { classes, ordering, orderTotal } = this.props;
     const { activeStep } = this.state;
     return (
@@ -280,7 +245,10 @@ class OrderContainer extends React.Component {
           }
         />
         <main className={classes.layout}>
-          <Stepper activeStep={activeStep} orientation={`${isMobile ? 'vertical' : 'horizontal'}`}>
+          <Stepper
+            activeStep={activeStep}
+            orientation={`${isMobile ? "vertical" : "horizontal"}`}
+          >
             {steps.map(label => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>

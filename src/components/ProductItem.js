@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { API, graphqlOperation } from "aws-amplify";
+import { updateProduct } from "../graphql/mutations";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -11,97 +13,183 @@ import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Avatar from "@material-ui/core/Avatar";
+import CardHeader from "@material-ui/core/CardHeader";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import classNames from "classnames";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const styles = {
   card: {
-    minWidth: 200,
-    maxWidth: 345,
-    margin: 15
+    margin: "10px 10px 10px 10px",
+    width: 300
+  },
+  actions: {
+    display: "flex"
   },
   media: {
-    height: 100
+    height: 151
   },
-  cardActions: {
+  avatar: {
+    margin: 10
+  },
+  bigAvatar: {
+    width: 60,
+    height: 60
+  },
+  content: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between"
+    maxHeight: 250,
+    flexDirection: "column",
+    flexWrap: "wrap",
+    alignItems: "flex-start"
   }
 };
 
-class ProductItem extends Component {
-  constructor() {
-    super();
+class ProductItem extends React.Component {
+  state = {
+    favorite: false,
+    anchorEl: null
+  };
 
-    this._incrementQT = this._incrementQT.bind(this);
-    this._decrementQT = this._decrementQT.bind(this);
-    this._itemQuantity = this._itemQuantity.bind(this);
+  componentDidMount() {
+    const { product } = this.props;
+    const favorite = product.favorite === null ? false : product.favorite;
+    this.setState({ favorite });
   }
 
-  _incrementQT() {
-    this.props.onAddToCartClicked();
-  }
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
 
-  _decrementQT() {
-    this.props.onRemoveFromCartClicked();
-  }
+  handleClose = event => {
+    console.log(event);
+    this.setState({ anchorEl: null });
+  };
 
-  _itemQuantity() {
-    const { product, cart } = this.props;
-    const item = cart.find(obj => obj.id === product.id);
-    if (item) return item.quantity;
-  }
+  toggleFavorite = async () => {
+    const { listProducts, product } = this.props;
+    const { favorite } = this.state;
+
+    try {
+      const response = await API.graphql(
+        graphqlOperation(updateProduct, {
+          input: { id: product.id, favorite: !favorite }
+        })
+      );
+      console.log(response);
+      this.setState({ favorite: !favorite });
+      listProducts();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   render() {
-    const {
-      product,
-      cart,
-      onAddToCartClicked,
-      onRemoveFromCartClicked,
-      classes,
-    } = this.props;
-
+    const { classes, product } = this.props;
+    const { anchorEl } = this.state;
     return (
       <Card className={classes.card}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image="https://placekitten.com/200/300"
-            title="Contemplative Reptile"
-          />
-          {/* use material ui grid here */}
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {product.name}
+        <CardHeader
+          avatar={
+            <Avatar
+              src="https://placekitten.com/200/200"
+              className={classNames(classes.avatar, classes.bigAvatar)}
+            />
+          }
+          action={
+            <div>
+              <IconButton onClick={this.handleClick}>
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.handleClose}>Edit Product</MenuItem>
+                <MenuItem onClick={this.handleClose}>Delete Product</MenuItem>
+                <MenuItem onClick={this.handleClose}>Other stuff</MenuItem>
+              </Menu>
+            </div>
+          }
+          title={product.name}
+          subheader={product.category.name}
+        />
+        <CardContent className={classes.content}>
+          <div>
+            <Typography variant="body2">
+              Price
+              <Typography variant="caption" gutterBottom>
+                ${product.price}
+              </Typography>
             </Typography>
-            <Typography component="p">{product.price}</Typography>
-            <Typography component="p">{product.vendor.name}</Typography>
-            <Typography component="p">{product.category.name}</Typography>
-            <Typography component="p">{product.unit.name}</Typography>
-            <Typography component="p">{product.maxOrder}</Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions className={classes.cardActions}>
-          <Button
-            onClick={onRemoveFromCartClicked}
-            variant="fab"
-            mini
-            color="secondary"
-            aria-label="Remove"
-            className={classes.button}
+            <Typography variant="body2">
+              Unit
+              <Typography variant="caption" gutterBottom>
+                {product.unit.name}
+              </Typography>
+            </Typography>
+            {product.vendor ? (
+              <Typography variant="body2">
+                Vendor
+                <Typography variant="caption" gutterBottom>
+                  {product.vendor.name}
+                </Typography>
+              </Typography>
+            ) : null}
+            {product.location.items.length ? (
+              <div>
+                <Typography variant="body2">Location(s):</Typography>
+                <div>
+                  {product.location.items.map(el => (
+                    <Typography variant="caption" key={el.location.name}>
+                      {el.location.name}
+                    </Typography>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
+          <div>
+            {product.maxOrder ? (
+              <Typography variant="body2">
+                Max Order:{" "}
+                <Typography variant="caption" gutterBottom>
+                  {product.maxOrder}
+                </Typography>
+              </Typography>
+            ) : null}
+            {product.defaultOrder ? (
+              <Typography variant="body2">
+                Default Order:{" "}
+                <Typography variant="caption" gutterBottom>
+                  {product.defaultOrder}
+                </Typography>
+              </Typography>
+            ) : null}
+            {product.notes ? (
+              <Typography variant="body2">
+                Notes:{" "}
+                <Typography variant="caption" gutterBottom>
+                  {product.notes}
+                </Typography>
+              </Typography>
+            ) : null}
+          </div>
+        </CardContent>
+        <CardActions className={classes.actions} disableActionSpacing>
+          <IconButton
+            aria-label="Add to favorites"
+            color={this.state.favorite ? "secondary" : "primary"}
+            onClick={this.toggleFavorite}
           >
-            <RemoveIcon />
-          </Button>
-          <Typography> {this._itemQuantity() || 0} </Typography>
-          <Button
-            onClick={onAddToCartClicked}
-            variant="fab"
-            mini
-            color="secondary"
-            aria-label="Add"
-            className={classes.button}
-          >
-            <AddIcon />
-          </Button>
+            <FavoriteIcon />
+          </IconButton>
         </CardActions>
       </Card>
     );
