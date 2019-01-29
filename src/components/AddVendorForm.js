@@ -94,6 +94,7 @@ class Categories extends Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               id="repName"
               name="repName"
               label="rep name"
@@ -104,6 +105,7 @@ class Categories extends Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               id="repPhone"
               name="repPhone"
               label="rep phone number"
@@ -117,6 +119,7 @@ class Categories extends Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              required
               id="minOrder"
               name="minOrder"
               label="min order"

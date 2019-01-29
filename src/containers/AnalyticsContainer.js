@@ -10,8 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { DatePicker } from "material-ui-pickers";
 
+// figure out better soltuion for limit: 1000
 const listOrdersByVendor = `query listVendorOrders($vendorFilter: ModelVendorFilterInput, $dateRange: [String]) {
-  listVendors(filter: $vendorFilter){
+  listVendors(filter: $vendorFilter, limit: 1000){
     items {
       name
       orders(filter: {
@@ -33,10 +34,11 @@ const listOrdersByVendor = `query listVendorOrders($vendorFilter: ModelVendorFil
   }
 }`;
 
+// figure out better soltuion for limit: 1000
 const listAllOrders = `query listAllOrders($dateRange: [String]) {
   listOrders(filter: {
     createdAt: {between: $dateRange}
-  }){
+  }, limit: 1000){
     items {
       products {
         items {
@@ -59,20 +61,21 @@ const styles = theme => ({
   }
 });
 
-// const dateRange = ["2018-11-01T00:00:00.000Z", "2019-02-01T00:00:00.000Z"];
+// const dateRange = ["2019-01-01T00:00:00.000Z", "2019-02-01T00:00:00.000Z"];
 
 class AnalyticsContainer extends React.Component {
   state = {
     vendorOrders: null,
     vendor: { name: "" },
     orders: null,
-    selectedStartDate: null,
-    selectedEndDate: null
+    selectedStartDate: "2019-01-01T00:00:00.000Z",
+    selectedEndDate: "2019-02-01T00:00:00.000Z"
   };
 
   componentDidMount() {
     const { resetOrdering } = this.props;
     resetOrdering(); // call this every time?
+    this.getOrders();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -87,6 +90,7 @@ class AnalyticsContainer extends React.Component {
 
   getVendorTotal = () => {
     const { vendorOrders } = this.state;
+    console.log('vendorOrders', vendorOrders.data)
     if (!vendorOrders.data.listVendors.items[0].orders.items.length) return "0";
     return vendorOrders.data.listVendors.items[0].orders.items
       .map(order => order.products.items.map(item => item.product.price))
@@ -114,6 +118,7 @@ class AnalyticsContainer extends React.Component {
   };
 
   getVendorData = async () => {
+    console.log('getVendorData called')
     const { vendor, selectedStartDate, selectedEndDate } = this.state;
     const vendorFilter = {
       vendorFilter: {
@@ -128,6 +133,7 @@ class AnalyticsContainer extends React.Component {
   };
 
   getOrders = async () => {
+    console.log('getOrders called')
     const { selectedStartDate, selectedEndDate } = this.state;
     if (!selectedStartDate || !selectedEndDate) return;
     const filter = {

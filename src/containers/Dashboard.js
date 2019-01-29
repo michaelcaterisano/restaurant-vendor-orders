@@ -183,13 +183,15 @@ class Dashboard extends React.Component {
   };
 
   async componentDidMount() {
-    console.log('dashboard component did mount')
+    console.log("dashboard component did mount");
     const products = await API.graphql(
-      graphqlOperation(listProducts, { limit: 30 })
+      graphqlOperation(listProducts, { limit: 100 })
     );
-    const vendors = await API.graphql(graphqlOperation(listVendors));
+    const vendors = await API.graphql(
+      graphqlOperation(listVendors, { limit: 100 })
+    );
     const categories = await API.graphql(
-      graphqlOperation(listCategorys, { limit: 30 })
+      graphqlOperation(listCategorys, { limit: 100 })
     );
     const units = await API.graphql(graphqlOperation(listUnits));
     const locations = await API.graphql(graphqlOperation(listLocations));
@@ -204,31 +206,37 @@ class Dashboard extends React.Component {
 
   listProducts = async () => {
     const products = await API.graphql(
-      graphqlOperation(listProducts, { limit: 30 })
+      graphqlOperation(listProducts, { limit: 100 })
     );
     this.setState({ products: products.data.listProducts.items });
   };
 
   listVendors = async () => {
-    const vendors = await API.graphql(graphqlOperation(listVendors));
+    const vendors = await API.graphql(
+      graphqlOperation(listVendors, { limit: 100 })
+    );
     this.setState({ vendors: vendors.data.listVendors.items });
   };
 
   listCategories = async () => {
     const categories = await API.graphql(
-      graphqlOperation(listCategorys, { limit: 30 })
+      graphqlOperation(listCategorys, { limit: 100 })
     );
     this.setState({ categories: categories.data.listCategorys.items });
   };
 
   listUnits = async () => {
-    const units = await API.graphql(graphqlOperation(listUnits));
+    const units = await API.graphql(
+      graphqlOperation(listUnits, { limit: 100 })
+    );
     this.setState({ units: units.data.listUnits.items });
   };
 
   listLocations = async () => {
-    console.log('listLocations dashboard')
-    const locations = await API.graphql(graphqlOperation(listLocations));
+    console.log("listLocations dashboard");
+    const locations = await API.graphql(
+      graphqlOperation(listLocations, { limit: 100 })
+    );
     this.setState({ locations: locations.data.listLocations.items });
   };
 
@@ -261,7 +269,7 @@ class Dashboard extends React.Component {
     const orderTotal = cart.reduce((prev, curr) => {
       return prev + curr.price;
     }, 0);
-    this.setState({ orderTotal }, () => console.log('orderTotal ', orderTotal));
+    this.setState({ orderTotal }, () => console.log("orderTotal ", orderTotal));
   };
 
   addToCart = product => {
