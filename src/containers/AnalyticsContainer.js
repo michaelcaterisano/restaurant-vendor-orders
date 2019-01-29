@@ -68,8 +68,8 @@ class AnalyticsContainer extends React.Component {
     vendorOrders: null,
     vendor: { name: "" },
     orders: null,
-    selectedStartDate: "2019-01-01T00:00:00.000Z",
-    selectedEndDate: "2019-02-01T00:00:00.000Z"
+    selectedStartDate: null,
+    selectedEndDate: null
   };
 
   componentDidMount() {
