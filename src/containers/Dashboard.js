@@ -357,7 +357,7 @@ class Dashboard extends React.Component {
               </IconButton>
             </div>
             <Divider />
-            <List>{mainListItems}</List>
+            <List onClick={this.handleDrawerClose}>{mainListItems}</List>
           </Drawer>
 
           {/* routes */}

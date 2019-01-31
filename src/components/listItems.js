@@ -3,20 +3,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import PeopleIcon from "@material-ui/icons/People";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import LayersIcon from "@material-ui/icons/Layers";
-import CreateIcon from '@material-ui/icons/Create';
-import ListIcon from '@material-ui/icons/List';
-import SettingsIcon from '@material-ui/icons/Settings';
+import CreateIcon from "@material-ui/icons/Create";
+import ListIcon from "@material-ui/icons/List";
+import SettingsIcon from "@material-ui/icons/Settings";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
 
 export const mainListItems = (
   <div>
-     <Link to="/settings">
+    <Link to="/settings">
       <ListItem button>
         <ListItemIcon>
           <SettingsIcon />
@@ -24,23 +19,6 @@ export const mainListItems = (
         <ListItemText primary="Settings" />
       </ListItem>
     </Link>
-    {/* <Link to="/categories">
-      <ListItem button>
-        <ListItemIcon>
-          <CreateIcon />
-        </ListItemIcon>
-        <ListItemText primary="Categories" />
-      </ListItem>
-    </Link> */}
-    
-    {/* <Link to="/edit-vendor">
-      <ListItem button>
-        <ListItemIcon>
-          <CreateIcon />
-        </ListItemIcon>
-        <ListItemText primary="Vendors" />
-      </ListItem>
-    </Link> */}
 
     <Link to="/add-product">
       <ListItem button>
@@ -77,35 +55,6 @@ export const mainListItems = (
         <ListItemText primary="Analytics" />
       </ListItem>
     </Link>
-
-
-    {/* <Link to="/cart">
-      <ListItem button>
-        <ListItemIcon>
-          <ShoppingCartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Cart" />
-      </ListItem>
-    </Link> */}
-
-    {/* <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItem> */}
   </div>
 );
 
