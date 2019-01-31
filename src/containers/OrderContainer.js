@@ -5,6 +5,7 @@ import { countCartItems, organizeCartByVendor } from "../lib/helpers";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
+import StepConnector from "@material-ui/core/StepConnector";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -34,15 +35,26 @@ const styles = theme => ({
     width: "auto",
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2
+  },
+  iconContainer: {
+    margin: "0px",
+    padding: "3px"
+  },
+  labelContainer: {
+    padding: "0px",
+    margin: "0px"
+  },
+  stepper: {
+    margin: "10px 0 0 0",
+    padding: "0px"
+  },
+  step: {
+    margin: "0px",
+    padding: "1px"
   }
 });
 
-const steps = [
-  "Select location",
-  "Select products",
-  "Review order",
-  "Order complete"
-];
+const steps = ["Location", "Select", "Review", "Done"];
 
 class OrderContainer extends React.Component {
   state = {
@@ -216,7 +228,7 @@ class OrderContainer extends React.Component {
     const { resetOrdering } = this.props;
     const { activeStep } = this.state;
     if (activeStep === 1) {
-      alert('Are you sure? Your current order will not be saved.')
+      alert("Are you sure? Your current order will not be saved.");
       this.setState(
         state => ({
           activeStep: state.activeStep - 1
@@ -231,7 +243,7 @@ class OrderContainer extends React.Component {
   };
 
   render() {
-    console.log(`isMobile: `, isMobile);
+    console.log(isMobile);
     const { classes, ordering, orderTotal } = this.props;
     const { activeStep } = this.state;
     return (
@@ -246,12 +258,20 @@ class OrderContainer extends React.Component {
         />
         <main className={classes.layout}>
           <Stepper
+            className={classes.stepper}
             activeStep={activeStep}
-            orientation={`${isMobile ? "vertical" : "horizontal"}`}
+            // orientation={`${isMobile ? "horizontal" : "horizontal"}`}
           >
             {steps.map(label => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+              <Step key={label} className={classes.step}>
+                <StepLabel
+                  classes={{
+                    iconContainer: classes.iconContainer,
+                    labelContainer: classes.labelContainer
+                  }}
+                >
+                  {label}
+                </StepLabel>
               </Step>
             ))}
           </Stepper>

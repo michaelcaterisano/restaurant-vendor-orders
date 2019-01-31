@@ -178,7 +178,7 @@ class Dashboard extends React.Component {
     locations: [],
     cart: [],
     orderTotal: 0,
-    open: true,
+    open: false,
     ordering: false
   };
 
