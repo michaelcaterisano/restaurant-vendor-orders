@@ -6,8 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+//import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   root: {
@@ -23,12 +22,12 @@ const styles = theme => ({
   },
   category: {
     display: "flex",
-    flexDirection: "row", 
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    margin: 10,
+    margin: 10
     // border: "1px solid red"
-  }, 
+  },
   loader: {
     margin: 10
   }
@@ -48,7 +47,7 @@ class Categories extends Component {
   }
 
   handleChange(event) {
-    this.setState({ name: event.target.value })
+    this.setState({ name: event.target.value });
   }
 
   async handleSubmit(event) {
@@ -61,12 +60,12 @@ class Categories extends Component {
     };
     await API.graphql(graphqlOperation(createCategory, category));
     onCategorySubmit();
-    this.setState({ name: "" })
+    this.setState({ name: "" });
   }
 
   async handleDeleteCategory(id) {
     const { onCategorySubmit } = this.props;
-    const category = { input: { id }}
+    const category = { input: { id } };
     await API.graphql(graphqlOperation(deleteCategory, category));
     onCategorySubmit();
   }
@@ -100,15 +99,15 @@ class Categories extends Component {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-        {
-          <div>
-            {categories.map(category => (
-              <div key={category.id} className={classes.category}>
-                <Typography >{category.name}</Typography>
-              </div>
-            ))}
-          </div> 
-        }
+          {
+            <div>
+              {categories.map(category => (
+                <div key={category.id} className={classes.category}>
+                  <Typography>{category.name}</Typography>
+                </div>
+              ))}
+            </div>
+          }
         </Grid>
       </React.Fragment>
     );

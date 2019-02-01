@@ -1,7 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ProductList from "../components/ProductList";
-// import ProductItem2 from "../components/ProductItem2";
 import OrderItem from "../components/OrderItem";
 import AppBar from "@material-ui/core/AppBar";
 import Select from "@material-ui/core/Select";

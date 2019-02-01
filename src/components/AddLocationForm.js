@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { createLocation, deleteLocation } from "../graphql/mutations";
-
-//material-ui
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+//import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   root: {
@@ -25,11 +22,11 @@ const styles = theme => ({
   },
   location: {
     display: "flex",
-    flexDirection: "row", 
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    margin: 10,
-  }, 
+    margin: 10
+  },
   loader: {
     margin: 10
   }
@@ -48,7 +45,7 @@ class AddLocationForm extends Component {
   }
 
   handleChange(event) {
-    this.setState({ name: event.target.value })
+    this.setState({ name: event.target.value });
   }
 
   async handleSubmit(event) {
@@ -62,12 +59,12 @@ class AddLocationForm extends Component {
     await API.graphql(graphqlOperation(createLocation, location));
     // TODO: Move Location GraphQL query here, don't pass down from Dashboard
     onLocationSubmit();
-    this.setState({ name: "" })
+    this.setState({ name: "" });
   }
 
   async handleDeleteLocation(id) {
     const { onLocationSubmit } = this.props;
-    const location = { input: { id }}
+    const location = { input: { id } };
     await API.graphql(graphqlOperation(deleteLocation, location));
     onLocationSubmit();
   }
@@ -101,15 +98,15 @@ class AddLocationForm extends Component {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-        {
-          <div>
-            {locations.map(location => (
-              <div key={location.id} className={classes.location}>
-                <Typography >{location.name}</Typography>
-              </div>
-            ))}
-          </div> 
-        }
+          {
+            <div>
+              {locations.map(location => (
+                <div key={location.id} className={classes.location}>
+                  <Typography>{location.name}</Typography>
+                </div>
+              ))}
+            </div>
+          }
         </Grid>
       </React.Fragment>
     );

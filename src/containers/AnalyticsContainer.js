@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { API, graphqlOperation } from "aws-amplify";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
@@ -9,48 +8,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { DatePicker } from "material-ui-pickers";
-
-// figure out better soltuion for limit: 1000
-const listOrdersByVendor = `query listVendorOrders($vendorFilter: ModelVendorFilterInput, $dateRange: [String]) {
-  listVendors(filter: $vendorFilter, limit: 1000){
-    items {
-      name
-      orders(filter: {
-        createdAt: {between: $dateRange}
-      }) {
-        items {
-          createdAt
-          products {
-            items {
-              product {
-                name
-                price
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}`;
-
-// figure out better soltuion for limit: 1000
-const listAllOrders = `query listAllOrders($dateRange: [String]) {
-  listOrders(filter: {
-    createdAt: {between: $dateRange}
-  }, limit: 1000){
-    items {
-      products {
-        items {
-          product {
-            name
-            price
-          }
-        }
-      }
-    }
-  }
-}`;
+import {
+  listOrdersByVendor,
+  listAllOrders
+} from "../lib/custom-graphql/queries";
 
 const styles = theme => ({
   formControl: {
@@ -60,8 +21,6 @@ const styles = theme => ({
     wrap: "nowrap"
   }
 });
-
-// const dateRange = ["2019-01-01T00:00:00.000Z", "2019-02-01T00:00:00.000Z"];
 
 class AnalyticsContainer extends React.Component {
   state = {
@@ -90,7 +49,6 @@ class AnalyticsContainer extends React.Component {
 
   getVendorTotal = () => {
     const { vendorOrders } = this.state;
-    console.log('vendorOrders', vendorOrders.data)
     if (!vendorOrders.data.listVendors.items[0].orders.items.length) return "0";
     return vendorOrders.data.listVendors.items[0].orders.items
       .map(order => order.products.items.map(item => item.product.price))
@@ -113,12 +71,10 @@ class AnalyticsContainer extends React.Component {
     const { vendors } = this.props;
     const selectedVendorName = event.target.value;
     const vendor = vendors.find(vendor => vendor.name === selectedVendorName);
-    console.log(vendor);
     this.setState({ vendor }, () => this.getVendorData());
   };
 
   getVendorData = async () => {
-    console.log('getVendorData called')
     const { vendor, selectedStartDate, selectedEndDate } = this.state;
     const vendorFilter = {
       vendorFilter: {
@@ -133,7 +89,6 @@ class AnalyticsContainer extends React.Component {
   };
 
   getOrders = async () => {
-    console.log('getOrders called')
     const { selectedStartDate, selectedEndDate } = this.state;
     if (!selectedStartDate || !selectedEndDate) return;
     const filter = {
@@ -226,16 +181,5 @@ class AnalyticsContainer extends React.Component {
     );
   }
 }
-
-// AnalyticsContainer.propTypes = {
-//   vendors: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       minOrder: PropTypes.string
-
-//     })
-//   ),
-// }
 
 export default withStyles(styles)(AnalyticsContainer);

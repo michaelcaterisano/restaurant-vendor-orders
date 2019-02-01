@@ -5,9 +5,7 @@ import { countCartItems, organizeCartByVendor } from "../lib/helpers";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import StepConnector from "@material-ui/core/StepConnector";
 import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import OrderProducts from "../components/OrderProducts";
 import LocationForm from "../components/LocationForm";
@@ -17,7 +15,7 @@ import OrderFailed from "../components/OrderFailed";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { withRouter } from "react-router";
 import { Prompt } from "react-router";
-import { isMobile } from "react-device-detect";
+//import { isMobile } from "react-device-detect";
 
 const styles = theme => ({
   actionsGroup: {
@@ -83,6 +81,7 @@ class OrderContainer extends React.Component {
           );
           const orderId = response.data.createOrder.id;
           const result = await this.createProductOrder(orderId, products);
+          console.log("create productOrder ", result);
           return true;
         } catch (err) {
           console.log("create order error", err);
@@ -100,7 +99,6 @@ class OrderContainer extends React.Component {
   createProductOrder = async (orderId, products) => {
     const { emptyCart } = this.props;
     try {
-      console.log("products ", products);
       const responses = products.map(async product => {
         const productOrder = {
           input: {
@@ -195,7 +193,7 @@ class OrderContainer extends React.Component {
 
   handleNext = () => {
     const { toggleOrdering, cart } = this.props;
-    const { selectedLocation, selectedVendor, activeStep } = this.state;
+    const { selectedLocation, activeStep } = this.state;
     // clean this up. switch?
     if (!selectedLocation) {
       alert("please select a vendor and location");
@@ -243,7 +241,6 @@ class OrderContainer extends React.Component {
   };
 
   render() {
-    console.log(isMobile);
     const { classes, ordering, orderTotal } = this.props;
     const { activeStep } = this.state;
     return (
@@ -260,7 +257,6 @@ class OrderContainer extends React.Component {
           <Stepper
             className={classes.stepper}
             activeStep={activeStep}
-            // orientation={`${isMobile ? "horizontal" : "horizontal"}`}
           >
             {steps.map(label => (
               <Step key={label} className={classes.step}>

@@ -1,19 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { updateProduct } from "../graphql/mutations";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -66,7 +59,6 @@ class ProductItem extends React.Component {
   };
 
   handleClose = event => {
-    console.log(event);
     this.setState({ anchorEl: null });
   };
 
@@ -80,11 +72,11 @@ class ProductItem extends React.Component {
           input: { id: product.id, favorite: !favorite }
         })
       );
-      console.log(response);
+      console.log("toggle favorite success", response);
       this.setState({ favorite: !favorite });
       listProducts();
     } catch (err) {
-      console.log(err);
+      console.log("toggle favorite error", err);
     }
   };
 
@@ -195,15 +187,5 @@ class ProductItem extends React.Component {
     );
   }
 }
-
-// ProductItem.propTypes = {
-//   product: PropTypes.shape({
-//     title: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     inventory: PropTypes.number.isRequired
-//   }).isRequired,
-//   onAddToCartClicked: PropTypes.func.isRequired,
-//   onRemoveFromCartClicked: PropTypes.func.isRequired
-// };
 
 export default withStyles(styles)(ProductItem);

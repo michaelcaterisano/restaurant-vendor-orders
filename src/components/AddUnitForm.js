@@ -1,22 +1,12 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createUnit, deleteUnit } from "../graphql/mutations";
-
-//material-ui
+import { createUnit } from "../graphql/mutations";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-// import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import Checkbox from "@material-ui/core/Checkbox";
-// import Select from "@material-ui/core/Select";
-// import InputLabel from "@material-ui/core/InputLabel";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import FormControl from "@material-ui/core/FormControl";
-// import FormHelperText from "@material-ui/core/FormHelperText";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+//import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   root: {
@@ -32,12 +22,12 @@ const styles = theme => ({
   },
   unit: {
     display: "flex",
-    flexDirection: "row", 
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    margin: 10,
+    margin: 10
     // border: "1px solid red"
-  }, 
+  },
   loader: {
     margin: 10
   }
@@ -52,12 +42,11 @@ class Categories extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    // this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ name: event.target.value })
+    this.setState({ name: event.target.value });
   }
 
   async handleSubmit(event) {
@@ -70,15 +59,8 @@ class Categories extends Component {
     };
     await API.graphql(graphqlOperation(createUnit, unit));
     onUnitSubmit();
-    this.setState({ name: "" })
+    this.setState({ name: "" });
   }
-
-  // async handleDeleteCategory(id) {
-  //   const { onCategorySubmit } = this.props;
-  //   const category = { input: { id }}
-  //   await API.graphql(graphqlOperation(deleteCategory, category));
-  //   onCategorySubmit();
-  // }
 
   render() {
     const { classes, units } = this.props;
@@ -109,15 +91,15 @@ class Categories extends Component {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-        {
-          <div>
-            {units.map(unit => (
-              <div key={unit.id} className={classes.unit}>
-                <Typography >{unit.name}</Typography>
-              </div>
-            ))}
-          </div> 
-        }
+          {
+            <div>
+              {units.map(unit => (
+                <div key={unit.id} className={classes.unit}>
+                  <Typography>{unit.name}</Typography>
+                </div>
+              ))}
+            </div>
+          }
         </Grid>
       </React.Fragment>
     );

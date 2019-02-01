@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { createProduct, createProductLocation } from "../graphql/mutations";
-
-//material-ui
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -89,7 +87,6 @@ class AddProductForm extends Component {
         loc => loc.id !== location.id
       );
       this.setState({ locations: newLocations });
-      console.log(newLocations);
       return;
     }
     this.setState({
@@ -138,7 +135,7 @@ class AddProductForm extends Component {
 
   _formIsValid() {
     const { name, category, unit, vendor, locations } = this.state;
-    if (!name || !category ||  !unit || !vendor || !locations.length) {
+    if (!name || !category || !unit || !vendor || !locations.length) {
       return false;
     } else {
       return true;
@@ -148,9 +145,9 @@ class AddProductForm extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     if (!this._formIsValid()) {
-      alert("please enter all required fields")
-      return
-    };
+      alert("please enter all required fields");
+      return;
+    }
     this.setState({ loading: true });
     // const { onProductSubmit } = this.props;
     const {
@@ -179,11 +176,11 @@ class AddProductForm extends Component {
       const response = await API.graphql(
         graphqlOperation(createProduct, product)
       );
-      console.log('createProduct success', response);
+      console.log("createProduct success", response);
       const productId = response.data.createProduct.id;
       this.setState({ productId });
     } catch (err) {
-      console.log(err);
+      console.log("createProduct error", err);
     }
     this._createProductLocation();
     this.setState({
@@ -279,7 +276,9 @@ class AddProductForm extends Component {
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="vendor" required>Vendor</InputLabel>
+              <InputLabel htmlFor="vendor" required>
+                Vendor
+              </InputLabel>
               <Select
                 fullWidth
                 value={this.state.vendor}
@@ -299,7 +298,9 @@ class AddProductForm extends Component {
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="category" required>Category</InputLabel>
+              <InputLabel htmlFor="category" required>
+                Category
+              </InputLabel>
               <Select
                 value={this.state.category}
                 onChange={this.handleCategoryChange}
@@ -318,7 +319,9 @@ class AddProductForm extends Component {
           </Grid>
           <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="unit" required>Unit</InputLabel>
+              <InputLabel htmlFor="unit" required>
+                Unit
+              </InputLabel>
               <Select
                 value={this.state.unit}
                 onChange={this.handleUnitChange}

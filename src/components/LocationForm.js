@@ -1,6 +1,5 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -17,7 +16,6 @@ const styles = theme => ({
 });
 
 class LocationForm extends React.Component {
-
   handleLocationChange = event => {
     const { locations, onSelectLocation } = this.props;
     const selectedLocationName = event.target.value;
@@ -28,7 +26,7 @@ class LocationForm extends React.Component {
   };
 
   render() {
-    const { classes, locations, vendors, selectedLocation } = this.props;
+    const { classes, locations, selectedLocation } = this.props;
     return (
       <React.Fragment>
         <Grid container spacing={32}>

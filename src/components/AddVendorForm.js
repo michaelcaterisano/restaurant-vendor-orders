@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createVendor, deleteVendor } from "../graphql/mutations";
-
-//material-ui
+import { createVendor } from "../graphql/mutations";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+//import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = theme => ({
   root: {
@@ -25,12 +22,12 @@ const styles = theme => ({
   },
   vendor: {
     display: "flex",
-    flexDirection: "row", 
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    margin: 10,
+    margin: 10
     // border: "1px solid red"
-  }, 
+  },
   loader: {
     margin: 10
   }
@@ -41,9 +38,9 @@ class Categories extends Component {
     super();
 
     this.state = {
-      name: "", 
-      repName: "", 
-      repPhone: "", 
+      name: "",
+      repName: "",
+      repPhone: "",
       repEmail: "",
       minOrder: ""
     };
@@ -54,7 +51,7 @@ class Categories extends Component {
 
   handleChange(event) {
     const name = event.target.name;
-    this.setState({ [name]: event.target.value })
+    this.setState({ [name]: event.target.value });
   }
 
   async handleSubmit(event) {
@@ -67,13 +64,12 @@ class Categories extends Component {
     };
     try {
       const result = await API.graphql(graphqlOperation(createVendor, vendor));
-      console.log('create vendor success', result)
+      console.log("create vendor success", result);
       onVendorSubmit();
-      this.setState({ name: "", repName: "", repPhone: "", minOrder: "" })
+      this.setState({ name: "", repName: "", repPhone: "", minOrder: "" });
     } catch (err) {
-      console.log('create vendor error', err)
+      console.log("create vendor error", err);
     }
-
   }
 
   render() {
@@ -142,15 +138,15 @@ class Categories extends Component {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-        {
-          <div>
-            {vendors.map(vendor => (
-              <div key={vendor.id} className={classes.vendor}>
-                <Typography >{vendor.name}</Typography>
-              </div>
-            ))}
-          </div> 
-        }
+          {
+            <div>
+              {vendors.map(vendor => (
+                <div key={vendor.id} className={classes.vendor}>
+                  <Typography>{vendor.name}</Typography>
+                </div>
+              ))}
+            </div>
+          }
         </Grid>
       </React.Fragment>
     );

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ProductList from "../components/ProductList";
 import ProductItem from "../components/ProductItem";
 import AppBar from "@material-ui/core/AppBar";
@@ -105,9 +104,6 @@ class ProductListContainer extends React.Component {
     const {
       classes,
       products,
-      cart,
-      addToCart,
-      removeFromCart,
       locations,
       vendors,
       categories,
