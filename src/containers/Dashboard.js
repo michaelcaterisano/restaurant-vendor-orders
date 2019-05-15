@@ -127,6 +127,7 @@ class Dashboard extends React.Component {
     ordering: false
   };
 
+  // ********** Get and Set Initial State *********** //
   async componentDidMount() {
     const products = await API.graphql(
       graphqlOperation(customListProducts, { limit: 100 })
@@ -154,6 +155,7 @@ class Dashboard extends React.Component {
     });
   }
 
+  // ******* "List" graphQL queries ******** //
   listProducts = async () => {
     const products = await API.graphql(
       graphqlOperation(customListProducts, { limit: 100 })
@@ -161,6 +163,7 @@ class Dashboard extends React.Component {
     this.setState({ products: products.data.listProducts.items });
   };
 
+  // Change name of this!
   listVendors = async () => {
     const vendors = await API.graphql(
       graphqlOperation(listVendors, { limit: 100 })
@@ -168,6 +171,7 @@ class Dashboard extends React.Component {
     this.setState({ vendors: vendors.data.listVendors.items });
   };
 
+  // change name of this
   listCategories = async () => {
     const categories = await API.graphql(
       graphqlOperation(listCategorys, { limit: 100 })
@@ -175,6 +179,7 @@ class Dashboard extends React.Component {
     this.setState({ categories: categories.data.listCategorys.items });
   };
 
+  // change name
   listUnits = async () => {
     const units = await API.graphql(
       graphqlOperation(listUnits, { limit: 100 })
@@ -182,6 +187,7 @@ class Dashboard extends React.Component {
     this.setState({ units: units.data.listUnits.items });
   };
 
+  // change name
   listLocations = async () => {
     const locations = await API.graphql(
       graphqlOperation(listLocations, { limit: 100 })
@@ -189,6 +195,7 @@ class Dashboard extends React.Component {
     this.setState({ locations: locations.data.listLocations.items });
   };
 
+  // ******** Utility Functions *********** //
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
