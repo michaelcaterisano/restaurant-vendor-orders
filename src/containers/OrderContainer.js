@@ -17,39 +17,39 @@ import { withRouter } from "react-router";
 import { Prompt } from "react-router";
 //import { isMobile } from "react-device-detect";
 
-const styles = theme => ({
+const styles = (theme) => ({
   actionsGroup: {
     display: "flex",
     flexDirection: "row",
     alignItems: "flex-end",
     justifyContent: "space-between",
-    marginBottom: 10
+    marginBottom: 10,
   },
   button: {
     marginTop: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit
+    marginLeft: theme.spacing.unit,
   },
   layout: {
     width: "auto",
     marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing.unit * 2,
   },
   iconContainer: {
     margin: "0px",
-    padding: "3px"
+    padding: "3px",
   },
   labelContainer: {
     padding: "0px",
-    margin: "0px"
+    margin: "0px",
   },
   stepper: {
     margin: "10px 0 0 0",
-    padding: "0px"
+    padding: "0px",
   },
   step: {
     margin: "0px",
-    padding: "1px"
-  }
+    padding: "1px",
+  },
 });
 
 const steps = ["Location", "Select", "Review", "Done"];
@@ -57,7 +57,7 @@ const steps = ["Location", "Select", "Review", "Done"];
 class OrderContainer extends React.Component {
   state = {
     activeStep: 0,
-    selectedLocation: { name: "" }
+    selectedLocation: { name: "" },
   };
 
   createOrder = async () => {
@@ -66,14 +66,14 @@ class OrderContainer extends React.Component {
     const cartByVendor = organizeCartByVendor(cart);
     const vendorIds = Object.keys(cartByVendor);
     try {
-      const responses = vendorIds.map(async vendorId => {
+      const responses = vendorIds.map(async (vendorId) => {
         const products = cartByVendor[vendorId];
         const order = {
           input: {
             name: selectedLocation.name,
             orderLocationId: selectedLocation.id,
-            orderVendorId: vendorId
-          }
+            orderVendorId: vendorId,
+          },
         };
         try {
           const response = await API.graphql(
@@ -90,28 +90,28 @@ class OrderContainer extends React.Component {
       });
       const success = await Promise.all(responses);
       console.log("create order success ", success);
-      return success.every(el => el === true);
+      return success.every((el) => el === true);
     } catch (err) {
       console.log("createOrder error ", err);
     }
   };
 
   createProductOrder = async (orderId, products) => {
-    const { emptyCart } = this.props;
+    //const { emptyCart } = this.props;
     try {
-      const responses = products.map(async product => {
+      const responses = products.map(async (product) => {
         const productOrder = {
           input: {
             productOrderProductId: product.id,
-            productOrderOrderId: orderId
-          }
+            productOrderOrderId: orderId,
+          },
         };
         try {
           const response = await API.graphql(
             graphqlOperation(createProductOrder, productOrder)
           );
           console.log("create productOrder success", response);
-          emptyCart();
+          //emptyCart();
           return true;
         } catch (err) {
           console.log("create productOrder failed", err);
@@ -119,13 +119,13 @@ class OrderContainer extends React.Component {
         }
       });
       const success = await Promise.all(responses);
-      return success.every(el => el === true);
+      return success.every((el) => el === true);
     } catch (err) {
       console.log("productOrder error", err);
     }
   };
 
-  getStepContent = step => {
+  getStepContent = (step) => {
     const {
       locations,
       vendors,
@@ -135,7 +135,9 @@ class OrderContainer extends React.Component {
       products,
       categories,
       units,
-      listProducts
+      listProducts,
+      orderTotal,
+      emptyCart,
     } = this.props;
     const { selectedLocation } = this.state;
     switch (step) {
@@ -172,22 +174,22 @@ class OrderContainer extends React.Component {
       case 3:
         return <OrderFailed />;
       case 4:
-        return <OrderComplete />;
+        return <OrderComplete orderTotal={orderTotal} emptyCart={emptyCart} />;
       default:
         throw new Error("Unknown step");
     }
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const name = event.target.name;
     this.setState({ [name]: event.target.value });
   };
 
-  handleVendorChange = vendor => {
+  handleVendorChange = (vendor) => {
     this.setState({ selectedVendor: vendor });
   };
 
-  handleLocationChange = location => {
+  handleLocationChange = (location) => {
     this.setState({ selectedLocation: location });
   };
 
@@ -200,12 +202,12 @@ class OrderContainer extends React.Component {
       return;
     } else if (activeStep === 0) {
       toggleOrdering();
-      this.setState(state => ({
-        activeStep: state.activeStep + 1
+      this.setState((state) => ({
+        activeStep: state.activeStep + 1,
       }));
     } else if (activeStep === 1) {
-      this.setState(state => ({
-        activeStep: state.activeStep + 1
+      this.setState((state) => ({
+        activeStep: state.activeStep + 1,
       }));
     } else if (activeStep === 2) {
       if (!cart.length) {
@@ -228,14 +230,14 @@ class OrderContainer extends React.Component {
     if (activeStep === 1) {
       alert("Are you sure? Your current order will not be saved.");
       this.setState(
-        state => ({
-          activeStep: state.activeStep - 1
+        (state) => ({
+          activeStep: state.activeStep - 1,
         }),
         () => resetOrdering()
       );
     } else {
-      this.setState(state => ({
-        activeStep: state.activeStep - 1
+      this.setState((state) => ({
+        activeStep: state.activeStep - 1,
       }));
     }
   };
@@ -247,23 +249,20 @@ class OrderContainer extends React.Component {
       <React.Fragment>
         <Prompt
           when={ordering}
-          message={location =>
+          message={(location) =>
             location.pathname.startsWith("/order")
               ? true
               : "Are you sure? Your current order will not be saved."
           }
         />
         <main className={classes.layout}>
-          <Stepper
-            className={classes.stepper}
-            activeStep={activeStep}
-          >
-            {steps.map(label => (
+          <Stepper className={classes.stepper} activeStep={activeStep}>
+            {steps.map((label) => (
               <Step key={label} className={classes.step}>
                 <StepLabel
                   classes={{
                     iconContainer: classes.iconContainer,
-                    labelContainer: classes.labelContainer
+                    labelContainer: classes.labelContainer,
                   }}
                 >
                   {label}

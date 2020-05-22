@@ -4,7 +4,7 @@ import {
   listVendors,
   listCategorys,
   listUnits,
-  listLocations
+  listLocations,
 } from "../graphql/queries";
 import { customListProducts } from "../lib/custom-graphql/queries";
 import classNames from "classnames";
@@ -31,27 +31,27 @@ import Home from "../components/Home";
 
 const drawerWidth = 200;
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
   },
   toolbar: {
-    paddingRight: 24 // keep right padding when drawer closed
+    paddingRight: 24, // keep right padding when drawer closed
   },
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
     padding: "0 8px",
-    ...theme.mixins.toolbar
+    ...theme.mixins.toolbar,
   },
   settings: {
     width: "100vw",
     position: "absolute",
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBar: {
     position: "absolute",
@@ -59,26 +59,26 @@ const styles = theme => ({
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
     marginLeft: 12,
-    marginRight: 36
+    marginRight: 36,
   },
   menuButtonHidden: {
-    display: "none"
+    display: "none",
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   drawerPaper: {
     height: "100vh",
@@ -87,8 +87,8 @@ const styles = theme => ({
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   drawerPaperClose: {
     overflowX: "hidden",
@@ -96,22 +96,22 @@ const styles = theme => ({
     margin: "0 0 0 -1px",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     width: 0,
     [theme.breakpoints.up("sm")]: {
-      width: 0
-    }
+      width: 0,
+    },
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
-    overflow: "auto"
+    overflow: "auto",
   },
   h5: {
-    marginBottom: theme.spacing.unit * 2
-  }
+    marginBottom: theme.spacing.unit * 2,
+  },
 });
 
 class Dashboard extends React.Component {
@@ -124,7 +124,7 @@ class Dashboard extends React.Component {
     cart: [],
     orderTotal: 0,
     open: false,
-    ordering: false
+    ordering: false,
   };
 
   // ********** Get and Set Initial State *********** //
@@ -151,11 +151,11 @@ class Dashboard extends React.Component {
       vendors: vendors.data.listVendors.items,
       categories: categories.data.listCategorys.items,
       units: units.data.listUnits.items,
-      locations: locations.data.listLocations.items
+      locations: locations.data.listLocations.items,
     });
   }
 
-  // ******* "List" graphQL queries ******** //
+  // ********** "List" graphQL queries ********** //
   listProducts = async () => {
     const products = await API.graphql(
       graphqlOperation(customListProducts, { limit: 100 })
@@ -195,7 +195,7 @@ class Dashboard extends React.Component {
     this.setState({ locations: locations.data.listLocations.items });
   };
 
-  // ******** Utility Functions *********** //
+  // ********** Utility Functions ********** //
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -224,21 +224,22 @@ class Dashboard extends React.Component {
     this.setState({ orderTotal });
   };
 
-  addToCart = product => {
+  addToCart = (product) => {
     this.setState({ cart: [...this.state.cart, product] }, () =>
       this.getOrderTotal()
     );
   };
 
-  removeFromCart = product => {
+  removeFromCart = (product) => {
     const cart = [...this.state.cart];
-    const index = cart.findIndex(item => item.id === product.id);
+    const index = cart.findIndex((item) => item.id === product.id);
     if (index !== -1) {
       cart.splice(index, 1);
       this.setState({ cart }, () => this.getOrderTotal());
     }
   };
 
+  // ********** render function ********** //
   render() {
     const { classes } = this.props;
     const {
@@ -249,7 +250,7 @@ class Dashboard extends React.Component {
       locations,
       cart,
       orderTotal,
-      ordering
+      ordering,
     } = this.state;
     return (
       <Router>
@@ -297,7 +298,7 @@ class Dashboard extends React.Component {
               paper: classNames(
                 classes.drawerPaper,
                 !this.state.open && classes.drawerPaperClose
-              )
+              ),
             }}
             open={this.state.open}
           >

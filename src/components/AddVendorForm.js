@@ -50,8 +50,8 @@ class Categories extends Component {
   }
 
   handleChange(event) {
-    const name = event.target.name;
-    this.setState({ [name]: event.target.value });
+    // const name = event.target.name;
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   async handleSubmit(event) {
@@ -79,7 +79,7 @@ class Categories extends Component {
         <Grid container spacing={24}>
           <Grid item xs={12} sm={6}>
             <TextField
-              required
+              require
               id="name"
               name="name"
               label="vendor name"
