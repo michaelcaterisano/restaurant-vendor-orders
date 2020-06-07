@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Amplify from 'aws-amplify';
-import { withAuthenticator} from 'aws-amplify-react'; 
-import aws_exports from './aws-exports'; 
+import { withAuthenticator } from 'aws-amplify-react';
+import aws_exports from './aws-exports';
 import Dashboard from './containers/Dashboard';
 import customAuthTheme from './customAuthTheme';
 
@@ -15,7 +15,6 @@ import DateFnsUtils from '@date-io/date-fns';
 // import LuxonUtils from '@date-io/luxon';
 Amplify.configure(aws_exports);
 
-
 /*
 TODO: 
 1) update product model to include Supplier and units
@@ -25,15 +24,10 @@ TODO:
 
 */
 
-
-
-
-
 const App = () => (
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
     <Dashboard />
   </MuiPickersUtilsProvider>
-
-)
+);
 
 export default withAuthenticator(App, true, [], null, customAuthTheme);
