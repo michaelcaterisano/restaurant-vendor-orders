@@ -1,29 +1,34 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   hero: {
     marginBottom: 10,
   },
   paragraph: {
-    textAlign: "center",
-  }
+    textAlign: 'center',
+  },
 };
 
 class Home extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Grid container className={classes.root} alignItems={"center"} direction={"column"}>
+      <Grid
+        container
+        className={classes.root}
+        alignItems={'center'}
+        direction={'column'}
+      >
         <Grid item xs={12}>
           <Typography variant="display2" className={classes.hero}>
-            Hi! Home page here.
+            Hi! Testing github.
           </Typography>
         </Grid>
         <Grid item xs={8}>
