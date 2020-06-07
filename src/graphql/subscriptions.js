@@ -1,347 +1,9 @@
-// eslint-disable
+/* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateProduct = `subscription OnCreateProduct {
-  onCreateProduct {
-    id
-    name
-    price
-    maxOrder
-    defaultOrder
-    favorite
-    notes
-    vendor {
-      id
-      name
-      repName
-      repPhone
-      repEmail
-      minOrder
-    }
-    category {
-      id
-      name
-      createdAt
-    }
-    unit {
-      id
-      name
-    }
-    location {
-      items {
-        id
-      }
-      nextToken
-    }
-    orders {
-      items {
-        id
-        createdAt
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onUpdateProduct = `subscription OnUpdateProduct {
-  onUpdateProduct {
-    id
-    name
-    price
-    maxOrder
-    defaultOrder
-    favorite
-    notes
-    vendor {
-      id
-      name
-      repName
-      repPhone
-      repEmail
-      minOrder
-    }
-    category {
-      id
-      name
-      createdAt
-    }
-    unit {
-      id
-      name
-    }
-    location {
-      items {
-        id
-      }
-      nextToken
-    }
-    orders {
-      items {
-        id
-        createdAt
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onDeleteProduct = `subscription OnDeleteProduct {
-  onDeleteProduct {
-    id
-    name
-    price
-    maxOrder
-    defaultOrder
-    favorite
-    notes
-    vendor {
-      id
-      name
-      repName
-      repPhone
-      repEmail
-      minOrder
-    }
-    category {
-      id
-      name
-      createdAt
-    }
-    unit {
-      id
-      name
-    }
-    location {
-      items {
-        id
-      }
-      nextToken
-    }
-    orders {
-      items {
-        id
-        createdAt
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onCreateVendor = `subscription OnCreateVendor {
-  onCreateVendor {
-    id
-    name
-    repName
-    repPhone
-    repEmail
-    minOrder
-    orders {
-      items {
-        id
-        createdAt
-        name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onUpdateVendor = `subscription OnUpdateVendor {
-  onUpdateVendor {
-    id
-    name
-    repName
-    repPhone
-    repEmail
-    minOrder
-    orders {
-      items {
-        id
-        createdAt
-        name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onDeleteVendor = `subscription OnDeleteVendor {
-  onDeleteVendor {
-    id
-    name
-    repName
-    repPhone
-    repEmail
-    minOrder
-    orders {
-      items {
-        id
-        createdAt
-        name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onCreateUnit = `subscription OnCreateUnit {
-  onCreateUnit {
-    id
-    name
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onUpdateUnit = `subscription OnUpdateUnit {
-  onUpdateUnit {
-    id
-    name
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onDeleteUnit = `subscription OnDeleteUnit {
-  onDeleteUnit {
-    id
-    name
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onCreateCategory = `subscription OnCreateCategory {
-  onCreateCategory {
-    id
-    name
-    createdAt
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onUpdateCategory = `subscription OnUpdateCategory {
-  onUpdateCategory {
-    id
-    name
-    createdAt
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onDeleteCategory = `subscription OnDeleteCategory {
-  onDeleteCategory {
-    id
-    name
-    createdAt
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onCreateProductOrder = `subscription OnCreateProductOrder {
-  onCreateProductOrder {
-    id
-    createdAt
-    product {
+export const onCreateProduct = /* GraphQL */ `
+  subscription OnCreateProduct($owner: String) {
+    onCreateProduct(owner: $owner) {
       id
       name
       price
@@ -349,255 +11,1163 @@ export const onCreateProductOrder = `subscription OnCreateProductOrder {
       defaultOrder
       favorite
       notes
-    }
-    order {
-      id
-      createdAt
-      name
-    }
-  }
-}
-`;
-export const onUpdateProductOrder = `subscription OnUpdateProductOrder {
-  onUpdateProductOrder {
-    id
-    createdAt
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    order {
-      id
-      createdAt
-      name
-    }
-  }
-}
-`;
-export const onDeleteProductOrder = `subscription OnDeleteProductOrder {
-  onDeleteProductOrder {
-    id
-    createdAt
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    order {
-      id
-      createdAt
-      name
-    }
-  }
-}
-`;
-export const onCreateProductLocation = `subscription OnCreateProductLocation {
-  onCreateProductLocation {
-    id
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    location {
-      id
-      name
-    }
-  }
-}
-`;
-export const onUpdateProductLocation = `subscription OnUpdateProductLocation {
-  onUpdateProductLocation {
-    id
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    location {
-      id
-      name
-    }
-  }
-}
-`;
-export const onDeleteProductLocation = `subscription OnDeleteProductLocation {
-  onDeleteProductLocation {
-    id
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    location {
-      id
-      name
-    }
-  }
-}
-`;
-export const onCreateLocation = `subscription OnCreateLocation {
-  onCreateLocation {
-    id
-    name
-    orders {
-      items {
+      vendor {
         id
-        createdAt
         name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onUpdateLocation = `subscription OnUpdateLocation {
-  onUpdateLocation {
-    id
-    name
-    orders {
-      items {
-        id
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
         createdAt
+        updatedAt
+        owner
+      }
+      category {
+        id
         name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onDeleteLocation = `subscription OnDeleteLocation {
-  onDeleteLocation {
-    id
-    name
-    orders {
-      items {
-        id
         createdAt
-        name
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
       }
-      nextToken
-    }
-    products {
-      items {
+      unit {
         id
+        name
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
-      nextToken
+      location {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      orders {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
-}
 `;
-export const onCreateOrder = `subscription OnCreateOrder {
-  onCreateOrder {
-    id
-    createdAt
-    name
-    location {
+export const onUpdateProduct = /* GraphQL */ `
+  subscription OnUpdateProduct($owner: String) {
+    onUpdateProduct(owner: $owner) {
       id
       name
+      price
+      maxOrder
+      defaultOrder
+      favorite
+      notes
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      category {
+        id
+        name
+        createdAt
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      unit {
+        id
+        name
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      orders {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
-    vendor {
+  }
+`;
+export const onDeleteProduct = /* GraphQL */ `
+  subscription OnDeleteProduct($owner: String) {
+    onDeleteProduct(owner: $owner) {
+      id
+      name
+      price
+      maxOrder
+      defaultOrder
+      favorite
+      notes
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      category {
+        id
+        name
+        createdAt
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      unit {
+        id
+        name
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      orders {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateVendor = /* GraphQL */ `
+  subscription OnCreateVendor($owner: String!) {
+    onCreateVendor(owner: $owner) {
       id
       name
       repName
       repPhone
       repEmail
       minOrder
-    }
-    products {
-      items {
-        id
-        createdAt
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
       }
-      nextToken
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
-}
 `;
-export const onUpdateOrder = `subscription OnUpdateOrder {
-  onUpdateOrder {
-    id
-    createdAt
-    name
-    location {
-      id
-      name
-    }
-    vendor {
+export const onUpdateVendor = /* GraphQL */ `
+  subscription OnUpdateVendor($owner: String!) {
+    onUpdateVendor(owner: $owner) {
       id
       name
       repName
       repPhone
       repEmail
       minOrder
-    }
-    products {
-      items {
-        id
-        createdAt
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
       }
-      nextToken
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
-}
 `;
-export const onDeleteOrder = `subscription OnDeleteOrder {
-  onDeleteOrder {
-    id
-    createdAt
-    name
-    location {
-      id
-      name
-    }
-    vendor {
+export const onDeleteVendor = /* GraphQL */ `
+  subscription OnDeleteVendor($owner: String!) {
+    onDeleteVendor(owner: $owner) {
       id
       name
       repName
       repPhone
       repEmail
       minOrder
-    }
-    products {
-      items {
-        id
-        createdAt
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
       }
-      nextToken
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
-}
+`;
+export const onCreateUnit = /* GraphQL */ `
+  subscription OnCreateUnit($owner: String!) {
+    onCreateUnit(owner: $owner) {
+      id
+      name
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateUnit = /* GraphQL */ `
+  subscription OnUpdateUnit($owner: String!) {
+    onUpdateUnit(owner: $owner) {
+      id
+      name
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteUnit = /* GraphQL */ `
+  subscription OnDeleteUnit($owner: String!) {
+    onDeleteUnit(owner: $owner) {
+      id
+      name
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateCategory = /* GraphQL */ `
+  subscription OnCreateCategory($owner: String!) {
+    onCreateCategory(owner: $owner) {
+      id
+      name
+      createdAt
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateCategory = /* GraphQL */ `
+  subscription OnUpdateCategory($owner: String!) {
+    onUpdateCategory(owner: $owner) {
+      id
+      name
+      createdAt
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteCategory = /* GraphQL */ `
+  subscription OnDeleteCategory($owner: String!) {
+    onDeleteCategory(owner: $owner) {
+      id
+      name
+      createdAt
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateProductOrder = /* GraphQL */ `
+  subscription OnCreateProductOrder($owner: String!) {
+    onCreateProductOrder(owner: $owner) {
+      id
+      createdAt
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      order {
+        id
+        createdAt
+        name
+        location {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateProductOrder = /* GraphQL */ `
+  subscription OnUpdateProductOrder($owner: String!) {
+    onUpdateProductOrder(owner: $owner) {
+      id
+      createdAt
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      order {
+        id
+        createdAt
+        name
+        location {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteProductOrder = /* GraphQL */ `
+  subscription OnDeleteProductOrder($owner: String!) {
+    onDeleteProductOrder(owner: $owner) {
+      id
+      createdAt
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      order {
+        id
+        createdAt
+        name
+        location {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateProductLocation = /* GraphQL */ `
+  subscription OnCreateProductLocation($owner: String!) {
+    onCreateProductLocation(owner: $owner) {
+      id
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateProductLocation = /* GraphQL */ `
+  subscription OnUpdateProductLocation($owner: String!) {
+    onUpdateProductLocation(owner: $owner) {
+      id
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteProductLocation = /* GraphQL */ `
+  subscription OnDeleteProductLocation($owner: String!) {
+    onDeleteProductLocation(owner: $owner) {
+      id
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateLocation = /* GraphQL */ `
+  subscription OnCreateLocation($owner: String!) {
+    onCreateLocation(owner: $owner) {
+      id
+      name
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateLocation = /* GraphQL */ `
+  subscription OnUpdateLocation($owner: String!) {
+    onUpdateLocation(owner: $owner) {
+      id
+      name
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteLocation = /* GraphQL */ `
+  subscription OnDeleteLocation($owner: String!) {
+    onDeleteLocation(owner: $owner) {
+      id
+      name
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateOrder = /* GraphQL */ `
+  subscription OnCreateOrder($owner: String!) {
+    onCreateOrder(owner: $owner) {
+      id
+      createdAt
+      name
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateOrder = /* GraphQL */ `
+  subscription OnUpdateOrder($owner: String!) {
+    onUpdateOrder(owner: $owner) {
+      id
+      createdAt
+      name
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteOrder = /* GraphQL */ `
+  subscription OnDeleteOrder($owner: String!) {
+    onDeleteOrder(owner: $owner) {
+      id
+      createdAt
+      name
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
 `;

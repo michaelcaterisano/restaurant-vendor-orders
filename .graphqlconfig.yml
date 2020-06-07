@@ -1,16 +1,15 @@
 projects:
-  tampopoapi:
+  tampopoupgrade:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
     excludes:
-      - amplify/**
+      - ./amplify/**
     extensions:
       amplify:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: src/graphql
-        graphQLApiId: gbf5a34umvfjblmiwrudpnxrqy
-      endpoints:
-        prod: >-
-          https://kjo4muagzrax7il4bdp5ukcpp4.appsync-api.us-east-1.amazonaws.com/graphql
+extensions:
+  amplify:
+    version: 3

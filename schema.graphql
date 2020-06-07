@@ -1,0 +1,69 @@
+type Product
+  @model
+  @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admin"] }]) {
+  id: ID!
+  name: String!
+  price: Float
+  maxOrder: Int
+  defaultOrder: Int
+  favorite: Boolean
+  notes: String
+  vendor: Vendor @connection(name: "VendorProducts")
+  category: Category @connection(name: "CategoryProducts")
+  unit: Unit @connection(name: "ProductUnits")
+  location: [ProductLocation] @connection(name: "ProductLocations")
+  orders: [ProductOrder] @connection(name: "ProductOrders")
+}
+
+type Vendor @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  repName: String
+  repPhone: AWSPhone
+  repEmail: AWSEmail
+  minOrder: Float
+  orders: [Order] @connection(name: "VendorOrders")
+  products: [Product] @connection(name: "VendorProducts")
+}
+
+type Unit @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  products: [Product] @connection(name: "ProductUnits")
+}
+
+type Category @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  createdAt: AWSDateTime
+  products: [Product] @connection(name: "CategoryProducts")
+}
+
+type ProductOrder @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  createdAt: AWSDateTime
+  product: Product! @connection(name: "ProductOrders")
+  order: Order! @connection(name: "OrderProducts")
+}
+
+type ProductLocation @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  product: Product! @connection(name: "ProductLocations")
+  location: Location! @connection(name: "LocationProducts")
+}
+
+type Location @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  orders: [Order] @connection(name: "LocationOrders")
+  products: [ProductLocation] @connection(name: "LocationProducts")
+}
+
+type Order @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  createdAt: AWSDateTime
+  name: String
+  location: Location @connection(name: "LocationOrders")
+  vendor: Vendor @connection(name: "VendorOrders")
+  products: [ProductOrder] @connection(name: "OrderProducts")
+}

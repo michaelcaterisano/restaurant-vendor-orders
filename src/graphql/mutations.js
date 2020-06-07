@@ -1,347 +1,12 @@
-// eslint-disable
+/* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createProduct = `mutation CreateProduct($input: CreateProductInput!) {
-  createProduct(input: $input) {
-    id
-    name
-    price
-    maxOrder
-    defaultOrder
-    favorite
-    notes
-    vendor {
-      id
-      name
-      repName
-      repPhone
-      repEmail
-      minOrder
-    }
-    category {
-      id
-      name
-      createdAt
-    }
-    unit {
-      id
-      name
-    }
-    location {
-      items {
-        id
-      }
-      nextToken
-    }
-    orders {
-      items {
-        id
-        createdAt
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const updateProduct = `mutation UpdateProduct($input: UpdateProductInput!) {
-  updateProduct(input: $input) {
-    id
-    name
-    price
-    maxOrder
-    defaultOrder
-    favorite
-    notes
-    vendor {
-      id
-      name
-      repName
-      repPhone
-      repEmail
-      minOrder
-    }
-    category {
-      id
-      name
-      createdAt
-    }
-    unit {
-      id
-      name
-    }
-    location {
-      items {
-        id
-      }
-      nextToken
-    }
-    orders {
-      items {
-        id
-        createdAt
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const deleteProduct = `mutation DeleteProduct($input: DeleteProductInput!) {
-  deleteProduct(input: $input) {
-    id
-    name
-    price
-    maxOrder
-    defaultOrder
-    favorite
-    notes
-    vendor {
-      id
-      name
-      repName
-      repPhone
-      repEmail
-      minOrder
-    }
-    category {
-      id
-      name
-      createdAt
-    }
-    unit {
-      id
-      name
-    }
-    location {
-      items {
-        id
-      }
-      nextToken
-    }
-    orders {
-      items {
-        id
-        createdAt
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const createVendor = `mutation CreateVendor($input: CreateVendorInput!) {
-  createVendor(input: $input) {
-    id
-    name
-    repName
-    repPhone
-    repEmail
-    minOrder
-    orders {
-      items {
-        id
-        createdAt
-        name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const updateVendor = `mutation UpdateVendor($input: UpdateVendorInput!) {
-  updateVendor(input: $input) {
-    id
-    name
-    repName
-    repPhone
-    repEmail
-    minOrder
-    orders {
-      items {
-        id
-        createdAt
-        name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const deleteVendor = `mutation DeleteVendor($input: DeleteVendorInput!) {
-  deleteVendor(input: $input) {
-    id
-    name
-    repName
-    repPhone
-    repEmail
-    minOrder
-    orders {
-      items {
-        id
-        createdAt
-        name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const createUnit = `mutation CreateUnit($input: CreateUnitInput!) {
-  createUnit(input: $input) {
-    id
-    name
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const updateUnit = `mutation UpdateUnit($input: UpdateUnitInput!) {
-  updateUnit(input: $input) {
-    id
-    name
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const deleteUnit = `mutation DeleteUnit($input: DeleteUnitInput!) {
-  deleteUnit(input: $input) {
-    id
-    name
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const createCategory = `mutation CreateCategory($input: CreateCategoryInput!) {
-  createCategory(input: $input) {
-    id
-    name
-    createdAt
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const updateCategory = `mutation UpdateCategory($input: UpdateCategoryInput!) {
-  updateCategory(input: $input) {
-    id
-    name
-    createdAt
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const deleteCategory = `mutation DeleteCategory($input: DeleteCategoryInput!) {
-  deleteCategory(input: $input) {
-    id
-    name
-    createdAt
-    products {
-      items {
-        id
-        name
-        price
-        maxOrder
-        defaultOrder
-        favorite
-        notes
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const createProductOrder = `mutation CreateProductOrder($input: CreateProductOrderInput!) {
-  createProductOrder(input: $input) {
-    id
-    createdAt
-    product {
+export const createProduct = /* GraphQL */ `
+  mutation CreateProduct(
+    $input: CreateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    createProduct(input: $input, condition: $condition) {
       id
       name
       price
@@ -349,255 +14,1232 @@ export const createProductOrder = `mutation CreateProductOrder($input: CreatePro
       defaultOrder
       favorite
       notes
-    }
-    order {
-      id
-      createdAt
-      name
-    }
-  }
-}
-`;
-export const updateProductOrder = `mutation UpdateProductOrder($input: UpdateProductOrderInput!) {
-  updateProductOrder(input: $input) {
-    id
-    createdAt
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    order {
-      id
-      createdAt
-      name
-    }
-  }
-}
-`;
-export const deleteProductOrder = `mutation DeleteProductOrder($input: DeleteProductOrderInput!) {
-  deleteProductOrder(input: $input) {
-    id
-    createdAt
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    order {
-      id
-      createdAt
-      name
-    }
-  }
-}
-`;
-export const createProductLocation = `mutation CreateProductLocation($input: CreateProductLocationInput!) {
-  createProductLocation(input: $input) {
-    id
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    location {
-      id
-      name
-    }
-  }
-}
-`;
-export const updateProductLocation = `mutation UpdateProductLocation($input: UpdateProductLocationInput!) {
-  updateProductLocation(input: $input) {
-    id
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    location {
-      id
-      name
-    }
-  }
-}
-`;
-export const deleteProductLocation = `mutation DeleteProductLocation($input: DeleteProductLocationInput!) {
-  deleteProductLocation(input: $input) {
-    id
-    product {
-      id
-      name
-      price
-      maxOrder
-      defaultOrder
-      favorite
-      notes
-    }
-    location {
-      id
-      name
-    }
-  }
-}
-`;
-export const createLocation = `mutation CreateLocation($input: CreateLocationInput!) {
-  createLocation(input: $input) {
-    id
-    name
-    orders {
-      items {
+      vendor {
         id
-        createdAt
         name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const updateLocation = `mutation UpdateLocation($input: UpdateLocationInput!) {
-  updateLocation(input: $input) {
-    id
-    name
-    orders {
-      items {
-        id
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
         createdAt
+        updatedAt
+        owner
+      }
+      category {
+        id
         name
-      }
-      nextToken
-    }
-    products {
-      items {
-        id
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const deleteLocation = `mutation DeleteLocation($input: DeleteLocationInput!) {
-  deleteLocation(input: $input) {
-    id
-    name
-    orders {
-      items {
-        id
         createdAt
-        name
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
       }
-      nextToken
-    }
-    products {
-      items {
+      unit {
         id
+        name
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
       }
-      nextToken
+      location {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      orders {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
-}
 `;
-export const createOrder = `mutation CreateOrder($input: CreateOrderInput!) {
-  createOrder(input: $input) {
-    id
-    createdAt
-    name
-    location {
+export const updateProduct = /* GraphQL */ `
+  mutation UpdateProduct(
+    $input: UpdateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    updateProduct(input: $input, condition: $condition) {
       id
       name
+      price
+      maxOrder
+      defaultOrder
+      favorite
+      notes
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      category {
+        id
+        name
+        createdAt
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      unit {
+        id
+        name
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      orders {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
-    vendor {
+  }
+`;
+export const deleteProduct = /* GraphQL */ `
+  mutation DeleteProduct(
+    $input: DeleteProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    deleteProduct(input: $input, condition: $condition) {
+      id
+      name
+      price
+      maxOrder
+      defaultOrder
+      favorite
+      notes
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      category {
+        id
+        name
+        createdAt
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      unit {
+        id
+        name
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      orders {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createVendor = /* GraphQL */ `
+  mutation CreateVendor(
+    $input: CreateVendorInput!
+    $condition: ModelVendorConditionInput
+  ) {
+    createVendor(input: $input, condition: $condition) {
       id
       name
       repName
       repPhone
       repEmail
       minOrder
-    }
-    products {
-      items {
-        id
-        createdAt
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
       }
-      nextToken
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
-}
 `;
-export const updateOrder = `mutation UpdateOrder($input: UpdateOrderInput!) {
-  updateOrder(input: $input) {
-    id
-    createdAt
-    name
-    location {
-      id
-      name
-    }
-    vendor {
+export const updateVendor = /* GraphQL */ `
+  mutation UpdateVendor(
+    $input: UpdateVendorInput!
+    $condition: ModelVendorConditionInput
+  ) {
+    updateVendor(input: $input, condition: $condition) {
       id
       name
       repName
       repPhone
       repEmail
       minOrder
-    }
-    products {
-      items {
-        id
-        createdAt
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
       }
-      nextToken
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
-}
 `;
-export const deleteOrder = `mutation DeleteOrder($input: DeleteOrderInput!) {
-  deleteOrder(input: $input) {
-    id
-    createdAt
-    name
-    location {
-      id
-      name
-    }
-    vendor {
+export const deleteVendor = /* GraphQL */ `
+  mutation DeleteVendor(
+    $input: DeleteVendorInput!
+    $condition: ModelVendorConditionInput
+  ) {
+    deleteVendor(input: $input, condition: $condition) {
       id
       name
       repName
       repPhone
       repEmail
       minOrder
-    }
-    products {
-      items {
-        id
-        createdAt
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
       }
-      nextToken
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
-}
+`;
+export const createUnit = /* GraphQL */ `
+  mutation CreateUnit(
+    $input: CreateUnitInput!
+    $condition: ModelUnitConditionInput
+  ) {
+    createUnit(input: $input, condition: $condition) {
+      id
+      name
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateUnit = /* GraphQL */ `
+  mutation UpdateUnit(
+    $input: UpdateUnitInput!
+    $condition: ModelUnitConditionInput
+  ) {
+    updateUnit(input: $input, condition: $condition) {
+      id
+      name
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteUnit = /* GraphQL */ `
+  mutation DeleteUnit(
+    $input: DeleteUnitInput!
+    $condition: ModelUnitConditionInput
+  ) {
+    deleteUnit(input: $input, condition: $condition) {
+      id
+      name
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createCategory = /* GraphQL */ `
+  mutation CreateCategory(
+    $input: CreateCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    createCategory(input: $input, condition: $condition) {
+      id
+      name
+      createdAt
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateCategory = /* GraphQL */ `
+  mutation UpdateCategory(
+    $input: UpdateCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    updateCategory(input: $input, condition: $condition) {
+      id
+      name
+      createdAt
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteCategory = /* GraphQL */ `
+  mutation DeleteCategory(
+    $input: DeleteCategoryInput!
+    $condition: ModelCategoryConditionInput
+  ) {
+    deleteCategory(input: $input, condition: $condition) {
+      id
+      name
+      createdAt
+      products {
+        items {
+          id
+          name
+          price
+          maxOrder
+          defaultOrder
+          favorite
+          notes
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createProductOrder = /* GraphQL */ `
+  mutation CreateProductOrder(
+    $input: CreateProductOrderInput!
+    $condition: ModelProductOrderConditionInput
+  ) {
+    createProductOrder(input: $input, condition: $condition) {
+      id
+      createdAt
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      order {
+        id
+        createdAt
+        name
+        location {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateProductOrder = /* GraphQL */ `
+  mutation UpdateProductOrder(
+    $input: UpdateProductOrderInput!
+    $condition: ModelProductOrderConditionInput
+  ) {
+    updateProductOrder(input: $input, condition: $condition) {
+      id
+      createdAt
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      order {
+        id
+        createdAt
+        name
+        location {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteProductOrder = /* GraphQL */ `
+  mutation DeleteProductOrder(
+    $input: DeleteProductOrderInput!
+    $condition: ModelProductOrderConditionInput
+  ) {
+    deleteProductOrder(input: $input, condition: $condition) {
+      id
+      createdAt
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      order {
+        id
+        createdAt
+        name
+        location {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        products {
+          nextToken
+        }
+        updatedAt
+        owner
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createProductLocation = /* GraphQL */ `
+  mutation CreateProductLocation(
+    $input: CreateProductLocationInput!
+    $condition: ModelProductLocationConditionInput
+  ) {
+    createProductLocation(input: $input, condition: $condition) {
+      id
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateProductLocation = /* GraphQL */ `
+  mutation UpdateProductLocation(
+    $input: UpdateProductLocationInput!
+    $condition: ModelProductLocationConditionInput
+  ) {
+    updateProductLocation(input: $input, condition: $condition) {
+      id
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteProductLocation = /* GraphQL */ `
+  mutation DeleteProductLocation(
+    $input: DeleteProductLocationInput!
+    $condition: ModelProductLocationConditionInput
+  ) {
+    deleteProductLocation(input: $input, condition: $condition) {
+      id
+      product {
+        id
+        name
+        price
+        maxOrder
+        defaultOrder
+        favorite
+        notes
+        vendor {
+          id
+          name
+          repName
+          repPhone
+          repEmail
+          minOrder
+          createdAt
+          updatedAt
+          owner
+        }
+        category {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        unit {
+          id
+          name
+          createdAt
+          updatedAt
+          owner
+        }
+        location {
+          nextToken
+        }
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createLocation = /* GraphQL */ `
+  mutation CreateLocation(
+    $input: CreateLocationInput!
+    $condition: ModelLocationConditionInput
+  ) {
+    createLocation(input: $input, condition: $condition) {
+      id
+      name
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateLocation = /* GraphQL */ `
+  mutation UpdateLocation(
+    $input: UpdateLocationInput!
+    $condition: ModelLocationConditionInput
+  ) {
+    updateLocation(input: $input, condition: $condition) {
+      id
+      name
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteLocation = /* GraphQL */ `
+  mutation DeleteLocation(
+    $input: DeleteLocationInput!
+    $condition: ModelLocationConditionInput
+  ) {
+    deleteLocation(input: $input, condition: $condition) {
+      id
+      name
+      orders {
+        items {
+          id
+          createdAt
+          name
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createOrder = /* GraphQL */ `
+  mutation CreateOrder(
+    $input: CreateOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    createOrder(input: $input, condition: $condition) {
+      id
+      createdAt
+      name
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateOrder = /* GraphQL */ `
+  mutation UpdateOrder(
+    $input: UpdateOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    updateOrder(input: $input, condition: $condition) {
+      id
+      createdAt
+      name
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteOrder = /* GraphQL */ `
+  mutation DeleteOrder(
+    $input: DeleteOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    deleteOrder(input: $input, condition: $condition) {
+      id
+      createdAt
+      name
+      location {
+        id
+        name
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      vendor {
+        id
+        name
+        repName
+        repPhone
+        repEmail
+        minOrder
+        orders {
+          nextToken
+        }
+        products {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      products {
+        items {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      updatedAt
+      owner
+    }
+  }
 `;
