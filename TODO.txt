@@ -1,4 +1,0 @@
-- figure out why emptyCart() is 
-called in createProductOrder 
-function in OrderContainer container on line 114. 
-Does not work to call emptyContainer in OrderComplete component. 

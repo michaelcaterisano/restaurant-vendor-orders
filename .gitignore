@@ -23,12 +23,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#amplify
-amplify/\#current-cloud-backend
-amplify/.config/local-*
-amplify/mock-data
-amplify/backend/amplify-meta.json
-amplify/backend/awscloudformation
 build/
 dist/
 node_modules/
@@ -38,3 +32,17 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
+
+#other
+.cache
+.storybook
+amplify
+.amplifyrc
+NOTES.md
+TODO.txt
+testSchema.graphql
+
+src/stories
+src/old_components
+src/customAuthTheme.js
+
